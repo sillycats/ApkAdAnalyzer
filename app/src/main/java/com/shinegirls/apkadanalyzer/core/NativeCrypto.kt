@@ -89,4 +89,29 @@ object NativeCrypto {
             false
         }
     }
+    /** 设置远程授权配置（原生，见 native_crypto.cpp）。返回 0=无效 1=已授权 2=已吊销。 */
+    private external fun nativeSetAuthConfig(config: ByteArray): Int
+
+    /** 查询是否已被远程吊销（原生）。 */
+    private external fun nativeIsRevoked(): Boolean
+
+    /**
+     * 提交远程授权配置原始字节给原生层校验并应用。
+     *
+     * 原生层会做 HMAC-SHA256 签名校验，防伪造；配置 authorized=false 即远程吊销，
+     * 此后加密/解密返回 null 导致功能停用。配置不可达或签名无效时保持原状（默认未吊销）。
+     *
+     * @return 0=无效 1=已授权 2=已吊销
+     */
+    fun setAuthConfig(config: ByteArray): Int {
+        if (!ensureLoaded()) return 0
+        return try { nativeSetAuthConfig(config) }
+        catch (_: Throwable) { 0 }
+    }
+
+    /** 当前是否已被远程吊销（原生库缺失时视为 false，保证正版离线可用）。 */
+    fun isRevoked(): Boolean {
+        if (!ensureLoaded()) return false
+        return try { nativeIsRevoked() } catch (_: Throwable) { false }
+    }
 }

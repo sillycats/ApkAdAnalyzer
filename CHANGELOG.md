@@ -2,6 +2,11 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 规范。
 
+## v1.8 (2026-08-21)
+
+- **新增远程授权（吊销）功能**：授权配置文件 `auth_config.json` 位于仓库根目录，公开可访问。应用启动时拉取并经原生层 `HMAC-SHA256` 签名校验后应用；作者可通过改 `authorized=false` 远程吊销授权，此后原生加密/解密一律失败，实现"远程停止授权、防止非法分发"。网络不可达/签名无效时保持未吊销，正版离线可用。
+- **native_crypto.cpp 改为不公开**：核心原生加解密与授权逻辑不再随仓库开源，编译为 `libnative_crypto.so`（arm64-v8a + armeabi-v7a）预置在 `jniLibs` 发布。
+- 广告特征库维持全加密产物（`ad_patterns_default.enc` / `online_ad_vendors.enc`），绝不明文开源。
 ## v1.7 (2026-08-21)
 
 - **本地配置加密落盘**：`ad_patterns.json` 改为混淆加密文件存储，运行时经 `libnative_crypto.so` 原生库解密读取；兼容旧版明文配置自动升级，原生库不可用时降级明文保证功能可用。

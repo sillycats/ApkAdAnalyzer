@@ -1,10 +1,10 @@
 {
-  "versionCode": 8,
-  "versionName": "1.7",
-  "force": false,
-  "description": "APK广告特征分析工具 v1.7 正式版：\n- 本地 ad_patterns.json 配置文件改为混淆加密落盘，运行时经 libnative_crypto.so 原生库解密读取（兼容旧版明文自动升级）\n- 在线广告厂商特征库改为加密文件 online_ad_vendors.enc 拉取并解密解析，广告特征不再以明文形式存在于公开仓库\n- 源码去明码：移除仓库内 patterns/ad_patterns_default.json 与 online_ad_vendors.json 明文广告特征文件，仅保留加密产物\n- 内置广告特征覆盖全网 77 家广告厂商（国际 39 家 + 国内 38 家），内置特征 5100+ 条",
+  "versionCode": 9,
+  "versionName": "1.8",
+  "force": true,
+  "description": "APK广告特征分析工具 v1.8 正式版：\n- 新增远程授权（吊销）功能：作者可通过仓库根目录 auth_config.json 远程控制授权，随时停止非法分发；原生层对授权配置做 HMAC-SHA256 签名校验防伪造\n- native_crypto.cpp 改为不公开，编译为 libnative_crypto.so 预置发布\n- 广告特征库维持加密产物（ad_patterns_default.enc / online_ad_vendors.enc），绝不明文开源",
   "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/latest",
-  "size": 5363739,
+  "size": 0,
   "announcement": {
     "enabled": false,
     "id": "apkadanalyzer_v1",

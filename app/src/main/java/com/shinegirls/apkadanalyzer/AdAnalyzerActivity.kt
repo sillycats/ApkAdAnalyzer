@@ -33,6 +33,7 @@ import com.shinegirls.apkadanalyzer.core.AdFeatureAnalyzer
 import com.shinegirls.apkadanalyzer.core.AdPatternConfig
 import com.shinegirls.apkadanalyzer.core.AdVendorLibrary
 import com.shinegirls.apkadanalyzer.core.ThemeManager
+import com.shinegirls.apkadanalyzer.core.RemoteAuth
 import com.shinegirls.apkadanalyzer.utils.Format
 import com.shinegirls.apkadanalyzer.utils.PathPreferences
 import com.shinegirls.apkadanalyzer.utils.UiUtils
@@ -127,6 +128,18 @@ class AdAnalyzerActivity : AppCompatActivity() {
         }
 
         checkPermissions()
+
+        // 启动时异步刷新远程授权（仓库根目录 auth_config.json，原生层签名校验后应用）
+        lifecycleScope.launch {
+            val status = RemoteAuth.refresh()
+            if (status == 2) {
+                // 已被作者远程吊销：提示并停用分析能力
+                UiUtils.error(this@AdAnalyzerActivity, "应用授权已被远程吊销，功能已停用")
+                btnSelectApk.isEnabled = false
+                btnCopyConfig.isEnabled = false
+                btnSaveConfig.isEnabled = false
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
