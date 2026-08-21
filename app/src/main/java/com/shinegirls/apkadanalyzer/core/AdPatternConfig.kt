@@ -219,7 +219,17 @@ object AdPatternConfig {
                 ),
                 stringPatterns = jsonToStringList(json, KEY_STRING_PATTERNS),
                 flutterPatterns = jsonToStringList(json, KEY_FLUTTER_PATTERNS)
-            )
+            ).let { loaded ->
+                // 防御：若外部配置文件解析后为空（例如旧版本生成的空配置或全部为空数组），
+                // 说明其不具备检测能力，回退到内置默认配置，避免"分析不出任何广告特征"。
+                if (loaded.totalCount() == 0) {
+                    val restored = getDefaultConfig(context)
+                    saveConfig(restored, context)
+                    restored
+                } else {
+                    loaded
+                }
+            }
         } catch (_: Exception) {
             // 配置文件损坏，恢复默认
             val defaults = getDefaultConfig(context)
