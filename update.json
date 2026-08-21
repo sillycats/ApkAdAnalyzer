@@ -4,7 +4,7 @@
   "force": false,
   "description": "APK广告特征分析工具 v1.0 正式版：\n- 支持 SDK/类/方法/权限/URL/布局/assets/原生库/Flutter 等广告特征分析\n- 基于 Aho-Corasick 高速多模式扫描\n- 一键导出广告特征配置",
   "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/latest",
-  "size": 4894352,
+  "size": 4894284,
   "announcement": {
     "enabled": false,
     "id": "apkadanalyzer_v1",

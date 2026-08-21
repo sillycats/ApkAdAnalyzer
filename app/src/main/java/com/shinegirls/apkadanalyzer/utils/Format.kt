@@ -10,7 +10,7 @@ import java.util.Locale
 object Format {
 
     /** APK 处理产物与配置文件的默认导出目录。 */
-    const val EXPORT_DIR = "/storage/emulated/0/APKEditor"
+    const val EXPORT_DIR = "/storage/emulated/0/ApkAnalyzer"
 
     private const val KB = 1024L
     private const val MB = 1024L * 1024

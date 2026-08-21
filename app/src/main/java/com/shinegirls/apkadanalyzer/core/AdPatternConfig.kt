@@ -13,7 +13,7 @@ import java.io.File
  * 将广告特征以 JSON 配置文件形式存储在外部存储，而非硬编码在 DEX 中。
  * 用户可在设置界面中读取、显示、编辑、删除、添加和保存自定义广告特征。
  *
- * 配置文件路径: /storage/emulated/0/APKEditor/ad_patterns.json
+ * 配置文件路径: /storage/emulated/0/ApkAnalyzer/ad_patterns.json
  *
  * 配置结构（仅保留 DEX 修补所需的分类，布局/资源/权限相关分类已移除）:
  * {
