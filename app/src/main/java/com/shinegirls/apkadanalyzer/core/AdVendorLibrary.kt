@@ -37,11 +37,11 @@ import java.net.URL
  */
 object AdVendorLibrary {
 
-    /** 在线厂商库主地址：使用 GitHub 仓库内的 online_ad_vendors.enc（混淆加密）。 */
+    /** 在线厂商库主地址：jsDelivr CDN（国内可访问性更好）。 */
     const val DEFAULT_VENDOR_URL =
-        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.enc"
+        "https://cdn.jsdelivr.net/gh/sillycats/ApkAdAnalyzer@main/online_ad_vendors.enc"
 
-    /** 备用在线厂商库地址：与主地址一致时自动去重。 */
+    /** 备用在线厂商库地址：GitHub raw（CDN 不可用时回退）。 */
     const val FALLBACK_VENDOR_URL =
         "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.enc"
 
