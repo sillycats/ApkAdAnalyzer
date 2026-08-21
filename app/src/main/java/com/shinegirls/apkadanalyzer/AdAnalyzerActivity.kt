@@ -235,11 +235,14 @@ class AdAnalyzerActivity : AppCompatActivity() {
                 var config = AdPatternConfig.loadConfig(this@AdAnalyzerActivity)
                 appendLog("  · 加载特征配置: 共 ${config.totalCount()} 条特征，分类 ${config.flutterPatterns.size + 1}（含 Flutter）")
 
-                // 2.1 若存在缓存的在线广告厂商特征库，则合并后再分析（在线 + 内置联合分析）
+                // 2.1 合并在线广告厂商特征库后再分析（在线 + 内置联合分析）
+                //     优先使用本地缓存；无缓存时自动联网获取一次，保证联网/离线用户都能同时调用在线特征
                 val onlineMerged = loadAndMergeOnlineFeatures(config)
                 if (onlineMerged != null) {
                     config = onlineMerged
                     appendLog("  · 已合并在线广告厂商特征库，当前特征: 共 ${config.totalCount()} 条")
+                } else {
+                    appendLog("  · 未获取到在线广告厂商特征库，仅使用内置特征（可在菜单中手动同步）")
                 }
 
                 // 3. 执行分析
@@ -273,16 +276,35 @@ class AdAnalyzerActivity : AppCompatActivity() {
     }
 
     /**
-     * 从本地缓存读取在线广告厂商特征库，并合并到基础配置中。
-     * 无缓存时返回 null；合并成功后返回合并后的新配置。
+     * 合并在线广告厂商特征库到基础配置中（在线 + 内置联合分析）。
+     *
+     * 获取在线特征依赖顺序：
+     * 1. 优先读取本地缓存（离线可用，避免每次分析都联网拉取）；
+     * 2. 无有效缓存时，自动联网拉取一次在线厂商库并写入缓存；
+     * 3. 均失败（离线且无缓存）时返回 null，仅使用内置特征。
+     *
+     * @return 合并后的新配置；无在线特征可用时返回 null。
      */
     private fun loadAndMergeOnlineFeatures(
         base: AdPatternConfig.AdPatterns
     ): AdPatternConfig.AdPatterns? {
         return try {
-            val cached = AdVendorLibrary.readCached(this) ?: return null
-            val lib = AdVendorLibrary.parseCached(cached) ?: return null
-            if (lib.vendors.isEmpty()) return null
+            // 1) 缓存优先
+            var cacheText: String? = AdVendorLibrary.readCached(this)
+            var lib: AdVendorLibrary.VendorLibrary? = cacheText?.let { AdVendorLibrary.parseCached(it) }
+            if (lib == null || lib.vendors.isEmpty()) {
+                // 2) 无有效缓存 -> 自动联网获取一次
+                lib = AdVendorLibrary.fetchVendorLibrary(AdVendorLibrary.getVendorUrls())
+                if (lib != null) {
+                    // 写缓存（离线兜底：下次分析直接读缓存，不联网）
+                    try {
+                        AdVendorLibrary.writeCache(this@AdAnalyzerActivity, libraryJsonOf(lib))
+                    } catch (_: Exception) {
+                    }
+                    appendLog("  · 已自动联网获取在线广告厂商特征库")
+                }
+            }
+            if (lib == null || lib.vendors.isEmpty()) return null
             val onlineFeatures = AdVendorLibrary.toMergedFeatures(lib)
             if (onlineFeatures.totalCount() == 0) return null
             // 合并基础配置与在线厂商特征（并集去重）
