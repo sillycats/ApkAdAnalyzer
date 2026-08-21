@@ -290,7 +290,7 @@ object UpdateChecker {
                 connectTimeout = CONNECT_TIMEOUT_MS
                 readTimeout = READ_TIMEOUT_MS
                 setRequestProperty("Accept", "application/json")
-                setRequestProperty("User-Agent", "APKAdRemoverEditor/1.0")
+                setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
                 instanceFollowRedirects = true
             }
             try {
@@ -679,7 +679,7 @@ object UpdateChecker {
                         connectTimeout = CONNECT_TIMEOUT_MS
                         readTimeout = CONNECT_TIMEOUT_MS
                         instanceFollowRedirects = true
-                        setRequestProperty("User-Agent", "APKAdRemoverEditor/1.0")
+                        setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
                     }
                     try {
                         if (headConn.responseCode in 200..299) {
@@ -700,7 +700,7 @@ object UpdateChecker {
                     readTimeout = 60_000
                     instanceFollowRedirects = true
                     setRequestProperty("Accept", "application/vnd.android.package-archive,*/*")
-                    setRequestProperty("User-Agent", "APKAdRemoverEditor/1.0")
+                    setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
                 }
 
                 val code = conn.responseCode
@@ -913,7 +913,7 @@ object UpdateChecker {
                         connectTimeout = CONNECT_TIMEOUT_MS
                         readTimeout = CONNECT_TIMEOUT_MS
                         instanceFollowRedirects = true
-                        setRequestProperty("User-Agent", "APKAdRemoverEditor/1.0")
+                        setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
                     }
                     try {
                         if (headConn.responseCode in 200..299) {
@@ -930,7 +930,7 @@ object UpdateChecker {
                     readTimeout = 60_000
                     instanceFollowRedirects = true
                     setRequestProperty("Accept", "application/vnd.android.package-archive,*/*")
-                    setRequestProperty("User-Agent", "APKAdRemoverEditor/1.0")
+                    setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
                 }
 
                 val code = conn.responseCode
