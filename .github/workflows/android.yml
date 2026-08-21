@@ -24,6 +24,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: 定位 Android SDK
+        run: |
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          echo "SDK=$SDK"
+          if [ -n "$SDK" ]; then echo "sdk.dir=$SDK" > local.properties; fi
+          ls "$SDK/platforms" 2>/dev/null | tail -5 || echo "SDK platforms 需安装"
+
       - name: 设置 Gradle 缓存
         uses: actions/cache@v4
         with:
