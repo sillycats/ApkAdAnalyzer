@@ -41,7 +41,7 @@ object AdAnalysisModels {
 
         /**
          * 将命中的特征聚合为一份可直接使用的 [AdPatternConfig.AdPatterns] 配置。
-         * 仅包含本 APK 实际命中的特征，可作为该应用专用的去广告配置文件。
+         * 仅包含本 APK 实际命中的特征，可作为该应用专用的广告特征配置文件。
          */
         fun toConfig(): AdPatternConfig.AdPatterns {
             val config = AdPatternConfig.AdPatterns()

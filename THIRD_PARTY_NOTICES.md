@@ -1,6 +1,6 @@
 # 第三方许可声明 (Third-Party Notices)
 
-本文件列出了 **APK去广告编辑器（ApkAdAnalyzer）** 所使用、调用或参考的第三方开源项目及其许可信息。
+本文件列出了 **APK广告特征分析工具（ApkAdAnalyzer）** 所使用、调用或参考的第三方开源项目及其许可信息。
 
 本项目遵循 MIT License 开源，但**不改变**以下第三方项目的原始许可条款。使用本项目时，请同时遵守本项目及其依赖项目的许可要求。
 
@@ -8,72 +8,34 @@
 
 ## 一、直接依赖（编译期引入）
 
-### 1. dexlib2 / smali / baksmali
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://github.com/JesusFreke/smali |
-| 作者 | JesusFreke |
-| 用途 | DEX 文件读写与 smali 反汇编/汇编工具链，本项目去广告核心引擎 |
-| 协议 | BSD 3-Clause |
-
-**BSD 3-Clause License 摘要**：允许自由使用、修改、分发（含商业用途），需保留版权声明、条件列表与免责声明；禁止使用作者名义进行推广。
-
-### 2. apksig
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://android.googlesource.com/platform/tools/apksig |
-| 作者 | AOSP (Android Open Source Project) |
-| 用途 | APK v1/v2/v3 签名实现，保证处理结果可安装 |
-| 协议 | Apache License 2.0 |
-
-### 3. BouncyCastle (bcprov / bcpkix)
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://www.bouncycastle.org/ |
-| 作者 | The Legion of the Bouncy Castle Inc. |
-| 用途 | Java 加解密与证书生成库，用于生成签名证书 |
-| 协议 | MIT License |
-
-### 4. Guava
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://github.com/google/guava |
-| 作者 | Google |
-| 用途 | Java 集合与工具库，提供 dexlib2 所需的不可变集合 |
-| 协议 | Apache License 2.0 |
-
-### 5. AndroidX
+### 1. AndroidX
 
 | 项目 | 说明 |
 |------|------|
 | 主页 | https://developer.android.com/jetpack |
-| 作者 | AOSP |
+| 作者 | AOSP (Android Open Source Project) |
 | 用途 | core-ktx / appcompat / constraintlayout / recyclerview / lifecycle / coordinatorlayout |
 | 协议 | Apache License 2.0 |
 
-### 6. Material Components for Android
+### 2. Material Components for Android
 
 | 项目 | 说明 |
 |------|------|
 | 主页 | https://github.com/material-components/material-components-android |
 | 作者 | Google |
-| 用途 | Material Design 组件库，提供卡片、按钮、对话框等 UI 组件 |
+| 用途 | Material Design 组件库，提供卡片、按钮、对话框、进度条等 UI 组件 |
 | 协议 | Apache License 2.0 |
 
-### 7. Kotlin 标准库
+### 3. Kotlin 标准库
 
 | 项目 | 说明 |
 |------|------|
 | 主页 | https://kotlinlang.org/ |
 | 作者 | JetBrains |
-| 用途 | Kotlin 编程语言与标准库 |
+| 用途 | Kotlin 编程语言与标准库，自研 Aho-Corasick 匹配引擎基于它实现 |
 | 协议 | Apache License 2.0 |
 
-### 8. JUnit
+### 4. JUnit
 
 | 项目 | 说明 |
 |------|------|
@@ -84,64 +46,40 @@
 
 ---
 
-## 二、移植与借鉴（源码移植）
+## 二、参考来源（仅作特征与思路参考）
 
-### 9. ApkDataMultiplexing
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://github.com/L-JINBIN/ApkDataMultiplexing |
-| 作者 | L-JINBIN |
-| 用途 | APK 数据复用优化核心算法，本项目移植了其 DataMultiplexing / ZipMaker / ZipFile / V2V3SchemeSigner 实现 |
-| 协议 | 原项目未标注许可证，仅供学习参考 |
-
-> 说明：原项目未附带明确的开源许可证。本项目仅将其作为技术学习参考并移植实现思路，未直接复制其二进制产物。如原作者认为存在侵权，请联系我们处理。
-
-### 10. AAPT2
-
-| 项目 | 说明 |
-|------|------|
-| 主页 | https://developer.android.com/tools/aapt2 |
-| 作者 | AOSP |
-| 用途 | Android 资源编译与打包工具，用于 AXML / 资源处理 |
-| 协议 | Apache License 2.0 |
-
----
-
-## 三、参考来源（仅作特征与思路参考）
-
-### 11. DTL-X
+### 5. DTL-X
 
 | 项目 | 说明 |
 |------|------|
 | 主页 | https://github.com/Gameye98/DTL-X |
 | 作者 | Gameye98 |
-| 用途 | 广告类名 / 方法名 / URL 特征规则参考来源，仅供特征参考与学习，未修改其二进制 |
+| 用途 | 广告 SDK 包名 / 类名 / 方法名 / URL 特征规则参考来源，仅供特征整理参考与学习一致 |
 | 协议 | 原项目未标注许可证，仅供学习参考 |
 
-### 12. ApkSignatureKillerEx
+> 说明：本项目未修改或发布其二进制，仅参考其特征整理思路，结合主流广告 SDK 自行整理规则。如原作者认为存在侵权，请联系我们处理。
+
+### 6. AOSP (Android Asset Packaging / AXML)
 
 | 项目 | 说明 |
 |------|------|
-| 主页 | https://github.com/L-JINBIN/ApkSignatureKillerEx |
-| 作者 | L-JINBIN（林锦斌） |
-| 用途 | 过签核心参考：`bin.mt.signature.KillerApplication` 钩子类（含 12 个内部类）与 `libSignatureKiIIer.so` 原生库的来源项目，演示 MT 去除签名校验原理及其对抗方式 |
-| 协议 | 原项目未标注许可证，仅供学习参考 |
+| 主页 | https://android.googlesource.com/platform/frameworks/base/ |
+| 作者 | AOSP |
+| 用途 | 参考 AXML 二进制格式与 StringPool/ResourceMap 结构，自研解析器抽取组件类名、权限名 |
+| 协议 | Apache License 2.0 |
 
-> 说明：本项目过签能力直接参考其 KillerApplication 注入过签实现（反射替换 `PackageInfo.CREATOR` 回填原包签名），最终实现均为本项目基于 dexlib2 自研，未直接复制其二进制产物。如原作者认为存在侵权，请联系我们处理。
-
-### 13. LSPatch / LSP 技术团队
+### 7. Dart SDK（Flutter 快照分析参考）
 
 | 项目 | 说明 |
 |------|------|
-| 主页 | https://github.com/LSPosed/LSPatch |
-| 作者 | LSPosed 团队 |
-| 用途 | 过签包结构（assets/base.apk 内置原包 + IO 重定向）思路参考 |
-| 协议 | 仅供技术思路参考 |
+| 主页 | https://github.com/dart-lang/sdk |
+| 作者 | Google / Dart 团队 |
+| 用途 | 参考 Dart VM 快照格式（snapshot.h）理解 libapp.so 结构，用于 Flutter 广告字符串特征扫描 |
+| 协议 | BSD 3-Clause |
 
 ---
 
-## 四、许可证全文
+## 三、许可证全文
 
 ### Apache License 2.0
 
@@ -169,7 +107,7 @@
 
 ---
 
-## 五、致谢
+## 四、致谢
 
 衷心感谢以上所有开源项目及其作者，正是他们的卓越工作让本项目成为可能。本项目对上述项目的使用均遵循其原始许可条款，如对使用方式有任何疑问，欢迎通过 Issue 与我们联系。
 

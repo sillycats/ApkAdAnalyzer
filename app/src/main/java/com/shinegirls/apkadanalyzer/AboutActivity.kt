@@ -206,6 +206,6 @@ class AboutActivity : AppCompatActivity() {
             "6. 条款变更：作者保留随时修改本免责声明的权利，更新后的内容将在新版本中生效。\n\n" +
             "7. 使用本应用即视为您已阅读、理解并同意以上全部条款。若不同意，请停止使用本应用。"
 
-        private const val COPYRIGHT_TEXT = "© 2026 小奶瓶 · 保留所有权利\nPowered by dexlib2 / apksig / AndroidX"
+        private const val COPYRIGHT_TEXT = "© 2026 小奶瓶 · 保留所有权利\nPowered by Aho-Corasick / AndroidX / Material"
     }
 }
