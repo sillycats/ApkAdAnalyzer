@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_sync_vendors"
+        android:title="同步在线广告厂商特征"
+        android:orderInCategory="90"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_about"
         android:title="关于应用"
         android:orderInCategory="100"

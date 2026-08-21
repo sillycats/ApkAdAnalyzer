@@ -1,0 +1,408 @@
+{
+  "version": 1,
+  "updated": "2026-08-21",
+  "generate_time": "2026-08-21T00:00:00+08:00",
+  "source": "https://github.com/sillycats/ApkAdAnalyzer/blob/main/online_ad_vendors.json",
+  "note": "在线广告厂商广告特征库：覆盖国内外主流广告厂商(SDK包名/类名/方法/URL/原生库/assets等)。APK 分析时自动与内置特征合并，提升识别率。欢迎提交合并请求补充厂商。",
+  "vendors": [
+    {
+      "id": "admob_google",
+      "name": "Google AdMob / AdManager",
+      "region": "国际",
+      "homepage": "https://admob.google.com",
+      "features": {
+        "sdk_packages": ["com.google.android.gms.ads"],
+        "class_keywords": ["AdView", "AdRequest", "InterstitialAd", "RewardedAd", "AdManagerAdView", "MobileAds"],
+        "method_patterns": ["loadAd", "showAd", "onAdLoaded", "initializeAds"],
+        "url_patterns": ["googleads.g.doubleclick.net", "google.com/ads", "googlesyndication.com"],
+        "ad_view_names": ["AdView", "AdManagerAdView", "NativeAdView"],
+        "ad_activities": ["AdActivity", "GoogleAdActivity"],
+        "ad_services": ["AdService"],
+        "ad_receivers": [],
+        "lib_file_keywords": ["gms-ads", "google_admob", "play-services-ads"],
+        "asset_keywords": ["google_mobile_ads", "admob"],
+        "ad_asset_paths": [],
+        "string_patterns": ["ca-app-pub-", "ad_unit_id", "admob", "google ads"],
+        "flutter_patterns": ["google_mobile_ads", "google_mobile_ads_ad", "banner_ad_size", "interstitial_ad"]
+      }
+    },
+    {
+      "id": "facebook_audience",
+      "name": "Meta (Facebook) Audience Network",
+      "region": "国际",
+      "homepage": "https://www.facebook.com/business/help/audience-network",
+      "features": {
+        "sdk_packages": ["com.facebook.ads"],
+        "class_keywords": ["AdView", "InterstitialAd", "RewardedVideoAd", "AudienceNetworkAds", "FBNativeAd"],
+        "method_patterns": ["loadAd", "showAd", "onAdLoaded", "initializeAds"],
+        "url_patterns": ["facebook.com/ads", "fbcdn.net"],
+        "ad_view_names": ["AdView", "NativeAdView", "AdChoicesView"],
+        "ad_activities": ["AdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["audience-network-sdk", "facebook"],
+        "asset_keywords": ["audience_network", "audience-network"],
+        "ad_asset_paths": [],
+        "string_patterns": ["FBAdSize", "facebook ads", "AudienceNetwork"],
+        "flutter_patterns": ["audience_network", "facebook_ad"]
+      }
+    },
+    {
+      "id": "applovin",
+      "name": "AppLovin",
+      "region": "国际",
+      "homepage": "https://www.applovin.com",
+      "features": {
+        "sdk_packages": ["com.applovin"],
+        "class_keywords": ["AppLovinSdk", "AppLovinInterstitialAd", "AppLovinAdView", "AppLovinRewardedAd", "MaxAdView"],
+        "method_patterns": ["loadAd", "showAd", "initializeSdk", "setSdkKey"],
+        "url_patterns": ["applovin.com"],
+        "ad_view_names": ["AppLovinAdView", "MaxAdView"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["applovin-sdk", "max"],
+        "asset_keywords": ["applovin"],
+        "ad_asset_paths": [],
+        "string_patterns": ["applovin", "MaxAdView", "sdk_key"],
+        "flutter_patterns": ["applovin_max", "applovin_max_ad", "max_ad_view"]
+      }
+    },
+    {
+      "id": "unity_ads",
+      "name": "Unity Ads",
+      "region": "国际",
+      "homepage": "https://unity.com/products/unity-ads",
+      "features": {
+        "sdk_packages": ["com.unity3d.ads"],
+        "class_keywords": ["UnityAds", "BannerView", "UnityAdsDelegate", "IUnityAdsListener"],
+        "method_patterns": ["loadAd", "showAd", "initialize", "onUnityAdsReady"],
+        "url_patterns": ["unityads.unity3d.com", "unity3d.com/ads"],
+        "ad_view_names": ["BannerView"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["unity-ads", "unityads"],
+        "asset_keywords": ["unity_ads"],
+        "ad_asset_paths": [],
+        "string_patterns": ["unityads", "UnityAds", "game_id"],
+        "flutter_patterns": ["unity_ads"]
+      }
+    },
+    {
+      "id": "ironsource",
+      "name": "ironSource",
+      "region": "国际",
+      "homepage": "https://www.is.com",
+      "features": {
+        "sdk_packages": ["com.ironsource"],
+        "class_keywords": ["IronSource", "IronSourceBannerLayout", "IronSourceInterstitialAd", "ISEvents"],
+        "method_patterns": ["loadAd", "showAd", "setMediationType", "onAdReady"],
+        "url_patterns": ["ironsrc.com", "ironbeast.io"],
+        "ad_view_names": ["IronSourceBannerLayout"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["ironsource", "ironbase"],
+        "asset_keywords": ["ironsource"],
+        "ad_asset_paths": [],
+        "string_patterns": ["ironSource", "IronSource", "ISDemoAppId"],
+        "flutter_patterns": ["ironsource_mediation"]
+      }
+    },
+    {
+      "id": "mintegral",
+      "name": "Mintegral (汇量)",
+      "region": "国际",
+      "homepage": "https://www.mintegral.com",
+      "features": {
+        "sdk_packages": ["com.mbridge.msdk"],
+        "class_keywords": ["MBridge", "MMBannerView", "MMInterstitialAd", "MBRewardVideoAd", "MB2Handler"],
+        "method_patterns": ["loadAd", "showAd", "initialize", "setAppId"],
+        "url_patterns": ["mintegral.com", "mbridge.com"],
+        "ad_view_names": ["MMBannerView", "MMNativeAdView"],
+        "ad_activities": ["MMActivity", "MBridgeActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["mbridge", "mintegral", "mtg"],
+        "asset_keywords": ["mbridge", "mtg"],
+        "ad_asset_paths": [],
+        "string_patterns": ["MBridge", "mintegral", "mobrain"],
+        "flutter_patterns": ["mintegral"]
+      }
+    },
+    {
+      "id": "pangle_tt",
+      "name": "Pangle / TikTok (穿山甲海外)",
+      "region": "国际",
+      "homepage": "https://www.pangleglobal.com",
+      "features": {
+        "sdk_packages": ["com.bytedance.sdk.openadsdk"],
+        "class_keywords": ["TTAdSdk", "TTAdManager", "TTAdNative", "TTBannerAd", "TTRewardVideoAd", "TTNativeExpressAd"],
+        "method_patterns": ["loadAd", "showAd", "initializeSdk", "loadRewardVideoAd"],
+        "url_patterns": ["pangle.io", "pangolin-sdk-toutiao.com", "bytedance.com/byteeffect"],
+        "ad_view_names": ["TTBannerAd", "TTNativeExpressAdView"],
+        "ad_activities": ["TTAdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["pangle", "open_ad_sdk", "ttad", "byteeffect"],
+        "asset_keywords": ["bytedance", "pangle", "byte_effective"],
+        "ad_asset_paths": ["assets/byte_effective/"],
+        "string_patterns": ["TTAdManager", "pangle", "PangleAdUnit", "add_ad_unit"],
+        "flutter_patterns": ["pangle", "pangle_flutter", "ads_pangle"]
+      }
+    },
+    {
+      "id": "gdt_tencent",
+      "name": "广点通 / 腾讯广告 GDT",
+      "region": "国内",
+      "homepage": "https://e.qq.com/dev/union.html",
+      "features": {
+        "sdk_packages": ["com.qq.e"],
+        "class_keywords": ["GDTAdSdk", "QQAd", "AdManager", "InterstitialAD", "BannerAD", "UnifiedNativeAd"],
+        "method_patterns": ["loadAD", "showAd", "init", "onADLoaded"],
+        "url_patterns": ["gdt.qq.com", "e.qq.com", "qq.com/ad"],
+        "ad_view_names": ["NativeAdView", "BannerAdView"],
+        "ad_activities": ["QQAdActivity", "GDTAdActivity"],
+        "ad_services": ["AdService"],
+        "ad_receivers": [],
+        "lib_file_keywords": ["gdt", "qq_ad"],
+        "asset_keywords": ["gdt", "qq_e"],
+        "ad_asset_paths": ["assets/gdt_plugin/"],
+        "string_patterns": ["GDTAdSdk", "com.qq.e", "gdt_", "QQAd"],
+        "flutter_patterns": ["gdt", "tencent_ad"]
+      }
+    },
+    {
+      "id": "baidu_mob",
+      "name": "百度百青藤",
+      "region": "国内",
+      "homepage": "https://mobads.baidu.com",
+      "features": {
+        "sdk_packages": ["com.baidu.mobads"],
+        "class_keywords": ["BaiduAdManager", "AdView", "InterstitialAd", "BannerAd", "FeedsAd"],
+        "method_patterns": ["loadAd", "showAd", "init", "onAdLoad"],
+        "url_patterns": ["mbd.baidu.com", "cpro.baidu.com", "mobads.baidu.com"],
+        "ad_view_names": ["FeedsAdView", "ContentPadAdView"],
+        "ad_activities": ["BaiduAdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["baidu_mob", "bdxadsdk", "ad-sdk"],
+        "asset_keywords": ["baidu_mobads", "bdxadsdk"],
+        "ad_asset_paths": ["assets/bdxadsdk/"],
+        "string_patterns": ["BaiduAdManager", "bdxadsdk", "BaiduMobAd"],
+        "flutter_patterns": ["baidu_ad"]
+      }
+    },
+    {
+      "id": "ksad_kuaishou",
+      "name": "快手联盟 KSAD",
+      "region": "国内",
+      "homepage": "https://u.kuaishou.com",
+      "features": {
+        "sdk_packages": ["com.kwad.sdk"],
+        "class_keywords": ["KSSDK", "KSAdSDK", "KSAdSDKManager", "KSAdNativeView", "KSRewardVideoAd"],
+        "method_patterns": ["loadAd", "showAd", "init", "onAdLoad"],
+        "url_patterns": ["kuaishou.com", "ksadsvc.com", "u.kuaishou.com"],
+        "ad_view_names": ["KSAdNativeView"],
+        "ad_activities": ["KSAdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["ksad", "kuaishou", "kwad"],
+        "asset_keywords": ["ksad", "kuaishou"],
+        "ad_asset_paths": [],
+        "string_patterns": ["KSAdSDK", "ksad", "kuaishou"],
+        "flutter_patterns": ["kuaishou_ad", "ksad"]
+      }
+    },
+    {
+      "id": "vungle",
+      "name": "Vungle",
+      "region": "国际",
+      "homepage": "https://vungle.com",
+      "features": {
+        "sdk_packages": ["com.vungle"],
+        "class_keywords": ["Vungle", "VungleInterstitialAd", "VungleBanner", "VungleNativeAd"],
+        "method_patterns": ["loadAd", "showAd", "init", "onAdAvailability"],
+        "url_patterns": ["vungle.com", "vungle.cn"],
+        "ad_view_names": ["VungleBanner"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["vungle"],
+        "asset_keywords": ["vungle"],
+        "ad_asset_paths": [],
+        "string_patterns": ["Vungle", "vungle"],
+        "flutter_patterns": ["vungle"]
+      }
+    },
+    {
+      "id": "mopub",
+      "name": "MoPub",
+      "region": "国际",
+      "homepage": "https://www.mopub.com",
+      "features": {
+        "sdk_packages": ["com.mopub"],
+        "class_keywords": ["MoPubView", "MoPubInterstitial", "MoPubRewardedAd", "MoPubAdAdapter"],
+        "method_patterns": ["loadAd", "showAd", "setAdUnitId", "onAdLoaded"],
+        "url_patterns": ["mopub.com", "mopub.net"],
+        "ad_view_names": ["MoPubView", "MoPubBannerView"],
+        "ad_activities": ["MopubActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["mopub"],
+        "asset_keywords": ["mopub"],
+        "ad_asset_paths": [],
+        "string_patterns": ["MoPub", "mopub"],
+        "flutter_patterns": ["mopub"]
+      }
+    },
+    {
+      "id": "huawei_ads",
+      "name": "华为广告(Huawei Ads)",
+      "region": "国内",
+      "homepage": "https://developer.huawei.com/consumer/cn/ads",
+      "features": {
+        "sdk_packages": ["com.huawei.hms.ads"],
+        "class_keywords": ["HwAds", "AdManager", "InterstitialAd", "BannerAd", "RewardedAd", "AdParam"],
+        "method_patterns": ["loadAd", "showAd", "init", "onAdLoaded"],
+        "url_patterns": ["huawei.com/ads", "hmsads.com"],
+        "ad_view_names": ["BannerView", "NativeAdView"],
+        "ad_activities": ["HwAdsActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["hms-ads", "huawei"],
+        "asset_keywords": ["huawei_ads", "hms_ads"],
+        "ad_asset_paths": [],
+        "string_patterns": ["HwAds", "com.huawei.hms.ads", "ad_unit"],
+        "flutter_patterns": ["huawei_ad", "hms_ads"]
+      }
+    },
+    {
+      "id": "inmobi",
+      "name": "InMobi",
+      "region": "国际",
+      "homepage": "https://www.inmobi.com",
+      "features": {
+        "sdk_packages": ["com.inmobi"],
+        "class_keywords": ["InMobiSdk", "InMobiBanner", "InMobiInterstitial", "InMobiNativeAd", "InMobiConsent"],
+        "method_patterns": ["loadAd", "showAd", "initialize", "onAdLoad"],
+        "url_patterns": ["inmobi.com", "w.inmobi.com"],
+        "ad_view_names": ["InMobiBanner", "InMobiNativeAdView"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["inmobi"],
+        "asset_keywords": ["inmobi"],
+        "ad_asset_paths": [],
+        "string_patterns": ["InMobi", "inmobi"],
+        "flutter_patterns": ["inmobi"]
+      }
+    },
+    {
+      "id": "chartboost",
+      "name": "Chartboost",
+      "region": "国际",
+      "homepage": "https://www.chartboost.com",
+      "features": {
+        "sdk_packages": ["com.chartboost.sdk"],
+        "class_keywords": ["Chartboost", "CBInterstitial", "CBRewardedAd", "CBInPlayAd", "ChartboostDelegate"],
+        "method_patterns": ["showInterstitial", "loadRewardVideo", "startWithAppId"],
+        "url_patterns": ["chartboost.com", "cbapi.chartboost.com"],
+        "ad_view_names": [],
+        "ad_activities": ["CBImpressionActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["chartboost"],
+        "asset_keywords": ["chartboost"],
+        "ad_asset_paths": [],
+        "string_patterns": ["Chartboost", "chartboost"],
+        "flutter_patterns": ["chartboost"]
+      }
+    },
+    {
+      "id": "adcolony",
+      "name": "AdColony",
+      "region": "国际",
+      "homepage": "https://www.adcolony.com",
+      "features": {
+        "sdk_packages": ["com.adcolony"],
+        "class_keywords": ["AdColony", "AdColonyInterstitial", "AdColonyAdView", "AdColonySdk", "AdColonyReward"],
+        "method_patterns": ["configure", "requestInterstitial", "loadAd"],
+        "url_patterns": ["adcolony.com"],
+        "ad_view_names": ["AdColonyAdView"],
+        "ad_activities": [],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["adcolony"],
+        "asset_keywords": ["adcolony"],
+        "ad_asset_paths": [],
+        "string_patterns": ["AdColony", "adcolony"],
+        "flutter_patterns": ["adcolony"]
+      }
+    },
+    {
+      "id": "sigmob",
+      "name": "Sigmob (游族广告聚合)",
+      "region": "国内",
+      "homepage": "https://www.sigmob.com",
+      "features": {
+        "sdk_packages": ["net.sigmob"],
+        "class_keywords": ["SigmobAdManager", "WindAdView", "WindInterstitialAd", "WindRewardAd"],
+        "method_patterns": ["loadAd", "showAd", "init"],
+        "url_patterns": ["sigmob.com", "windadsdk.com"],
+        "ad_view_names": ["WindAdView"],
+        "ad_activities": ["WindAdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["sigmob", "windad"],
+        "asset_keywords": ["sigmob"],
+        "ad_asset_paths": [],
+        "string_patterns": ["Sigmob", "WindAd", "windad"],
+        "flutter_patterns": ["sigmob"]
+      }
+    },
+    {
+      "id": "topon",
+      "name": "TopOn (聚合广告)",
+      "region": "国内",
+      "homepage": "https://www.toponad.com",
+      "features": {
+        "sdk_packages": ["com.anythink.sdk", "com.topon.sdk"],
+        "class_keywords": ["ATAdManager", "ATInterstitialAd", "ATBannerAd", "ATRewardVideoAd", "AnyThink"],
+        "method_patterns": ["loadAd", "showAd", "init", "onAdLoad"],
+        "url_patterns": ["toponad.com", "anythink.com"],
+        "ad_view_names": ["ATBannerView", "ATNativeAdView"],
+        "ad_activities": ["ATActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["anythink", "topon"],
+        "asset_keywords": ["anythink", "topon"],
+        "ad_asset_paths": [],
+        "string_patterns": ["AnyThink", "ATAdManager", "topon"],
+        "flutter_patterns": ["anythink", "topon"]
+      }
+    },
+    {
+      "id": "oneway",
+      "name": "OneWay (华扬联众广告)",
+      "region": "国内",
+      "homepage": "https://oneway.se",
+      "features": {
+        "sdk_packages": ["com.oneway"],
+        "class_keywords": ["AdSDKManager", "AdView", "OneWayAd"],
+        "method_patterns": ["loadAd", "showAd"],
+        "url_patterns": ["oneway.se", "onewayads.com"],
+        "ad_view_names": ["AdView"],
+        "ad_activities": ["AdActivity"],
+        "ad_services": [],
+        "ad_receivers": [],
+        "lib_file_keywords": ["oneway"],
+        "asset_keywords": ["oneway"],
+        "ad_asset_paths": [],
+        "string_patterns": ["oneway", "OneWay"],
+        "flutter_patterns": []
+      }
+    }
+  ]
+}

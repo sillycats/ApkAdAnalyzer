@@ -31,6 +31,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.shinegirls.apkadanalyzer.core.AdAnalysisResult
 import com.shinegirls.apkadanalyzer.core.AdFeatureAnalyzer
 import com.shinegirls.apkadanalyzer.core.AdPatternConfig
+import com.shinegirls.apkadanalyzer.core.AdVendorLibrary
 import com.shinegirls.apkadanalyzer.core.ThemeManager
 import com.shinegirls.apkadanalyzer.utils.Format
 import com.shinegirls.apkadanalyzer.utils.PathPreferences
@@ -139,6 +140,10 @@ class AdAnalyzerActivity : AppCompatActivity() {
                 startActivity(Intent(this, AboutActivity::class.java))
                 true
             }
+            R.id.action_sync_vendors -> {
+                syncOnlineVendors()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -227,8 +232,15 @@ class AdAnalyzerActivity : AppCompatActivity() {
                 } ?: throw IllegalStateException("无法读取所选文件")
 
                 // 2. 加载广告特征配置
-                val config = AdPatternConfig.loadConfig(this@AdAnalyzerActivity)
+                var config = AdPatternConfig.loadConfig(this@AdAnalyzerActivity)
                 appendLog("  · 加载特征配置: 共 ${config.totalCount()} 条特征，分类 ${config.flutterPatterns.size + 1}（含 Flutter）")
+
+                // 2.1 若存在缓存的在线广告厂商特征库，则合并后再分析（在线 + 内置联合分析）
+                val onlineMerged = loadAndMergeOnlineFeatures(config)
+                if (onlineMerged != null) {
+                    config = onlineMerged
+                    appendLog("  · 已合并在线广告厂商特征库，当前特征: 共 ${config.totalCount()} 条")
+                }
 
                 // 3. 执行分析
                 val result = AdFeatureAnalyzer.analyze(
@@ -257,6 +269,115 @@ class AdAnalyzerActivity : AppCompatActivity() {
                     try { it.delete() } catch (_: Exception) {}
                 }
             }
+        }
+    }
+
+    /**
+     * 从本地缓存读取在线广告厂商特征库，并合并到基础配置中。
+     * 无缓存时返回 null；合并成功后返回合并后的新配置。
+     */
+    private fun loadAndMergeOnlineFeatures(
+        base: AdPatternConfig.AdPatterns
+    ): AdPatternConfig.AdPatterns? {
+        return try {
+            val cached = AdVendorLibrary.readCached(this) ?: return null
+            val lib = AdVendorLibrary.parseCached(cached) ?: return null
+            if (lib.vendors.isEmpty()) return null
+            val onlineFeatures = AdVendorLibrary.toMergedFeatures(lib)
+            if (onlineFeatures.totalCount() == 0) return null
+            // 合并基础配置与在线厂商特征（并集去重）
+            AdPatternConfig.merge(listOf(base, onlineFeatures))
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    /**
+     * 同步在线广告厂商特征库（菜单入口）。
+     *
+     * 后台拉取在线厂商库 -> 写入本地缓存 -> 展示同步结果（厂商数、国内外分布、特征总数）。
+     * 同步成功后，下次分析 APK 时会自动合并在线特征进行联合分析。
+     */
+    private fun syncOnlineVendors() {
+        if (isAnalyzing) {
+            UiUtils.warning(this, "正在分析中，请稍后再同步")
+            return
+        }
+        UiUtils.info(this, "正在同步在线广告厂商特征库…")
+        lifecycleScope.launch(Dispatchers.IO) {
+            val library = AdVendorLibrary.fetchVendorLibrary(AdVendorLibrary.getVendorUrls())
+            withContext(Dispatchers.Main) {
+                if (library == null) {
+                    // 网络失败时提示使用本地缓存
+                    val hasCache = AdVendorLibrary.readCached(this@AdAnalyzerActivity) != null
+                    if (hasCache) {
+                        UiUtils.warning(
+                            this@AdAnalyzerActivity,
+                            "网络获取失败，将使用本地缓存（${libraryInfoFromCache() ?: "未知"}）"
+                        )
+                        appendLog("  ⚠ 在线厂商库网络获取失败，将使用本地缓存继续分析")
+                    } else {
+                        UiUtils.error(this@AdAnalyzerActivity, "获取在线广告厂商特征库失败，请检查网络")
+                        appendLog("  ✗ 获取在线广告厂商特征库失败")
+                    }
+                    return@withContext
+                }
+                // 写入缓存以便后续离线合并
+                try {
+                    AdVendorLibrary.writeCache(this@AdAnalyzerActivity, libraryJsonOf(library))
+                } catch (_: Exception) {
+                }
+                val summary = AdVendorLibrary.summarize(library)
+                appendLog(
+                    "  ✓ 已同步在线广告厂商特征库: 厂商 ${summary.vendorCount} 家 " +
+                        "(国内 ${summary.domesticCount} / 国际 ${summary.foreignCount}), " +
+                        "合并特征 ${summary.featureCount} 条"
+                )
+                UiUtils.success(
+                    this@AdAnalyzerActivity,
+                    "同步成功: ${summary.vendorCount} 家厂商, ${summary.featureCount} 条特征"
+                )
+            }
+        }
+    }
+
+    /** 从缓存读取厂商库概况文本，便于网络失败时的提示。 */
+    private fun libraryInfoFromCache(): String? {
+        return try {
+            val cached = AdVendorLibrary.readCached(this) ?: return null
+            val lib = AdVendorLibrary.parseCached(cached) ?: return null
+            val s = AdVendorLibrary.summarize(lib)
+            "${s.vendorCount} 家厂商, ${s.featureCount} 条特征"
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    /** 将 [AdVendorLibrary.VendorLibrary] 序列化为 JSON 文本写入缓存。 */
+    private fun libraryJsonOf(library: AdVendorLibrary.VendorLibrary): String {
+        return try {
+            org.json.JSONObject().apply {
+                put("version", library.version)
+                put("updated", library.updated)
+                put(
+                    "vendors",
+                    org.json.JSONArray().apply {
+                        library.vendors.forEach { v ->
+                            put(
+                                org.json.JSONObject().apply {
+                                    put("id", v.id)
+                                    put("name", v.name)
+                                    put("region", v.region)
+                                    put("homepage", v.homepage)
+                                    put("features", AdPatternConfig.toJson(v.features))
+                                }
+                            )
+                        }
+                    }
+                )
+            }.toString()
+        } catch (_: Exception) {
+            "{}"
         }
     }
 
