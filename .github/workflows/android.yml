@@ -34,11 +34,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: 授权 Gradle Wrapper
-        run: chmod +x gradlew
+      - name: 准备 Gradle（curl 下载以绕开 wrapper 的 Java 下载器）
+        run: |
+          set -e
+          GRADLE_ZIP=/tmp/gradle-8.5-bin.zip
+          GRADLE_DIR=/opt/gradle-8.5
+          if [ ! -d "$GRADLE_DIR" ]; then
+            echo "Downloading Gradle via curl..."
+            curl -fsSL --fail-with-body -o "$GRADLE_ZIP" \
+              "https://mirrors.cloud.tencent.com/gradle/gradle-8.5-bin.zip"
+            ls -lh "$GRADLE_ZIP"
+            mkdir -p /opt
+            unzip -q "$GRADLE_ZIP" -d /opt
+          fi
+          echo "$GRADLE_DIR/bin" >> "$GITHUB_PATH"
+          "$GRADLE_DIR/bin/gradle" --version | head -5
 
       - name: 构建 Debug 与 Release APK
-        run: ./gradlew :app:assembleDebug :app:assembleRelease
+        run: gradle :app:assembleDebug :app:assembleRelease --no-daemon
 
       - name: 上传 Debug APK
         uses: actions/upload-artifact@v4
