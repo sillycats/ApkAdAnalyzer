@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+app/build/
+local.properties
+captures/
+
+# Android / IDE
+.idea/
+*.iml
+.DS_Store
+
+# 系统文件
+Thumbs.db
+
+# 本地辅助脚本生成的产物
+build_env.sh.tag
