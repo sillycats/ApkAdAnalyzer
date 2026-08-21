@@ -41,7 +41,7 @@ jobs:
           GRADLE_DIR=/opt/gradle-8.5
           if [ ! -d "$GRADLE_DIR" ]; then
             echo "Downloading Gradle via curl..."
-            curl -fsSL --fail-with-body -o "$GRADLE_ZIP" \
+            curl -fsSL -o "$GRADLE_ZIP" \
               "https://mirrors.cloud.tencent.com/gradle/gradle-8.5-bin.zip"
             ls -lh "$GRADLE_ZIP"
             mkdir -p /opt
