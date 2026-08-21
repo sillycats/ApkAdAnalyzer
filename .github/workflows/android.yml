@@ -37,21 +37,6 @@ jobs:
       - name: 授权 Gradle Wrapper
         run: chmod +x gradlew
 
-      - name: 诊断 Gradle 发行版源连通性
-        run: |
-          for url in \
-            "https://services.gradle.org/distributions/gradle-8.5-bin.zip" \
-            "https://downloads.gradle.org/distributions/gradle-8.5-bin.zip" \
-            "https://mirrors.cloud.tencent.com/gradle/gradle-8.5-bin.zip" \
-            "https://mirrors.aliyun.com/gradle/gradle-8.5-bin.zip" \
-            "https://repo.huaweicloud.com/gradle/gradle-8.5-bin.zip" \
-            "https://downloads.gradle-dn.com/distributions/gradle-8.5-bin.zip" \
-            "https://futeng.github.io/gradle/gradle-8.5-bin.zip" \
-            ; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 8 --max-time 15 "$url" 2>&1 || echo "FAIL")
-            echo "==> $code  $url"
-          done
-
       - name: 构建 Debug 与 Release APK
         run: ./gradlew :app:assembleDebug :app:assembleRelease
 
