@@ -15,3 +15,8 @@ Thumbs.db
 
 # 本地辅助脚本生成的产物
 build_env.sh.tag
+# 本地编译产物
+app/.cxx/
+.cxx/
+__pycache__/
+*.pyc

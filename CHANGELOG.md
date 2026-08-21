@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [1.6] - 2026-08-21
+
+### 新增（特征库扩充）
+- **内置全网所有应用广告厂商的广告特征**：在线广告厂商特征库 `online_ad_vendors.json` 由 19 家扩充至 **77 家**（国际 39 家 + 国内 38 家），新增亚马逊 APS / Yahoo Flurry / Verizon Media / Criteo / Taboola / Outbrain / Smaato / StartApp / Tapjoy / Fyber / Ogury / PubMatic / Magnite / OpenX / BidMachine / Moloco / Yandex / Appnext / Appodeal 等国际厂商，以及穿山甲 / 小米米盟 / OPPO 广告联盟 / vivo 广告联盟 / 阿里妈妈 TANX / 多盟 / 有米 / 力美 / 万普 / 艾德思奇 / 安沃 / 易传媒 / 猎豹 / 品友 / 悠易 / 传漾 / 亿玛 / 360 / 网易 / 凤凰 / 搜狗 / 魅族 / 汇量 / 点入 / 云盟 / 触宝 / 灵集 / 帷千 / 新数 / 盘古等国内厂商
+- **内置特征补全**：内置默认特征与在线厂商特征合并去重（已存在跳过），由 4400+ 条补全至 **5100+ 条**（SDK 包名 374 / 类名 851 / URL 397 / 字符串 498 / Flutter 1308 等）
+- 分析时内置与在线特征联合扫描，识别更精准
+
+### 配置
+- `online_ad_vendors.json` 扩充至 77 家厂商，作为在线广告厂商特征库数据源
+
+
 ### 计划中
 - 待补充：更多广告特征订阅源、批量分析、命令行模式
 
