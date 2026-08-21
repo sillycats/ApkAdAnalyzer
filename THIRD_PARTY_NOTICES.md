@@ -46,9 +46,40 @@
 
 ---
 
-## 二、参考来源（仅作特征与思路参考）
+## 二、构建工具链（编译期使用，不随 APK 分发）
 
-### 5. DTL-X
+### 5. Android Gradle Plugin (AGP)
+
+| 项目 | 说明 |
+|------|------|
+| 主页 | https://developer.android.com/build |
+| 作者 | Google / AOSP |
+| 用途 | Android 应用构建插件，管理依赖、资源与打包 |
+| 协议 | Apache License 2.0 |
+
+### 6. Gradle
+
+| 项目 | 说明 |
+|------|------|
+| 主页 | https://gradle.org/ |
+| 作者 | Gradle Inc. |
+| 用途 | 通用构建系统，由 gradle wrapper 自动管理 |
+| 协议 | Apache License 2.0 |
+
+### 7. AAPT2 / zipalign
+
+| 项目 | 说明 |
+|------|------|
+| 主页 | https://developer.android.com/tools/aapt2 |
+| 作者 | AOSP |
+| 用途 | Android 资源编译打包（AAPT2）与 APK 对齐（zipalign） |
+| 协议 | Apache License 2.0 |
+
+---
+
+## 三、参考来源（仅作特征与思路参考）
+
+### 8. DTL-X
 
 | 项目 | 说明 |
 |------|------|
@@ -59,7 +90,7 @@
 
 > 说明：本项目未修改或发布其二进制，仅参考其特征整理思路，结合主流广告 SDK 自行整理规则。如原作者认为存在侵权，请联系我们处理。
 
-### 6. AOSP (Android Asset Packaging / AXML)
+### 9. AOSP (Android Asset Packaging / AXML)
 
 | 项目 | 说明 |
 |------|------|
@@ -68,7 +99,7 @@
 | 用途 | 参考 AXML 二进制格式与 StringPool/ResourceMap 结构，自研解析器抽取组件类名、权限名 |
 | 协议 | Apache License 2.0 |
 
-### 7. Dart SDK（Flutter 快照分析参考）
+### 10. Dart SDK（Flutter 快照分析参考）
 
 | 项目 | 说明 |
 |------|------|
@@ -79,7 +110,7 @@
 
 ---
 
-## 三、许可证全文
+## 四、许可证全文
 
 ### Apache License 2.0
 
@@ -107,7 +138,7 @@
 
 ---
 
-## 四、致谢
+## 五、致谢
 
 衷心感谢以上所有开源项目及其作者，正是他们的卓越工作让本项目成为可能。本项目对上述项目的使用均遵循其原始许可条款，如对使用方式有任何疑问，欢迎通过 Issue 与我们联系。
 
