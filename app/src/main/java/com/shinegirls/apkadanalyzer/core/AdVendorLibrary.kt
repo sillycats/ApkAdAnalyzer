@@ -223,28 +223,41 @@ object AdVendorLibrary {
     // ==================== 本地缓存 ====================
 
     /**
-     * 读取缓存的厂商库 JSON 文本（位于配置目录下）。
-     * 返回 null 表示无缓存或读取失败。
+     * 读取缓存的厂商库 JSON 明文（位于配置目录下）。
+     *
+     * 缓存以混淆加密形式落盘（与内置特征一致），运行态经 [NativeCrypto]
+     * （libnative_crypto.so）解密为 JSON；解密失败或原生库不可用时，回退读取
+     * 旧版明文缓存（升级兼容）。返回 null 表示无缓存或读取失败。
      */
     fun readCached(context: Context): String? {
         return try {
             val file = getCacheFile(context)
             if (!file.exists()) return null
-            file.readText(Charsets.UTF_8)
+            // 优先解密读取（加密落盘格式）
+            NativeCrypto.readEncryptedFile(file)?.takeIf { it.isNotBlank() }
+                ?: file.readText(Charsets.UTF_8).takeIf { it.isNotBlank() }
         } catch (_: Exception) {
             null
         }
     }
 
     /**
-     * 将厂商库原始 JSON 文本写入缓存（位于配置目录下）。
+     * 将厂商库原始 JSON 明文以混淆加密形式写入缓存（位于配置目录下）。
+     *
+     * 使用与内置特征完全一致的 [NativeCrypto] 加密，避免在线广告厂商特征以
+     * 明文暴露在外部存储中；解密密钥与算法分布在 libnative_crypto.so 内。
      */
     fun writeCache(context: Context, jsonStr: String): Boolean {
         return try {
             val file = getCacheFile(context)
-            file.parentFile?.mkdirs()
-            file.writeText(jsonStr, Charsets.UTF_8)
-            true
+            if (NativeCrypto.isAvailable()) {
+                NativeCrypto.writeEncryptedFile(file, jsonStr)
+            } else {
+                // 原生库不可用时降级：明文写入（保证功能可用，但存在明文暴露，仅在异常环境）
+                file.parentFile?.mkdirs()
+                file.writeText(jsonStr, Charsets.UTF_8)
+                true
+            }
         } catch (_: Exception) {
             false
         }

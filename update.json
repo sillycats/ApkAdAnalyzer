@@ -1,10 +1,10 @@
 {
-  "versionCode": 5,
-  "versionName": "1.4",
+  "versionCode": 6,
+  "versionName": "1.5",
   "force": false,
-  "description": "APK广告特征分析工具 v1.4 正式版：\n- 内置广告特征与在线广告厂商特征在分析 APK 时同时调用、联合扫描，识别更精准\n- 分析时优先读取本地缓存在线厂商库，无缓存自动联网获取一次并缓存\n- 一键同步在线广告厂商特征（国内外 19 家主流广告厂商）\n- 内置 ad_patterns.json 已补齐 1300+ 条广告特征\n- 基于 Aho-Corasick 高速多模式扫描",
+  "description": "APK广告特征分析工具 v1.5 正式版：\n- 内置广告特征与在线广告厂商广告特征均做混淆加密处理，运行时经 libnative_crypto.so 原生库解密调用，密钥与解密流程分布在 so 中，避免被轻易解密\n- 内置广告特征已补全至 4400+ 条（与在线厂商特征合并去重、已存在跳过）\n- 在线广告厂商特征缓存加密落盘，离线自动解密使用\n- 内置与在线特征在分析 APK 时同时调用、联合扫描，识别更精准",
   "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/latest",
-  "size": 4905276,
+  "size": 5350699,
   "announcement": {
     "enabled": false,
     "id": "apkadanalyzer_v1",

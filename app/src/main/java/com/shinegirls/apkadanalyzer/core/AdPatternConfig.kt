@@ -436,44 +436,48 @@ object AdPatternConfig {
     // ========== 默认配置 ==========
 
     /**
-     * 从 assets 内置 JSON 文件读取默认广告特征配置。
-     * 文件路径: assets/ad_patterns_default.json
-     * SDK包名以点号格式存储（com.google.android.gms.ads），
-     * 在 DEX 匹配时会自动转换为斜杠格式（com/google/android/gms/ads）。
+     * 读取内置默认广告特征配置。
+     *
+     * 内置特征以混淆加密形式存储在 assets/ad_patterns_default.enc，运行态经
+     * [NativeCrypto]（libnative_crypto.so）解密为明文 JSON 后再解析，避免特征以
+     * 明文暴露在 APK 资源中。密钥在 so 内拆分种子动态派生，不在静态字节中出现。
      */
     fun getDefaultConfig(context: Context): AdPatterns {
         return try {
-            context.assets.open("ad_patterns_default.json").use { inputStream ->
-                val jsonStr = inputStream.bufferedReader().readText()
-                val json = JSONObject(jsonStr)
-                AdPatterns(
-                    sdkPackages = jsonToStringList(json, KEY_SDK_PACKAGES),
-                    classKeywords = jsonToStringList(json, KEY_CLASS_KEYWORDS),
-                    methodPatterns = jsonToStringList(json, KEY_METHOD_PATTERNS),
-                    urlPatterns = jsonToStringList(json, KEY_URL_PATTERNS),
-                    adViewNames = jsonToStringList(json, KEY_AD_VIEW_NAMES),
-                    adActivities = jsonToStringList(json, KEY_AD_ACTIVITIES),
-                    adServices = jsonToStringList(json, KEY_AD_SERVICES),
-                    adReceivers = jsonToStringList(json, KEY_AD_RECEIVERS),
-                    forceTrueMethodNames = jsonToStringList(json, KEY_FORCE_TRUE_METHODS),
-                    forceFalseMethodNames = jsonToStringList(json, KEY_FORCE_FALSE_METHODS),
-                    adAssetPaths = jsonToStringList(json, KEY_AD_ASSET_PATHS),
-                    libFileKeywords = jsonToStringList(json, KEY_LIB_FILE_KEYWORDS),
-                    assetKeywords = jsonToStringList(json, KEY_ASSET_KEYWORDS),
-                    methodNeutralizeKeywords = jsonToStringList(json, KEY_METHOD_NEUTRALIZE_KEYWORDS),
-                    adPermissions = jsonToStringList(json, KEY_AD_PERMISSIONS),
-                    rootFileKeywords = jsonToStringList(json, KEY_ROOT_FILE_KEYWORDS),
-                    resLayoutKeywords = jsonToStringList(json, KEY_RES_LAYOUT_KEYWORDS),
-                    stringPatterns = jsonToStringList(json, KEY_STRING_PATTERNS),
-                    flutterPatterns = jsonToStringList(json, KEY_FLUTTER_PATTERNS)
-                )
-            }
+            val encBytes = context.assets.open("ad_patterns_default.enc").use { it.readBytes() }
+            val jsonStr = NativeCrypto.decryptToString(encBytes)
+            val json = JSONObject(jsonStr)
+            normalizeFromJson(json)
         } catch (e: Exception) {
-            // assets 文件缺失或损坏时的最小化兜底
+            // 原生解密库不可用 / 资产缺失损坏时，最小化兜底
             AdPatterns(
                 sdkPackages = mutableListOf("com.google.android.gms.ads"),
                 classKeywords = mutableListOf("AdView", "AdActivity")
             )
         }
     }
+
+    /** 统一从 JSONObject 构建配置（供默认配置 / 外部配置 / 订阅解析复用）。 */
+    private fun normalizeFromJson(json: JSONObject): AdPatterns =
+        AdPatterns(
+            sdkPackages = jsonToStringList(json, KEY_SDK_PACKAGES),
+            classKeywords = jsonToStringList(json, KEY_CLASS_KEYWORDS),
+            methodPatterns = jsonToStringList(json, KEY_METHOD_PATTERNS),
+            urlPatterns = jsonToStringList(json, KEY_URL_PATTERNS),
+            adViewNames = jsonToStringList(json, KEY_AD_VIEW_NAMES),
+            adActivities = jsonToStringList(json, KEY_AD_ACTIVITIES),
+            adServices = jsonToStringList(json, KEY_AD_SERVICES),
+            adReceivers = jsonToStringList(json, KEY_AD_RECEIVERS),
+            forceTrueMethodNames = jsonToStringList(json, KEY_FORCE_TRUE_METHODS),
+            forceFalseMethodNames = jsonToStringList(json, KEY_FORCE_FALSE_METHODS),
+            adAssetPaths = jsonToStringList(json, KEY_AD_ASSET_PATHS),
+            libFileKeywords = jsonToStringList(json, KEY_LIB_FILE_KEYWORDS),
+            assetKeywords = jsonToStringList(json, KEY_ASSET_KEYWORDS),
+            methodNeutralizeKeywords = jsonToStringList(json, KEY_METHOD_NEUTRALIZE_KEYWORDS),
+            adPermissions = jsonToStringList(json, KEY_AD_PERMISSIONS),
+            rootFileKeywords = jsonToStringList(json, KEY_ROOT_FILE_KEYWORDS),
+            resLayoutKeywords = jsonToStringList(json, KEY_RES_LAYOUT_KEYWORDS),
+            stringPatterns = jsonToStringList(json, KEY_STRING_PATTERNS),
+            flutterPatterns = jsonToStringList(json, KEY_FLUTTER_PATTERNS)
+        )
 }
