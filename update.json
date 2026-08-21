@@ -1,8 +1,8 @@
 {
-  "versionCode": 7,
-  "versionName": "1.6",
+  "versionCode": 8,
+  "versionName": "1.7",
   "force": false,
-  "description": "APK广告特征分析工具 v1.6 正式版：\n- 内置全网所有应用广告厂商的广告特征：在线广告厂商特征库扩充至 77 家（国际 39 家 + 国内 38 家），覆盖 AdMob / Meta / AppLovin / Unity / 穿山甲 / 优量汇 / 百度 / 快手 / 小米米盟 / OPPO / vivo / 阿里妈妈 / 亚马逊 APS / Criteo / Taboola / Yandex 等国内外主流广告网络\n- 内置广告特征已补全至 5100+ 条（与在线厂商特征合并去重、已存在跳过）\n- 内置与在线特征在分析 APK 时同时调用、联合扫描，识别更精准\n- 内置特征与在线特征均做混淆加密处理，运行时经 libnative_crypto.so 原生库解密调用",
+  "description": "APK广告特征分析工具 v1.7 正式版：\n- 本地 ad_patterns.json 配置文件改为混淆加密落盘，运行时经 libnative_crypto.so 原生库解密读取（兼容旧版明文自动升级）\n- 在线广告厂商特征库改为加密文件 online_ad_vendors.enc 拉取并解密解析，广告特征不再以明文形式存在于公开仓库\n- 源码去明码：移除仓库内 patterns/ad_patterns_default.json 与 online_ad_vendors.json 明文广告特征文件，仅保留加密产物\n- 内置广告特征覆盖全网 77 家广告厂商（国际 39 家 + 国内 38 家），内置特征 5100+ 条",
   "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/latest",
   "size": 5363739,
   "announcement": {

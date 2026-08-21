@@ -178,7 +178,8 @@ object AdPatternConfig {
         }
 
         return try {
-            val jsonStr = configFile.readText(Charsets.UTF_8)
+            val jsonStr = readConfigText(configFile)
+                ?: throw IllegalStateException("配置文件不可读")
             val json = JSONObject(jsonStr)
             // 默认配置：用于对旧版配置文件中缺失的字段自动回填，保证新增分类能生效
             val defaults = getDefaultConfig(context)
@@ -267,7 +268,7 @@ object AdPatternConfig {
             json.put(KEY_STRING_PATTERNS, listToJsonArray(config.stringPatterns))
             json.put(KEY_FLUTTER_PATTERNS, listToJsonArray(config.flutterPatterns))
 
-            getConfigFile(context).writeText(json.toString(2), Charsets.UTF_8)
+            writeConfigText(getConfigFile(context), json.toString(2))
             true
         } catch (_: Exception) {
             false
@@ -397,6 +398,47 @@ object AdPatternConfig {
             stringPatterns = configs.flatMap { it.stringPatterns }.distinct().toMutableList(),
             flutterPatterns = configs.flatMap { it.flutterPatterns }.distinct().toMutableList()
         )
+    }
+
+    // ========== 加密读写 ==========
+
+    /**
+     * 读取配置文件内容（兼容旧版明文与新版加密格式）。
+     *
+     * 新版以 [NativeCrypto]（libnative_crypto.so）混淆加密落盘；旧版为明文 JSON。
+     * 通过首字节判断：明文 JSON 以 '{' 开头，其余按加密格式解密。
+     */
+    private fun readConfigText(file: File): String? {
+        if (!file.exists()) return null
+        val bytes = file.readBytes()
+        if (bytes.isEmpty()) return null
+        // 明文 JSON（旧版兼容）
+        if (bytes[0] == '{'.code.toByte()) {
+            return String(bytes, Charsets.UTF_8)
+        }
+        // 加密格式：原生解密
+        return try {
+            NativeCrypto.decryptToString(bytes)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    /**
+     * 写入配置文件（优先混淆加密落盘；原生库不可用时降级明文，保证功能可用）。
+     */
+    private fun writeConfigText(file: File, text: String): Boolean {
+        return try {
+            file.parentFile?.mkdirs()
+            if (NativeCrypto.isAvailable()) {
+                file.writeBytes(NativeCrypto.encryptBytes(text))
+            } else {
+                file.writeText(text, Charsets.UTF_8)
+            }
+            true
+        } catch (_: Exception) {
+            false
+        }
     }
 
     // ========== JSON 辅助方法 ==========

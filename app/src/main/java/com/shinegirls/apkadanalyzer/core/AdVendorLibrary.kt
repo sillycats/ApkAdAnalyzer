@@ -4,8 +4,6 @@ import android.content.Context
 import com.shinegirls.apkadanalyzer.utils.PathPreferences
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -13,8 +11,9 @@ import java.net.URL
  * 在线广告厂商广告特征库（网络获取）。
  *
  * 从远程地址拉取"按广告厂商组织"的广告特征（SDK 包名 / 类名 / 方法 / URL / 原生库 /
- * assets 等），覆盖国内外主流广告厂商。拉取成功后解析为 [Vendor] 列表并缓存到本地，
- * 供 APK 分析时与内置特征合并使用：
+ * assets 等），覆盖国内外主流广告厂商。远程库以混淆加密形式（online_ad_vendors.enc）
+ * 存储，运行态经 [NativeCrypto]（libnative_crypto.so）解密后解析为 [Vendor] 列表并
+ * 加密缓存到本地，供 APK 分析时与内置特征合并使用：
  * - 覆盖范围：国内厂商（广点通 / 百度 / 快手 / 穿山甲 / 华为 / Sigmob / TopOn 等）+ 国际厂商
  *   （AdMob / Meta / AppLovin / Unity / ironSource / Mintegral / Pangle / Vungle 等）。
  * - 合并策略：将每个厂商的 features 累加为一份 [AdPatternConfig.AdPatterns]（去重），
@@ -38,16 +37,16 @@ import java.net.URL
  */
 object AdVendorLibrary {
 
-    /** 在线厂商库主地址：使用 GitHub 仓库内的 online_ad_vendors.json。 */
+    /** 在线厂商库主地址：使用 GitHub 仓库内的 online_ad_vendors.enc（混淆加密）。 */
     const val DEFAULT_VENDOR_URL =
-        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.json"
+        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.enc"
 
     /** 备用在线厂商库地址：与主地址一致时自动去重。 */
     const val FALLBACK_VENDOR_URL =
-        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.json"
+        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.enc"
 
     /** 缓存文件名（存放于除外存储的配置目录下，跟随用户自定义路径）。 */
-    private const val CACHE_FILE_NAME = "online_ad_vendors.json"
+    private const val CACHE_FILE_NAME = "online_ad_vendors.enc"
 
     /** 网络超时（毫秒）。 */
     private const val CONNECT_TIMEOUT_MS = 8_000
@@ -117,17 +116,32 @@ object AdVendorLibrary {
             try {
                 val code = conn.responseCode
                 if (code !in 200..299) return null
-                val sb = StringBuilder()
-                BufferedReader(InputStreamReader(conn.inputStream, Charsets.UTF_8)).use { reader ->
-                    var line: String?
-                    while (reader.readLine().also { line = it } != null) {
-                        sb.append(line).append('\n')
-                    }
-                }
-                parseVendorLibrary(sb.toString().trim(), url)
+                val bytes = conn.inputStream.use { it.readBytes() }
+                val jsonStr = decryptVendorBytes(bytes) ?: return null
+                parseVendorLibrary(jsonStr, url)
             } finally {
                 conn.disconnect()
             }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    /**
+     * 解密在线厂商库原始字节（兼容旧版明文与新版加密格式）。
+     *
+     * 远程库以 [NativeCrypto]（libnative_crypto.so）混淆加密存储，避免广告厂商特征
+     * 以明文暴露在公开仓库；通过首字节判断：明文 JSON 以 '{' 开头，其余按加密格式解密。
+     */
+    private fun decryptVendorBytes(bytes: ByteArray): String? {
+        if (bytes.isEmpty()) return null
+        // 明文 JSON（旧版兼容）
+        if (bytes[0] == '{'.code.toByte()) {
+            return String(bytes, Charsets.UTF_8)
+        }
+        // 加密格式：原生解密
+        return try {
+            NativeCrypto.decryptToString(bytes)
         } catch (_: Exception) {
             null
         }
@@ -233,9 +247,7 @@ object AdVendorLibrary {
         return try {
             val file = getCacheFile(context)
             if (!file.exists()) return null
-            // 优先解密读取（加密落盘格式）
-            NativeCrypto.readEncryptedFile(file)?.takeIf { it.isNotBlank() }
-                ?: file.readText(Charsets.UTF_8).takeIf { it.isNotBlank() }
+            decryptVendorBytes(file.readBytes())?.takeIf { it.isNotBlank() }
         } catch (_: Exception) {
             null
         }

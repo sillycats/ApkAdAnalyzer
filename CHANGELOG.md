@@ -2,6 +2,13 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 规范。
 
+## v1.7 (2026-08-21)
+
+- **本地配置加密落盘**：`ad_patterns.json` 改为混淆加密文件存储，运行时经 `libnative_crypto.so` 原生库解密读取；兼容旧版明文配置自动升级，原生库不可用时降级明文保证功能可用。
+- **在线厂商库加密拉取**：在线广告厂商特征库改为加密文件 `online_ad_vendors.enc` 拉取并解密解析，本地缓存同样加密落盘。
+- **源码去明码**：移除仓库内 `patterns/ad_patterns_default.json` 与 `online_ad_vendors.json` 明文广告特征文件，仅保留加密产物（`app/src/main/assets/ad_patterns_default.enc` 与 `online_ad_vendors.enc`），广告特征内容不再以明文开源。
+- 内置广告特征覆盖全网 **77 家**广告厂商（国际 39 家 + 国内 38 家），内置特征 **5100+** 条。
+
 ## [Unreleased]
 
 ## [1.6] - 2026-08-21
