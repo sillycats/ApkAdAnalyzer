@@ -4,6 +4,7 @@
 
 ## v1.8 (2026-08-21)
 
+- **修复（重要）：授权与在线厂商特征无法获取**：此版本此前预置的 `libnative_crypto.so` 采用动态链接 STL，依赖未随包发布的 `libc++_shared.so`，在设备上加载失败导致原生库不可用，远程授权校验与在线厂商特征解密全部失效。现将原生库改为**静态链接 libc++ 重新编译**（仅依赖系统 libc/libm/libdl），自包含可正常加载，授权与在线特征恢复正常。
 - **新增远程授权（吊销）功能**：授权配置文件 `auth_config.json` 位于仓库根目录，公开可访问。应用启动时拉取并经原生层 `HMAC-SHA256` 签名校验后应用；作者可通过改 `authorized=false` 远程吊销授权，此后原生加密/解密一律失败，实现"远程停止授权、防止非法分发"。网络不可达/签名无效时保持未吊销，正版离线可用。
 - **native_crypto.cpp 改为不公开**：核心原生加解密与授权逻辑不再随仓库开源，编译为 `libnative_crypto.so`（arm64-v8a + armeabi-v7a）预置在 `jniLibs` 发布。
 - 广告特征库维持全加密产物（`ad_patterns_default.enc` / `online_ad_vendors.enc`），绝不明文开源。
