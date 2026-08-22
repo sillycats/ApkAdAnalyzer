@@ -2,7 +2,7 @@
   "versionCode": 10,
   "versionName": "1.8",
   "force": true,
-  "description": "APK广告特征分析工具 v1.8 正式版（网络修复版）：\n- 优化网络源：在线广告厂商特征库与远程授权配置改为 jsDelivr CDN 主源 + GitHub raw 备用，国内网络下也可正常拉取网络广告厂商特征\n- 新增远程授权（吊销）功能：作者可通过仓库根目录 auth_config.json 远程控制授权，随时停止非法分发；原生层 HMAC-SHA256 签名校验防伪造\n- native_crypto.cpp 不公开，编译为 libnative_crypto.so 预置发布\n- 广告特征库维持加密产物，绝不明文开源",
+  "description": "APK广告特征分析工具 v1.8（原生库修复版）：\n- 修复原生库加载失败导致授权/在线特征无法使用：libnative_crypto.so 改为静态链接 libc++ 重新编译，仅依赖系统 libc/libm/libdl，随包自包含可正常加载\n- 在线广告厂商特征库与远程授权配置走 jsDelivr CDN 主源 + GitHub raw 备用，国内网络也可拉取（77 家厂商）\n- 远程授权（吊销）功能：作者可经 auth_config.json 远程控制授权，原生层 HMAC-SHA256 签名校验防伪造\n- 广告特征库维持加密产物，绝不明文开源",
   "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/latest",
   "size": 0,
   "announcement": {
