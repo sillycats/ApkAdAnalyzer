@@ -14,9 +14,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.DownloadListener
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.shinegirls.apkadanalyzer.BaseActivity
 import com.shinegirls.apkadanalyzer.R
 import com.shinegirls.apkadanalyzer.core.UpdateChecker
 import com.shinegirls.apkadanalyzer.utils.UiUtils
@@ -30,7 +30,7 @@ import com.shinegirls.apkadanalyzer.utils.UiUtils
  * - 通过系统下载监听（DownloadListener）捕获到 APK 下载时，同样转交应用内下载，
  *   保证用户始终通过内置更新弹窗的进度下载流程完成新版安装。
  */
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_URL = "extra_url"
@@ -92,7 +92,7 @@ class WebViewActivity : AppCompatActivity() {
                 if (looksLikeApk(reqUrl)) {
                     if (!downloadHandled) {
                         downloadHandled = true
-                        UiUtils.info(this@WebViewActivity, "检测到下载地址，正在使用应用内下载…")
+                        UiUtils.info(this@WebViewActivity, getString(R.string.webview_detect_download))
                         UpdateChecker.downloadApkFromUrl(this@WebViewActivity, reqUrl)
                         // 已转交应用内下载，拦截原始请求
                     }
@@ -112,7 +112,7 @@ class WebViewActivity : AppCompatActivity() {
                 if (looksLikeApk(reqUrl)) {
                     if (!downloadHandled) {
                         downloadHandled = true
-                        UiUtils.info(this@WebViewActivity, "检测到下载地址，正在使用应用内下载…")
+                        UiUtils.info(this@WebViewActivity, getString(R.string.webview_detect_download))
                         UpdateChecker.downloadApkFromUrl(this@WebViewActivity, reqUrl)
                     }
                     return true
@@ -161,12 +161,12 @@ class WebViewActivity : AppCompatActivity() {
                     try {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                     } catch (_: Exception) {
-                        UiUtils.warning(this@WebViewActivity, "无法打开外部链接")
+                        UiUtils.warning(this@WebViewActivity, getString(R.string.webview_cannot_open_link))
                     }
                     return
                 }
                 downloadHandled = true
-                UiUtils.info(this@WebViewActivity, "检测到下载地址，正在使用应用内下载…")
+                UiUtils.info(this@WebViewActivity, getString(R.string.webview_detect_download))
                 UpdateChecker.downloadApkFromUrl(this@WebViewActivity, url, fileSize = contentLength)
             }
         })

@@ -1,0 +1,200 @@
+<resources>
+    <!-- Cơ bản về ứng dụng -->
+    <string name="app_name">Trình phân tích đặc điểm quảng cáo APK</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">Biểu tượng tệp</string>
+    <string name="common_unknown">Không xác định</string>
+    <string name="err_cannot_read_file">Không thể đọc tệp đã chọn</string>
+    <string name="err_server_response">Phản hồi máy chủ bất thường (HTTP %1$d)</string>
+    <string name="err_config_unreadable">Không thể đọc tệp cấu hình</string>
+
+    <!-- Menu -->
+    <string name="menu_language">Đổi ngôn ngữ</string>
+    <string name="menu_about">Giới thiệu</string>
+
+    <!-- Chuyển ngôn ngữ -->
+    <string name="locale_system_default">Theo hệ thống</string>
+    <string name="dlg_choose_language">Chọn ngôn ngữ</string>
+    <string name="dlg_cancel">Hủy</string>
+
+    <!-- Màn hình chính AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Vui lòng chọn APK và hoàn tất phân tích trước</string>
+    <string name="clip_ad_config">Cấu hình đặc điểm quảng cáo</string>
+    <string name="toast_config_copied">Đã sao chép cấu hình vào bộ nhớ tạm</string>
+    <string name="toast_auth_revoked">Ủy quyền ứng dụng đã bị thu hồi từ xa, các tính năng đã bị vô hiệu hóa</string>
+    <string name="toast_grant_all_files">Vui lòng cấp quyền «Truy cập tất cả tệp» trước</string>
+    <string name="chooser_pick_apk">Chọn tệp APK</string>
+    <string name="log_start_analyze">▶ Bắt đầu phân tích: %1$s</string>
+    <string name="log_read_apk">  · Đang đọc tệp APK...</string>
+    <string name="log_load_config">  · Đang tải cấu hình: %1$d đặc điểm, %2$d danh mục (gồm Flutter)</string>
+    <string name="log_merged_online">  · Đã hợp nhất thư viện nhà cung cấp tích hợp, tổng cộng %1$d đặc trưng</string>
+    <string name="log_no_online">  · Không tìm thấy thư viện nhà cung cấp tích hợp, chỉ dùng đặc trưng cơ bản</string>
+    <string name="log_analyze_failed">  ✗ Phân tích thất bại: %1$s</string>
+    <string name="toast_analyze_failed">Phân tích thất bại: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d nhà cung cấp, %2$d đặc điểm</string>
+    <string name="report_header">════════ Tóm tắt phân tích ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Gói   : %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Tệp   : %1$d</string>
+    <string name="report_flutter">Flutter : %1$d libapp.so</string>
+    <string name="report_hits">Trùng khớp : %1$d đặc điểm</string>
+    <string name="report_no_hit">Không có đặc điểm quảng cáo nào được cấu hình trùng khớp.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · bỏ qua %1$d mục khác</string>
+    <string name="report_tip">⚠ Lưu ý: kết quả chỉ để tham khảo, vui lòng kiểm tra thủ công trước khi nhập.</string>
+    <string name="report_export_hint">Dùng «Sao chép cấu hình» hoặc «Lưu cấu hình» bên dưới để xuất cấu hình đầy đủ.</string>
+    <string name="hint_initial">Chọn APK có quảng cáo để bắt đầu phân tích.\nSau khi phân tích, bạn có thể sao chép hoặc lưu tệp cấu hình.</string>
+    <string name="progress_analyzing">Đang phân tích %1$s   Đã xử lý %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">đặc_điểm_quảng_cáo</string>
+    <string name="save_file_pattern">%1$s_đặc_điểm_quảng_cáo_%2$s.json</string>
+    <string name="toast_saved">Đã lưu cấu hình: %1$s</string>
+    <string name="log_saved">  ✓ Đã lưu cấu hình: %1$s</string>
+    <string name="toast_save_failed">Lưu thất bại: %1$s</string>
+    <string name="log_save_failed">  ✗ Lưu thất bại: %1$s</string>
+
+    <!-- Tên danh mục AdPatternConfig -->
+    <string name="cat_sdk_packages">Tên gói SDK quảng cáo</string>
+    <string name="cat_class_keywords">Từ khóa tên lớp quảng cáo</string>
+    <string name="cat_method_patterns">Tên phương thức quảng cáo</string>
+    <string name="cat_url_patterns">URL/tên miền quảng cáo</string>
+    <string name="cat_ad_view_names">Tên lớp View quảng cáo</string>
+    <string name="cat_ad_activities">Activity quảng cáo</string>
+    <string name="cat_ad_services">Service quảng cáo</string>
+    <string name="cat_ad_receivers">Receiver quảng cáo</string>
+    <string name="cat_force_true_methods">Phương thức bị ép trả về true</string>
+    <string name="cat_force_false_methods">Phương thức bị ép trả về false</string>
+    <string name="cat_ad_asset_paths">Đường dẫn tệp assets quảng cáo</string>
+    <string name="cat_lib_file_keywords">Từ khóa thư viện gốc SDK quảng cáo</string>
+    <string name="cat_asset_keywords">Từ khóa assets quảng cáo</string>
+    <string name="cat_method_neutralize_keywords">Từ khóa vô hiệu hóa phương thức quảng cáo</string>
+    <string name="cat_ad_permissions">Đặc điểm quyền quảng cáo</string>
+    <string name="cat_root_file_keywords">Từ khóa tệp thư mục gốc APK</string>
+    <string name="cat_res_layout_keywords">Từ khóa View quảng cáo trong bố cục res</string>
+    <string name="cat_string_patterns">Đặc điểm chuỗi DEX quảng cáo</string>
+    <string name="cat_flutter_patterns">Đặc điểm chuỗi Flutter</string>
+
+    <!-- Trang giới thiệu AboutActivity -->
+    <string name="about_version">Phiên bản %1$s</string>
+    <string name="about_version_default">Phiên bản</string>
+    <string name="about_subtitle">Giới thiệu · Trình phân tích đặc điểm quảng cáo APK</string>
+    <string name="about_app_icon_desc">Biểu tượng ứng dụng</string>
+    <string name="about_check_update">Kiểm tra cập nhật</string>
+    <string name="about_direct_download">Tải xuống ngay</string>
+    <string name="about_description">Phân tích đặc điểm quảng cáo APK chỉ một chạm · xuất cấu hình
+Xử lý ngoại tuyến cục bộ, nhận diện SDK quảng cáo nhanh chóng</string>
+    <string name="about_section_features">Tính năng</string>
+    <string name="about_section_author">Thông tin tác giả</string>
+    <string name="about_author">Tác giả</string>
+    <string name="about_qq">Liên hệ QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Email liên hệ</string>
+    <string name="about_email_desc">Email</string>
+    <string name="about_section_opensource">Dự án mã nguồn mở</string>
+    <string name="about_section_reference">Tài liệu tham khảo và nguồn</string>
+    <string name="about_section_privacy">Chính sách quyền riêng tư</string>
+    <string name="about_section_disclaimer">Tuyên bố miễn trừ</string>
+
+    <string name="clip_author_qq">QQ tác giả</string>
+    <string name="toast_qq_copied">Đã sao chép QQ vào bộ nhớ tạm</string>
+    <string name="email_subject">Phản hồi Trình phân tích đặc điểm quảng cáo APK</string>
+    <string name="chooser_send_email">Gửi email</string>
+    <string name="toast_no_mail_app">Không tìm thấy ứng dụng email</string>
+    <string name="feat_01">Phân tích đặc điểm quảng cáo APK một chạm, hoàn toàn cục bộ và ngoại tuyến, không tải lên bất kỳ tệp nào</string>
+    <string name="feat_02">Chọn APK có quảng cáo để nhanh chóng xác định SDK và đặc điểm quảng cáo</string>
+    <string name="feat_03">Bao phủ mã byte DEX, AndroidManifest, res/layout, assets, tệp gốc và nhiều hơn nữa</string>
+    <string name="feat_04">Tự động phát hiện ứng dụng Flutter và quét libapp.so để tìm đặc điểm chuỗi quảng cáo</string>
+    <string name="feat_05">19 danh mục đặc điểm quảng cáo: tên gói SDK / quyền / lớp / phương thức / tài nguyên / URL</string>
+    <string name="feat_06">Nhật ký phân tích màu theo thời gian thực, có thanh tiến trình và tệp đang xử lý</string>
+    <string name="feat_07">Kết quả tự động tổng hợp, đặc điểm quảng cáo trùng khớp hiển thị rõ ràng theo danh mục</string>
+    <string name="feat_08">Tạo và xuất tệp cấu hình ad_patterns.json một chạm</string>
+    <string name="feat_09">Cấu hình tạo ra hoàn toàn khớp định dạng tích hợp, có thể sao chép hoặc lưu cục bộ</string>
+    <string name="feat_10">Chủ đề sáng và tối, ba chế độ: theo hệ thống, sáng và tối</string>
+    <string name="feat_11">18 ngôn ngữ chuyển đổi tự do, theo hệ thống hoặc chọn thủ công</string>
+    <string name="about_opensource_text">Ứng dụng này được xây dựng dựa trên và gọi các dự án mã nguồn mở sau. Chúng tôi chân thành cảm ơn và tôn trọng tất cả các tác giả:\n\n1. DTL-X (Gameye98)\n   Nguồn tham khảo cho quy tắc tên gói / lớp / tên miền / quyền của SDK quảng cáo\n   - Trang chủ: https://github.com/Gameye98/DTL-X\n   - Chỉ để tham khảo và học tập\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Thư viện hỗ trợ Android Jetpack chính thức\n   - Trang chủ: https://developer.android.com/jetpack\n   - Giấy phép: Apache License 2.0\n\n3. Material Components (Google)\n   Thư viện thành phần Material Design cung cấp thẻ, nút, hộp thoại và các thành phần UI khác\n   - Trang chủ: https://github.com/material-components/material-components-android\n   - Giấy phép: Apache License 2.0\n\n4. Thư viện chuẩn Kotlin (JetBrains)\n   Ngôn ngữ lập trình Kotlin và thư viện chuẩn\n   - Trang chủ: https://kotlinlang.org/\n   - Giấy phép: Apache License 2.0\n\nĐể xem văn bản đầy đủ về bản quyền và giấy phép của các dự án trên, vui lòng truy cập trang chủ tương ứng.</string>
+    <string name="about_reference_text">Việc triển khai phân tích của ứng dụng này tham khảo các tài liệu kỹ thuật công khai và nguồn cộng đồng sau. Chúng tôi cảm ơn và nêu rõ nguồn:\n\n1. Cấu trúc đóng gói APK Android (ZIP / AXML / DEX)\n   Tham khảo AOSP và tài liệu chính thức của Android về cấu trúc ZIP, XML nhị phân Android và mã byte DEX\n   - Nguồn: https://developer.android.com/guide/components\n   - Dùng để giải nén và đọc classes*.dex, AndroidManifest, res/layout, assets và các mục khác\n\n2. Phân tích ảnh chụp Dart AOT (Flutter libapp.so)\n   Tham khảo mã nguồn snapshot.h của Dart VM và tài liệu kỹ thuật đảo ngược Flutter của cộng đồng\n   - Nguồn snapshot.h: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Dùng để định vị ảnh chụp Dart trong libapp.so và quét đặc điểm chuỗi quảng cáo\n\n3. Tổng hợp quy tắc đặc điểm quảng cáo\n   Tên gói / tên miền / lớp / quyền của SDK quảng cáo tham khảo quy tắc của dự án mã nguồn mở DTL-X, được mở rộng và sắp xếp\n   - Trang chủ: https://github.com/Gameye98/DTL-X\n   - Tham khảo cách tiếp cận adloader / danh sách đen tên miền / từ khóa phương thức, kết hợp với các SDK quảng cáo phổ biến\n\n4. Thuật toán khớp đa mẫu Aho-Corasick\n   Dùng để khớp hàng nghìn đặc điểm quảng cáo trong một lần quét luồng byte tệp, tăng tốc phân tích đáng kể\n   - Nguồn: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. Chủ đề và bố cục giao diện\n   Viết theo đặc tả Material Design và ví dụ thư viện Material Components\n   - Đặc tả: https://m3.material.io/\n   - Thành phần: https://github.com/material-components/material-components-android\n\nNội dung trên chỉ để tham khảo học tập kỹ thuật; việc triển khai cuối cùng hoàn toàn do dự án này phát triển. Bản quyền thuộc về tác giả gốc và tổ chức của họ.</string>
+    <string name="about_privacy_text">Ứng dụng này tuân thủ nguyên tắc thu thập dữ liệu tối thiểu và rất coi trọng việc bảo vệ quyền riêng tư của bạn:\n\n1. Xử lý cục bộ ngoại tuyến: mọi phân tích đặc điểm quảng cáo APK đều được thực hiện cục bộ trên thiết bị của bạn. Ứng dụng không bao giờ tải lên tệp APK hoặc dữ liệu nội bộ lên máy chủ nào.\n\n2. Hành vi mạng minh bạch: ứng dụng chỉ kết nối mạng khi bạn chủ động chạm «Kiểm tra cập nhật» để yêu cầu thông tin phiên bản. Ứng dụng không bao giờ kết nối nền, không thu thập hoặc tải lên bất kỳ thông tin cá nhân nào.\n\n3. Quyền tối thiểu: ứng dụng không đọc, không lưu trữ và không truy cập danh bạ, thư viện ảnh, vị trí, tin nhắn, lịch sử cuộc gọi hoặc thông tin nhạy cảm khác của bạn.\n\n4. Lưu trữ dữ liệu cục bộ: cấu hình và kết quả phân tích của ứng dụng chỉ được lưu trên thiết bị của bạn và bị xóa khi gỡ cài đặt, không lưu bất kỳ bản ghi đám mây nào.\n\n5. Liên kết bên thứ ba: trang Giới thiệu và Cập nhật có thể chứa liên kết ngoài. Khi chạm, nền tảng bên thứ ba sẽ xử lý hành vi truy cập của bạn. Khuyến nghị xem chính sách quyền riêng tư của bên thứ ba liên quan.\n\n6. Nếu bạn có bất kỳ câu hỏi, đề xuất hoặc lo ngại nào về quyền riêng tư trong quá trình sử dụng, vui lòng liên hệ với chúng tôi qua thông tin liên hệ của tác giả. Chúng tôi sẽ cố gắng hết sức để giải đáp.</string>
+    <string name="about_disclaimer_text">Vui lòng đọc kỹ tuyên bố miễn trừ trách nhiệm sau trước khi sử dụng ứng dụng này:\n\n1. Hạn chế sử dụng hợp pháp: ứng dụng này chỉ dành cho mục đích học tập, nghiên cứu và sử dụng cá nhân hợp pháp. Vui lòng chỉ phân tích các ứng dụng bạn sở hữu bản quyền, được ủy quyền hoặc có quyền phân tích.\n\n2. Kết quả chỉ để tham khảo: đặc điểm quảng cáo được phân tích chỉ dành cho nghiên cứu kỹ thuật và tham khảo, không cấu thành bất kỳ kết luận kỹ thuật hoặc bảo đảm nào. Việc xác định SDK quảng cáo có thể thay đổi theo phiên bản; vui lòng kết hợp với chức năng thực tế của APK và kiểm tra thủ công.\n\n3. Giới hạn phạm vi phân tích: ứng dụng này chỉ phát hiện các quy tắc đã định trước. SDK quảng cáo không trùng khớp không có nghĩa là không có quảng cáo, và kết quả có thể có thiếu sót hoặc dương tính giả.\n\n4. Không bảo đảm: ứng dụng này được cung cấp «nguyên trạng», không kèm theo bất kỳ bảo đảm rõ ràng hay ngụ ý nào. Tác giả không chịu trách nhiệm về bất kỳ tổn thất trực tiếp hoặc gián tiếp nào do sử dụng hoặc không thể sử dụng ứng dụng này.\n\n5. Nội dung bên thứ ba: các dự án mã nguồn mở và quy tắc quảng cáo được tham chiếu đến từ các kênh công khai, chỉ để tham khảo kỹ thuật; bản quyền thuộc về tác giả gốc.\n\n6. Thay đổi điều khoản: tác giả bảo lưu quyền sửa đổi tuyên bố miễn trừ này bất cứ lúc nào. Nội dung cập nhật sẽ có hiệu lực trong các phiên bản mới.\n\n7. Sử dụng ứng dụng này có nghĩa là bạn đã đọc, hiểu và đồng ý với tất cả các điều khoản trên. Nếu không đồng ý, vui lòng ngừng sử dụng ứng dụng này.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · Bảo lưu mọi quyền\nĐược hỗ trợ bởi Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Cập nhật UpdateChecker -->
+    <string name="update_checking">Đang kiểm tra cập nhật…</string>
+    <string name="update_official_announce">Thông báo chính thức</string>
+    <string name="update_know">Đã hiểu</string>
+    <string name="update_latest">Bạn đang dùng phiên bản mới nhất (%1$s)</string>
+    <string name="update_check_failed_title">Kiểm tra cập nhật thất bại</string>
+    <string name="update_check_failed_msg">Không thể kết nối máy chủ cập nhật.\n\nBạn có thể mở cloud Lanzou bằng trình duyệt điện thoại để tải phiên bản mới nhất thủ công:\n\n%1$s</string>
+    <string name="update_go_browser">Đến trình duyệt để tải</string>
+    <string name="update_cancel">Hủy</string>
+    <string name="update_cannot_open_browser">Không thể mở trình duyệt, vui lòng truy cập Lanzou để tải thủ công</string>
+    <string name="update_download_center">Trung tâm tải xuống</string>
+    <string name="update_cannot_open_center">Không thể mở trung tâm tải xuống</string>
+    <string name="update_no_desc">Không có mô tả chi tiết</string>
+    <string name="update_downloading">Đang tải xuống</string>
+    <string name="update_web_link_hint">Địa chỉ cập nhật là liên kết web; trình duyệt tích hợp sẽ mở Lanzou để tải xuống</string>
+    <string name="update_dl_zero_total">Đã tải 0 B / %1$s</string>
+    <string name="update_dl_zero">Đã tải 0 B</string>
+    <string name="update_dl_progress">Đã tải %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">Đang tải xuống</string>
+    <string name="update_dl_amount">Đã tải %1$s</string>
+    <string name="update_dl_done">Tải xuống hoàn tất, đang mở trình cài đặt...</string>
+    <string name="update_dl_done_toast">Tải xuống hoàn tất, đang mở trình cài đặt…</string>
+    <string name="update_dl_failed_retry">Tải xuống thất bại, chạm để thử lại</string>
+    <string name="update_dl_failed">Tải xuống thất bại: %1$s</string>
+    <string name="update_pkg_invalid">Gói cập nhật đã tải không hợp lệ, vui lòng thử lại</string>
+    <string name="update_install_permission_title">Cần quyền cài đặt</string>
+    <string name="update_install_permission_msg">Để cài đặt phiên bản mới, vui lòng cho phép ứng dụng này cài đặt ứng dụng từ nguồn không xác định.</string>
+    <string name="update_go_enable">Đi bật</string>
+    <string name="update_cannot_open_perm">Không thể mở cài đặt quyền cài đặt</string>
+    <string name="update_later">Để sau</string>
+    <string name="update_cannot_open_installer">Không thể mở trình cài đặt hệ thống, vui lòng cài đặt gói cập nhật thủ công</string>
+    <string name="update_no_url">Không phát hiện địa chỉ tải xuống hợp lệ</string>
+    <string name="update_no_direct_link">Không phát hiện liên kết trực tiếp APK, vui lòng chạm nút tải xuống trong trang rồi thử lại</string>
+
+    <!-- Trình duyệt tích hợp WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ Không tồn tại tệp APK: %1$s</string>
+    <string name="anl_start_scan">  · Bắt đầu quét: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Tiến trình: %1$d/%2$d (%3$d%%) Hiện tại: %4$s</string>
+    <string name="anl_exception">  ✗ Lỗi phân tích: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d mục=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Có</string>
+    <string name="anl_no">Không</string>
+    <string name="anl_hits">  · Tổng số đặc điểm khớp: %1$d</string>
+    <string name="anl_no_hit">  ⚠ APK này không khớp với bất kỳ đặc điểm quảng cáo nào đã cấu hình</string>
+    <string name="anl_tip">  ⚠ Lưu ý: các đặc điểm được phân tích chỉ để tham khảo; vui lòng đối chiếu với hành vi thực tế của APK</string>
+
+    <string name="webview_detect_download">Đã phát hiện địa chỉ tải xuống, đang tải trong ứng dụng…</string>
+    <string name="webview_cannot_open_link">Không thể mở liên kết ngoài</string>
+    <string name="main_title">Phân tích quảng cáo</string>
+    <string name="main_subtitle">Phân tích đặc điểm quảng cáo APK · xuất cấu hình</string>
+    <string name="nav_back_desc">Quay lại</string>
+    <string name="btn_select_apk">Chọn APK</string>
+    <string name="tv_no_apk">Chưa chọn APK</string>
+    <string name="btn_copy_config">Sao chép cấu hình</string>
+    <string name="btn_save_config">Lưu cấu hình</string>
+    <string name="progress_analyzing_placeholder">Đang phân tích...</string>
+    <string name="section_result">Kết quả phân tích</string>
+    <string name="content_desc_clear">Xóa</string>
+    <string name="content_desc_feature">Tính năng</string>
+    <string name="update_found_new">Đã tìm thấy phiên bản mới</string>
+    <string name="update_welcome">Đã phát hành phiên bản mới, hãy nâng cấp để trải nghiệm</string>
+    <string name="content_desc_close">Đóng</string>
+    <string name="update_current_version">Phiên bản hiện tại</string>
+    <string name="content_desc_upgrade_to">Nâng cấp lên</string>
+    <string name="update_latest_version">Phiên bản mới nhất</string>
+    <string name="update_content_title">Nội dung cập nhật</string>
+    <string name="update_open_browser">Mở liên kết trong trình duyệt</string>
+    <string name="update_immediately">Cập nhật ngay</string>
+    <string name="content_desc_announcement">Thông báo</string>
+    <string name="content_desc_update">Cập nhật</string>
+
+    <string name="update_read_carefully">Vui lòng đọc kỹ nội dung sau</string>
+    <string name="update_no_more">Không hiển thị lại</string>
+    <string name="content_desc_download">Tải xuống</string>
+    <string name="update_captured_download">Đã phát hiện liên kết tải xuống, đang tải cho bạn</string>
+    <string name="webview_hint">Chạm vào nút tải xuống trên trang; ứng dụng này sẽ tự động chặn liên kết tải APK và tải xuống ngay trong ứng dụng.</string>
+</resources>

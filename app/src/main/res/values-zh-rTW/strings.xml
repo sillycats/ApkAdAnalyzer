@@ -1,0 +1,200 @@
+<resources>
+    <!-- 應用程式基礎 -->
+    <string name="app_name">APK廣告特徵分析工具</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">檔案圖示</string>
+    <string name="common_unknown">未知</string>
+    <string name="err_cannot_read_file">無法讀取所選檔案</string>
+    <string name="err_server_response">伺服器回應異常 (HTTP %1$d)</string>
+    <string name="err_config_unreadable">設定檔不可讀</string>
+
+    <!-- 選單 -->
+    <string name="menu_language">切換語言</string>
+    <string name="menu_about">關於應用程式</string>
+
+    <!-- 語言切換 -->
+    <string name="locale_system_default">跟隨系統</string>
+    <string name="dlg_choose_language">選擇語言</string>
+    <string name="dlg_cancel">取消</string>
+
+    <!-- 主介面 AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">請先選擇 APK 並完成分析</string>
+    <string name="clip_ad_config">廣告特徵設定</string>
+    <string name="toast_config_copied">設定已複製到剪貼簿</string>
+    <string name="toast_auth_revoked">應用程式授權已被遠端撤銷，功能已停用</string>
+    <string name="toast_grant_all_files">請先授予「所有檔案存取」權限</string>
+    <string name="chooser_pick_apk">選擇 APK 檔案</string>
+    <string name="log_start_analyze">▶ 開始分析: %1$s</string>
+    <string name="log_read_apk">  · 讀取 APK 檔案...</string>
+    <string name="log_load_config">  · 載入特徵設定: 共 %1$d 條特徵，分類 %2$d（含 Flutter）</string>
+    <string name="log_merged_online">  · 已合併內建廣告廠商特徵庫，目前共 %1$d 條特徵</string>
+    <string name="log_no_online">  · 找不到內建廣告廠商特徵庫，僅使用基礎特徵</string>
+    <string name="log_analyze_failed">  ✗ 分析失敗: %1$s</string>
+    <string name="toast_analyze_failed">分析失敗: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d 家廠商, %2$d 條特徵</string>
+    <string name="report_header">════════ 分析彙總 ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">套件名稱: %1$s</string>
+    <string name="report_dex">DEX   : %1$d 個</string>
+    <string name="report_files">檔案  : %1$d 個</string>
+    <string name="report_flutter">Flutter: %1$d 個 libapp.so</string>
+    <string name="report_hits">命中  : %1$d 條特徵</string>
+    <string name="report_no_hit">未命中任何已設定的廣告特徵。</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · 其餘 %1$d 條省略</string>
+    <string name="report_tip">⚠ 提示: 分析結果僅供參考，匯入前請人工複核。</string>
+    <string name="report_export_hint">完整設定請使用下方「複製設定」或「儲存設定」匯出。</string>
+    <string name="hint_initial">選擇一個有廣告的 APK 檔案開始分析。\n分析完成後可複製或儲存廣告特徵設定檔案。</string>
+    <string name="progress_analyzing">正在分析 %1$s   已處理 %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">廣告特徵</string>
+    <string name="save_file_pattern">%1$s_廣告特徵_%2$s.json</string>
+    <string name="toast_saved">設定已儲存: %1$s</string>
+    <string name="log_saved">  ✓ 設定已儲存: %1$s</string>
+    <string name="toast_save_failed">儲存失敗: %1$s</string>
+    <string name="log_save_failed">  ✗ 儲存失敗: %1$s</string>
+
+    <!-- 廣告特徵分類名稱 AdPatternConfig -->
+    <string name="cat_sdk_packages">廣告SDK套件名稱</string>
+    <string name="cat_class_keywords">廣告類別名稱關鍵字</string>
+    <string name="cat_method_patterns">廣告方法名稱</string>
+    <string name="cat_url_patterns">廣告URL/網域</string>
+    <string name="cat_ad_view_names">廣告View類別名稱</string>
+    <string name="cat_ad_activities">廣告Activity</string>
+    <string name="cat_ad_services">廣告Service</string>
+    <string name="cat_ad_receivers">廣告Receiver</string>
+    <string name="cat_force_true_methods">強制回傳true的方法名稱</string>
+    <string name="cat_force_false_methods">強制回傳false的方法名稱</string>
+    <string name="cat_ad_asset_paths">assets廣告檔案路徑</string>
+    <string name="cat_lib_file_keywords">廣告SDK原生函式庫關鍵字</string>
+    <string name="cat_asset_keywords">assets廣告關鍵字</string>
+    <string name="cat_method_neutralize_keywords">廣告方法置空關鍵字</string>
+    <string name="cat_ad_permissions">廣告權限特徵</string>
+    <string name="cat_root_file_keywords">APK根目錄檔案關鍵字</string>
+    <string name="cat_res_layout_keywords">Res版面廣告View關鍵字</string>
+    <string name="cat_string_patterns">DEX字串廣告特徵</string>
+    <string name="cat_flutter_patterns">Flutter 字串特徵</string>
+
+    <!-- 關於頁 AboutActivity -->
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_version_default">版本</string>
+    <string name="about_subtitle">關於應用 · APK廣告特徵分析工具</string>
+    <string name="about_app_icon_desc">應用圖示</string>
+    <string name="about_check_update">檢查更新</string>
+    <string name="about_direct_download">立即下載</string>
+    <string name="about_description">一鍵分析 APK 廣告特徵 · 匯出特徵設定
+本機離線處理，快速識別廣告 SDK</string>
+    <string name="about_section_features">功能特性</string>
+    <string name="about_section_author">作者資訊</string>
+    <string name="about_author">作者</string>
+    <string name="about_qq">聯絡QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">聯絡郵箱</string>
+    <string name="about_email_desc">郵箱</string>
+    <string name="about_section_opensource">開源專案</string>
+    <string name="about_section_reference">參考內容與程式碼出處</string>
+    <string name="about_section_privacy">隱私聲明</string>
+    <string name="about_section_disclaimer">免責聲明</string>
+
+    <string name="clip_author_qq">作者QQ</string>
+    <string name="toast_qq_copied">QQ已複製到剪貼簿</string>
+    <string name="email_subject">APK廣告特徵分析工具回饋</string>
+    <string name="chooser_send_email">傳送郵件</string>
+    <string name="toast_no_mail_app">找不到郵件用戶端</string>
+    <string name="feat_01">一鍵分析 APK 廣告特徵，全程本機離線處理，無需上傳任何檔案</string>
+    <string name="feat_02">選擇帶廣告的 APK 即可快速識別其中的廣告 SDK 與特徵</string>
+    <string name="feat_03">涵蓋 DEX 位元組碼、AndroidManifest、res/layout、assets、根目錄檔案等</string>
+    <string name="feat_04">自動偵測 Flutter 應用程式並掃描 libapp.so 中的廣告字串特徵</string>
+    <string name="feat_05">19 類廣告特徵分類，涵蓋 SDK 套件名稱 / 權限 / 類別 / 方法 / 資源 / URL 等</string>
+    <string name="feat_06">即時彩色分析日誌，支援進度列與目前分析檔案顯示</string>
+    <string name="feat_07">分析結果自動彙整，命中的廣告特徵依分類清晰呈現</string>
+    <string name="feat_08">支援一鍵產生與匯出 ad_patterns.json 廣告特徵設定檔案</string>
+    <string name="feat_09">產生的設定格式與應用程式內建設定完全一致，可直接複製或儲存到本機</string>
+    <string name="feat_10">明暗雙主題，支援跟隨系統、白天、夜間三種模式自由切換</string>
+    <string name="feat_11">支援 18 種語言自由切換，跟隨系統或手動選擇</string>
+    <string name="about_opensource_text">本應用程式基於以下開源專案建構並呼叫，在此向各位作者表示誠摯感謝與敬意：\n\n1. DTL-X (Gameye98)\n   廣告 SDK 套件名稱 / 類別名稱 / 網域 / 權限等特徵規則參考來源\n   - 首頁: https://github.com/Gameye98/DTL-X\n   - 僅供特徵參考與學習\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Android 官方 Jetpack 支援函式庫\n   - 首頁: https://developer.android.com/jetpack\n   - 授權條款: Apache License 2.0\n\n3. Material Components (Google)\n   Material Design 元件庫，提供卡片、按鈕、對話方塊等 UI 元件\n   - 首頁: https://github.com/material-components/material-components-android\n   - 授權條款: Apache License 2.0\n\n4. Kotlin 標準函式庫 (JetBrains)\n   Kotlin 程式語言與標準函式庫\n   - 首頁: https://kotlinlang.org/\n   - 授權條款: Apache License 2.0\n\n以上專案的完整版權與授權文本，請造訪對應首頁查看。</string>
+    <string name="about_reference_text">本應用程式的分析實作參考了以下公開的技術文件與社群資料，在此一併致謝，並說明出處：\n\n1. Android APK 打包結構 (ZIP / AXML / DEX)\n   參考 AOSP 與 Android 官方文件中關於 ZIP 結構、Android Binary XML 與 DEX 位元組碼的說明\n   - 出處: https://developer.android.com/guide/components\n   - 用於解壓讀取 classes*.dex、AndroidManifest、res/layout、assets 等條目內容\n\n2. Dart AOT 快照解析 (Flutter libapp.so)\n   參考 Dart VM 原始碼 snapshot.h 與社群 Flutter 逆向資料\n   - snapshot.h 出處: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - 用於定位 libapp.so 內 Dart 快照並掃描廣告字串特徵\n\n3. 廣告特徵規則整理\n   廣告 SDK 套件名稱 / 網域 / 類別名稱 / 權限關鍵字參考開源專案 DTL-X 的規則整理擴充\n   - 首頁: https://github.com/Gameye98/DTL-X\n   - 參考其 adloader / 網域黑名單 / 方法關鍵字思路，結合主流廣告 SDK 自行整理\n\n4. Aho-Corasick 多模式比對演算法\n   用於在檔案位元組流中一次遍歷同時比對數千條廣告特徵，顯著提升分析速度\n   - 出處: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. 介面主題與排版\n   基於 Material Design 規範與 Material Components 元件庫範例撰寫\n   - 規範: https://m3.material.io/\n   - 元件: https://github.com/material-components/material-components-android\n\n以上內容僅作技術學習參考，最終實作均為本專案自行研發；涉及版權歸原作者與作者所屬機構所有。</string>
+    <string name="about_privacy_text">本應用程式遵守最小化蒐集原則，高度重視並保護您的個人隱私：\n\n1. 本機離線處理：所有 APK 的廣告特徵分析均在您的裝置本機完成，應用程式不會上傳任何 APK 檔案或內部資料到伺服器。\n\n2. 連網行為透明：本應用程式僅在您主動點擊「檢查更新」時連網請求版本資訊，其餘時間不會在背景連網、蒐集或上傳任何個人資訊。\n\n3. 權限最小化：本應用程式不讀取、不儲存、不存取您的通訊錄、相簿、定位、簡訊、通話紀錄等敏感資訊。\n\n4. 資料本機儲存：應用程式的特徵設定與分析結果僅儲存在您的裝置本機，應用程式解除安裝後即被清除，不會留存任何雲端紀錄。\n\n5. 第三方連結：關於與更新頁面可能包含外部連結，點擊後由第三方平台處理您的造訪行為，建議您查閱相關第三方的隱私權政策。\n\n6. 若您在使用過程中有任何隱私疑問、建議或顧慮，歡迎透過作者聯絡方式與我們溝通，我們將盡力解答。</string>
+    <string name="about_disclaimer_text">請在使用本應用程式前仔細閱讀以下免責聲明：\n\n1. 合法用途限制：本應用程式僅供學習、研究與個人合法用途使用。請僅對您擁有版權、已獲授權或有權分析的應用程式進行分析。\n\n2. 結果僅供參考：分析出的廣告特徵僅供技術研究與參考，不構成任何形式的技術結論或擔保。廣告 SDK 歸屬可能隨版本變化，請結合 APK 實際功能與人工複核後使用。\n\n3. 分析範圍限制：本應用程式僅偵測預設特徵規則，未命中的廣告 SDK 不代表不存在廣告，分析結果可能存在遺漏或誤報。\n\n4. 無擔保聲明：本應用程式依其現況提供，不附帶任何形式的明示或默示擔保。作者不對因使用或無法使用本應用程式而造成的任何直接或間接損失承擔責任。\n\n5. 第三方內容：本應用程式引用的開源專案與廣告特徵規則均來自公開管道，僅供技術參考，其版權歸原作者所有。\n\n6. 條款變更：作者保留隨時修改本免責聲明的權利，更新後的內容將在新版本中生效。\n\n7. 使用本應用程式即視為您已閱讀、理解並同意以上全部條款。若不同意，請停止使用本應用程式。</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · 保留所有權利\nPowered by Aho-Corasick / AndroidX / Material</string>
+
+    <!-- 更新 UpdateChecker -->
+    <string name="update_checking">正在檢查更新…</string>
+    <string name="update_official_announce">官方公告</string>
+    <string name="update_know">知道了</string>
+    <string name="update_latest">已是最新版本 (%1$s)</string>
+    <string name="update_check_failed_title">檢查更新失敗</string>
+    <string name="update_check_failed_msg">暫時無法連線更新伺服器。\n\n您可以透過手機瀏覽器造訪藍奏雲網盤，手動下載最新版本：\n\n%1$s</string>
+    <string name="update_go_browser">前往瀏覽器下載</string>
+    <string name="update_cancel">取消</string>
+    <string name="update_cannot_open_browser">無法開啟瀏覽器，請手動造訪藍奏雲下載</string>
+    <string name="update_download_center">下載中心</string>
+    <string name="update_cannot_open_center">無法開啟下載中心</string>
+    <string name="update_no_desc">暫無詳細說明</string>
+    <string name="update_downloading">正在下載</string>
+    <string name="update_web_link_hint">更新位址為網頁連結，將開啟內建瀏覽器前往藍奏雲下載</string>
+    <string name="update_dl_zero_total">已下載 0 B / %1$s</string>
+    <string name="update_dl_zero">已下載 0 B</string>
+    <string name="update_dl_progress">已下載 %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">下載中</string>
+    <string name="update_dl_amount">已下載 %1$s</string>
+    <string name="update_dl_done">下載完成，正在開啟安裝程式...</string>
+    <string name="update_dl_done_toast">下載完成，正在開啟安裝程式…</string>
+    <string name="update_dl_failed_retry">下載失敗，點擊重試</string>
+    <string name="update_dl_failed">下載失敗: %1$s</string>
+    <string name="update_pkg_invalid">下載的更新套件無效，請重試</string>
+    <string name="update_install_permission_title">需要安裝權限</string>
+    <string name="update_install_permission_msg">為了安裝新版本，請允許本應用程式安裝未知來源應用程式。</string>
+    <string name="update_go_enable">前往開啟</string>
+    <string name="update_cannot_open_perm">無法開啟安裝權限設定</string>
+    <string name="update_later">稍後再說</string>
+    <string name="update_cannot_open_installer">無法開啟系統安裝程式，請手動安裝更新套件</string>
+    <string name="update_no_url">未擷取到有效的下載位址</string>
+    <string name="update_no_direct_link">未擷取到 APK 直連，請在頁面內點擊下載按鈕後重試</string>
+
+    <!-- WebView 內建瀏覽器 -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ APK 檔案不存在: %1$s</string>
+    <string name="anl_start_scan">  · 開始掃描: %1$s (%2$s)</string>
+    <string name="anl_progress">  · 進度: %1$d/%2$d (%3$d%%) 目前: %4$s</string>
+    <string name="anl_exception">  ✗ 分析過程異常: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d 條目=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">是</string>
+    <string name="anl_no">否</string>
+    <string name="anl_hits">  · 命中特徵總數: %1$d 個</string>
+    <string name="anl_no_hit">  ⚠ 該 APK 未命中任何已設定的廣告特徵</string>
+    <string name="anl_tip">  ⚠ 提示: 分析出的廣告特徵僅供參考，請結合 APK 實際功能與人工複核後使用</string>
+
+    <string name="webview_detect_download">偵測到下載位址，正在使用應用程式內下載…</string>
+    <string name="webview_cannot_open_link">無法開啟外部連結</string>
+    <string name="main_title">廣告特徵分析</string>
+    <string name="main_subtitle">分析 APK 廣告特徵 · 匯出特徵設定</string>
+    <string name="nav_back_desc">返回</string>
+    <string name="btn_select_apk">選擇 APK</string>
+    <string name="tv_no_apk">尚未選擇 APK</string>
+    <string name="btn_copy_config">複製設定</string>
+    <string name="btn_save_config">儲存設定</string>
+    <string name="progress_analyzing_placeholder">正在分析...</string>
+    <string name="section_result">分析結果</string>
+    <string name="content_desc_clear">清空</string>
+    <string name="content_desc_feature">特性</string>
+    <string name="update_found_new">發現新版本</string>
+    <string name="update_welcome">新版本已發布，歡迎升級體驗</string>
+    <string name="content_desc_close">關閉</string>
+    <string name="update_current_version">目前版本</string>
+    <string name="content_desc_upgrade_to">升級到</string>
+    <string name="update_latest_version">最新版本</string>
+    <string name="update_content_title">更新內容</string>
+    <string name="update_open_browser">用瀏覽器開啟連結</string>
+    <string name="update_immediately">立即更新</string>
+    <string name="content_desc_announcement">公告</string>
+    <string name="content_desc_update">更新</string>
+
+    <string name="update_read_carefully">請仔細閱讀以下內容</string>
+    <string name="update_no_more">不再提示</string>
+    <string name="content_desc_download">下載</string>
+    <string name="update_captured_download">已擷取下載位址，正在為您下載</string>
+    <string name="webview_hint">在頁面內點擊下載按鈕，本應用會自動攔截 APK 下載位址並使用應用內下載。</string>
+</resources>

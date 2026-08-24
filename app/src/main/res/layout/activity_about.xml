@@ -12,15 +12,51 @@
         android:background="@drawable/bg_gradient_header"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white"
-            app:subtitle="关于应用 · APK广告特征分析工具"
-            app:subtitleTextColor="@color/primary_light"
-            app:navigationIcon="@android:drawable/ic_menu_revert" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingEnd="16dp">
+
+            <!-- 返回按钮宿主 -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                app:contentInsetStartWithNavigation="6dp"
+                app:title=""
+                app:navigationIcon="@android:drawable/ic_menu_revert" />
+
+            <!-- 标题/副标题：自动换行，避免长语言被截断 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:maxLines="2"
+                    android:text="@string/about_subtitle"
+                    android:textColor="@color/primary_light"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -58,7 +94,7 @@
                         android:layout_height="88dp"
                         android:background="@drawable/bg_icon_round"
                         android:padding="12dp"
-                        android:contentDescription="应用图标"
+                        android:contentDescription="@string/about_app_icon_desc"
                         app:srcCompat="@drawable/ic_launcher" />
 
                     <TextView
@@ -75,13 +111,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="版本 1.7"
+                        android:text="@string/about_version_default"
                         android:textColor="@color/accent"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:orientation="horizontal">
@@ -89,23 +125,42 @@
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCheckUpdate"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="检查更新"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="4dp"
+                            android:minHeight="48dp"
+                            android:minWidth="0dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="1"
+                            android:text="@string/about_check_update"
+                            android:textColor="@color/primary"
                             android:textSize="13sp"
                             app:cornerRadius="20dp"
                             app:strokeColor="@color/primary"
                             app:strokeWidth="1dp"
                             app:icon="@android:drawable/stat_sys_download_done"
-                            app:iconSize="16dp" />
+                            app:iconSize="16dp"
+                            app:iconTint="@color/primary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnDirectDownload"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="4dp"
                             android:backgroundTint="@color/primary"
-                            android:text="立即下载"
+                            android:minHeight="48dp"
+                            android:minWidth="0dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="1"
+                            android:text="@string/about_direct_download"
                             android:textColor="@color/white"
                             android:textSize="13sp"
                             android:textStyle="bold"
@@ -120,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:gravity="center"
-                        android:text="一键分析 APK 广告特征 · 导出特征配置\n本地离线处理，快速识别广告 SDK"
+                        android:text="@string/about_description"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp"
                         android:lineSpacingExtra="3dp" />
@@ -147,7 +202,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="功能特性"
+                        android:text="@string/about_section_features"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -181,7 +236,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="作者信息"
+                        android:text="@string/about_section_author"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -201,14 +256,14 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:contentDescription="作者"
+                                android:contentDescription="@string/about_author"
                                 android:src="@drawable/ic_launcher" />
 
                             <TextView
                                 android:layout_width="80dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:text="作者"
+                                android:text="@string/about_author"
                                 android:textColor="@color/text_hint"
                                 android:textSize="14sp" />
 
@@ -232,7 +287,7 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:contentDescription="QQ"
+                                android:contentDescription="@string/about_qq_desc"
                                 android:src="@drawable/ic_info"
                                 app:tint="@color/text_hint" />
 
@@ -240,7 +295,7 @@
                                 android:layout_width="80dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:text="联系QQ"
+                                android:text="@string/about_qq"
                                 android:textColor="@color/text_hint"
                                 android:textSize="14sp" />
 
@@ -264,7 +319,7 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:contentDescription="邮箱"
+                                android:contentDescription="@string/about_email_desc"
                                 android:src="@drawable/ic_info"
                                 app:tint="@color/text_hint" />
 
@@ -272,7 +327,7 @@
                                 android:layout_width="80dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:text="联系邮箱"
+                                android:text="@string/about_email"
                                 android:textColor="@color/text_hint"
                                 android:textSize="14sp" />
 
@@ -309,7 +364,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开源项目"
+                        android:text="@string/about_section_opensource"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -345,7 +400,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="参考内容与代码出处"
+                        android:text="@string/about_section_reference"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -381,7 +436,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="隐私声明"
+                        android:text="@string/about_section_privacy"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -417,7 +472,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="免责声明"
+                        android:text="@string/about_section_disclaimer"
                         android:textColor="@color/primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />

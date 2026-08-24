@@ -1,6 +1,7 @@
 package com.shinegirls.apkadanalyzer.core
 
 import android.content.Context
+import com.shinegirls.apkadanalyzer.R
 import com.shinegirls.apkadanalyzer.utils.Format
 import com.shinegirls.apkadanalyzer.utils.PathPreferences
 import org.json.JSONArray
@@ -116,26 +117,29 @@ object AdPatternConfig {
     /**
      * 配置分类信息（用于 UI 显示）。
      */
-    enum class Category(val key: String, val displayName: String) {
-        SDK_PACKAGES(KEY_SDK_PACKAGES, "广告SDK包名"),
-        CLASS_KEYWORDS(KEY_CLASS_KEYWORDS, "广告类名关键词"),
-        METHOD_PATTERNS(KEY_METHOD_PATTERNS, "广告方法名"),
-        URL_PATTERNS(KEY_URL_PATTERNS, "广告URL/域名"),
-        AD_VIEW_NAMES(KEY_AD_VIEW_NAMES, "广告View类名"),
-        AD_ACTIVITIES(KEY_AD_ACTIVITIES, "广告Activity"),
-        AD_SERVICES(KEY_AD_SERVICES, "广告Service"),
-        AD_RECEIVERS(KEY_AD_RECEIVERS, "广告Receiver"),
-        FORCE_TRUE_METHODS(KEY_FORCE_TRUE_METHODS, "强制返回true的方法名"),
-        FORCE_FALSE_METHODS(KEY_FORCE_FALSE_METHODS, "强制返回false的方法名"),
-        AD_ASSET_PATHS(KEY_AD_ASSET_PATHS, "assets广告文件路径"),
-        LIB_FILE_KEYWORDS(KEY_LIB_FILE_KEYWORDS, "广告SDK原生库关键词"),
-        ASSET_KEYWORDS(KEY_ASSET_KEYWORDS, "assets广告关键词"),
-        METHOD_NEUTRALIZE_KEYWORDS(KEY_METHOD_NEUTRALIZE_KEYWORDS, "广告方法置空关键词"),
-        AD_PERMISSIONS(KEY_AD_PERMISSIONS, "广告权限特征"),
-        ROOT_FILE_KEYWORDS(KEY_ROOT_FILE_KEYWORDS, "APK根目录文件关键词"),
-        RES_LAYOUT_KEYWORDS(KEY_RES_LAYOUT_KEYWORDS, "Res布局广告View关键词"),
-        STRING_PATTERNS(KEY_STRING_PATTERNS, "DEX字符串广告特征"),
-        FLUTTER_PATTERNS(KEY_FLUTTER_PATTERNS, "Flutter 字符串特征")
+    enum class Category(val key: String, val titleRes: Int) {
+        SDK_PACKAGES(KEY_SDK_PACKAGES, R.string.cat_sdk_packages),
+        CLASS_KEYWORDS(KEY_CLASS_KEYWORDS, R.string.cat_class_keywords),
+        METHOD_PATTERNS(KEY_METHOD_PATTERNS, R.string.cat_method_patterns),
+        URL_PATTERNS(KEY_URL_PATTERNS, R.string.cat_url_patterns),
+        AD_VIEW_NAMES(KEY_AD_VIEW_NAMES, R.string.cat_ad_view_names),
+        AD_ACTIVITIES(KEY_AD_ACTIVITIES, R.string.cat_ad_activities),
+        AD_SERVICES(KEY_AD_SERVICES, R.string.cat_ad_services),
+        AD_RECEIVERS(KEY_AD_RECEIVERS, R.string.cat_ad_receivers),
+        FORCE_TRUE_METHODS(KEY_FORCE_TRUE_METHODS, R.string.cat_force_true_methods),
+        FORCE_FALSE_METHODS(KEY_FORCE_FALSE_METHODS, R.string.cat_force_false_methods),
+        AD_ASSET_PATHS(KEY_AD_ASSET_PATHS, R.string.cat_ad_asset_paths),
+        LIB_FILE_KEYWORDS(KEY_LIB_FILE_KEYWORDS, R.string.cat_lib_file_keywords),
+        ASSET_KEYWORDS(KEY_ASSET_KEYWORDS, R.string.cat_asset_keywords),
+        METHOD_NEUTRALIZE_KEYWORDS(KEY_METHOD_NEUTRALIZE_KEYWORDS, R.string.cat_method_neutralize_keywords),
+        AD_PERMISSIONS(KEY_AD_PERMISSIONS, R.string.cat_ad_permissions),
+        ROOT_FILE_KEYWORDS(KEY_ROOT_FILE_KEYWORDS, R.string.cat_root_file_keywords),
+        RES_LAYOUT_KEYWORDS(KEY_RES_LAYOUT_KEYWORDS, R.string.cat_res_layout_keywords),
+        STRING_PATTERNS(KEY_STRING_PATTERNS, R.string.cat_string_patterns),
+        FLUTTER_PATTERNS(KEY_FLUTTER_PATTERNS, R.string.cat_flutter_patterns);
+
+        /** 获取该分类在当前语言下的显示名称。 */
+        fun displayName(context: Context): String = context.getString(titleRes)
     }
 
     /**
@@ -179,7 +183,7 @@ object AdPatternConfig {
 
         return try {
             val jsonStr = readConfigText(configFile)
-                ?: throw IllegalStateException("配置文件不可读")
+                ?: throw IllegalStateException(context.getString(R.string.err_config_unreadable))
             val json = JSONObject(jsonStr)
             // 默认配置：用于对旧版配置文件中缺失的字段自动回填，保证新增分类能生效
             val defaults = getDefaultConfig(context)

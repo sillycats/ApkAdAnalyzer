@@ -1,0 +1,200 @@
+<resources>
+    <!-- Основи застосунку -->
+    <string name="app_name">Аналізатор рекламних функцій APK</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">Іконка файлу</string>
+    <string name="common_unknown">Невідомо</string>
+    <string name="err_cannot_read_file">Не вдалося прочитати вибраний файл</string>
+    <string name="err_server_response">Ненормальна відповідь сервера (HTTP %1$d)</string>
+    <string name="err_config_unreadable">Не вдалося прочитати файл конфігурації</string>
+
+    <!-- Меню -->
+    <string name="menu_language">Змінити мову</string>
+    <string name="menu_about">Про застосунок</string>
+
+    <!-- Зміна мови -->
+    <string name="locale_system_default">Як у системі</string>
+    <string name="dlg_choose_language">Виберіть мову</string>
+    <string name="dlg_cancel">Скасувати</string>
+
+    <!-- Головний екран AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Спочатку виберіть APK і завершіть аналіз</string>
+    <string name="clip_ad_config">Конфігурація рекламних функцій</string>
+    <string name="toast_config_copied">Конфігурацію скопійовано в буфер обміну</string>
+    <string name="toast_auth_revoked">Авторизацію застосунку відкликано віддалено, функції вимкнено</string>
+    <string name="toast_grant_all_files">Спочатку надайте дозвіл «Доступ до всіх файлів»</string>
+    <string name="chooser_pick_apk">Виберіть файл APK</string>
+    <string name="log_start_analyze">▶ Початок аналізу: %1$s</string>
+    <string name="log_read_apk">  · Читання файлу APK...</string>
+    <string name="log_load_config">  · Завантаження конфігурації: %1$d функцій, %2$d категорій (включно з Flutter)</string>
+    <string name="log_merged_online">  · Вбудовану бібліотеку постачальників об\'єднано, усього %1$d ознак</string>
+    <string name="log_no_online">  · Вбудовану бібліотеку постачальників не знайдено, використовуються лише базові ознаки</string>
+    <string name="log_analyze_failed">  ✗ Помилка аналізу: %1$s</string>
+    <string name="toast_analyze_failed">Помилка аналізу: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d мереж, %2$d функцій</string>
+    <string name="report_header">════════ Підсумки аналізу ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Пакет : %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Файлів : %1$d</string>
+    <string name="report_flutter">Flutter : %1$d libapp.so</string>
+    <string name="report_hits">Збігів : %1$d функцій</string>
+    <string name="report_no_hit">Не знайдено збігів із налаштованими рекламними функціями.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · ще %1$d пропущено</string>
+    <string name="report_tip">⚠ Примітка: результати наведено лише для довідки, перед імпортом перевірте вручну.</string>
+    <string name="report_export_hint">Для експорту повної конфігурації скористайтеся кнопками «Скопіювати конфігурацію» або «Зберегти конфігурацію» нижче.</string>
+    <string name="hint_initial">Виберіть APK із рекламою, щоб розпочати аналіз.\nПісля аналізу можна скопіювати або зберегти файл конфігурації.</string>
+    <string name="progress_analyzing">Аналіз %1$s   Опрацьовано %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">рекламні_функції</string>
+    <string name="save_file_pattern">%1$s_рекламні_функції_%2$s.json</string>
+    <string name="toast_saved">Конфігурацію збережено: %1$s</string>
+    <string name="log_saved">  ✓ Конфігурацію збережено: %1$s</string>
+    <string name="toast_save_failed">Помилка збереження: %1$s</string>
+    <string name="log_save_failed">  ✗ Помилка збереження: %1$s</string>
+
+    <!-- Назви категорій AdPatternConfig -->
+    <string name="cat_sdk_packages">Назви пакетів рекламних SDK</string>
+    <string name="cat_class_keywords">Ключові слова назв рекламних класів</string>
+    <string name="cat_method_patterns">Назви рекламних методів</string>
+    <string name="cat_url_patterns">Рекламні URL/домени</string>
+    <string name="cat_ad_view_names">Назви класів рекламних View</string>
+    <string name="cat_ad_activities">Рекламні Activity</string>
+    <string name="cat_ad_services">Рекламні Service</string>
+    <string name="cat_ad_receivers">Рекламні Receiver</string>
+    <string name="cat_force_true_methods">Методи, що примусово повертають true</string>
+    <string name="cat_force_false_methods">Методи, що примусово повертають false</string>
+    <string name="cat_ad_asset_paths">Шляхи рекламних файлів assets</string>
+    <string name="cat_lib_file_keywords">Ключові слова нативних бібліотек рекламних SDK</string>
+    <string name="cat_asset_keywords">Ключові слова рекламних assets</string>
+    <string name="cat_method_neutralize_keywords">Ключові слова обнулення рекламних методів</string>
+    <string name="cat_ad_permissions">Рекламні функції дозволів</string>
+    <string name="cat_root_file_keywords">Ключові слова файлів у корені APK</string>
+    <string name="cat_res_layout_keywords">Ключові слова рекламних View у макетах res</string>
+    <string name="cat_string_patterns">Рекламні функції рядків DEX</string>
+    <string name="cat_flutter_patterns">Рядкові функції Flutter</string>
+
+    <!-- Сторінка «Про застосунок» AboutActivity -->
+    <string name="about_version">Версія %1$s</string>
+    <string name="about_version_default">Версія</string>
+    <string name="about_subtitle">Про застосунок · Аналізатор рекламних функцій APK</string>
+    <string name="about_app_icon_desc">Значок застосунку</string>
+    <string name="about_check_update">Перевірити оновлення</string>
+    <string name="about_direct_download">Завантажити зараз</string>
+    <string name="about_description">Аналіз рекламних функцій APK одним дотиком · експорт конфігурації
+Локальна офлайн-обробка, швидке визначення рекламних SDK</string>
+    <string name="about_section_features">Можливості</string>
+    <string name="about_section_author">Інформація про автора</string>
+    <string name="about_author">Автор</string>
+    <string name="about_qq">Зв\'язок: QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Контактний e-mail</string>
+    <string name="about_email_desc">Пошта</string>
+    <string name="about_section_opensource">Проєкти з відкритим кодом</string>
+    <string name="about_section_reference">Довідкові матеріали та джерела</string>
+    <string name="about_section_privacy">Політика конфіденційності</string>
+    <string name="about_section_disclaimer">Відмова від відповідальності</string>
+
+    <string name="clip_author_qq">QQ автора</string>
+    <string name="toast_qq_copied">QQ скопійовано в буфер обміну</string>
+    <string name="email_subject">Відгук про аналізатор рекламних функцій APK</string>
+    <string name="chooser_send_email">Надіслати листа</string>
+    <string name="toast_no_mail_app">Поштовий клієнт не знайдено</string>
+    <string name="feat_01">Аналіз рекламних функцій APK одним дотиком, повністю локально та офлайн, без завантаження файлів</string>
+    <string name="feat_02">Виберіть APK із рекламою, щоб швидко визначити його рекламні SDK та функції</string>
+    <string name="feat_03">Охоплює байт-код DEX, AndroidManifest, res/layout, assets, файли в корені тощо</string>
+    <string name="feat_04">Автоматично визначає застосунки Flutter і сканує libapp.so на наявність рекламних рядків</string>
+    <string name="feat_05">19 категорій рекламних функцій: назви пакетів SDK / дозволи / класи / методи / ресурси / URL</string>
+    <string name="feat_06">Кольоровий журнал аналізу в реальному часі з індикатором прогресу та поточним файлом</string>
+    <string name="feat_07">Результати автоматично агрегуються, знайдені функції наочно подаються за категоріями</string>
+    <string name="feat_08">Створення та експорт файлу конфігурації ad_patterns.json одним дотиком</string>
+    <string name="feat_09">Згенерована конфігурація повністю відповідає вбудованому формату, її можна скопіювати або зберегти локально</string>
+    <string name="feat_10">Світла та темна теми, три режими: як у системі, світлий і нічний</string>
+    <string name="feat_11">18 мов з вільним перемиканням, як у системі або вручну</string>
+    <string name="about_opensource_text">Цей застосунок побудовано на основі таких проєктів із відкритим кодом і використовує їх. Ми щиро дякуємо та поважаємо всіх авторів:\n\n1. DTL-X (Gameye98)\n   Джерело правил назв пакетів / класів / доменів / дозволів рекламних SDK\n   - Домашня сторінка: https://github.com/Gameye98/DTL-X\n   - Лише для довідки та вивчення\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Офіційні бібліотеки підтримки Android Jetpack\n   - Домашня сторінка: https://developer.android.com/jetpack\n   - Ліцензія: Apache License 2.0\n\n3. Material Components (Google)\n   Бібліотека компонентів Material Design, що надає картки, кнопки, діалоги та інші UI-компоненти\n   - Домашня сторінка: https://github.com/material-components/material-components-android\n   - Ліцензія: Apache License 2.0\n\n4. Стандартна бібліотека Kotlin (JetBrains)\n   Мова програмування Kotlin та стандартна бібліотека\n   - Домашня сторінка: https://kotlinlang.org/\n   - Ліцензія: Apache License 2.0\n\nПовний текст авторських прав і ліцензій зазначених проєктів див. на їхніх домашніх сторінках.</string>
+    <string name="about_reference_text">Реалізація аналізу в цьому застосунку спирається на такі публічні технічні документи та матеріали спільноти. Дякуємо авторам і зазначаємо джерела:\n\n1. Структура пакування APK Android (ZIP / AXML / DEX)\n   Посилання на AOSP та офіційну документацію Android про структуру ZIP, двійковий XML Android і байт-код DEX\n   - Джерело: https://developer.android.com/guide/components\n   - Використовується для розпакування та читання classes*.dex, AndroidManifest, res/layout, assets та інших записів\n\n2. Розбір знімків Dart AOT (Flutter libapp.so)\n   Посилання на вихідний код snapshot.h віртуальної машини Dart та матеріали спільноти з реверс-інжинірингу Flutter\n   - Джерело snapshot.h: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Використовується для пошуку знімка Dart у libapp.so та сканування рекламних рядків\n\n3. Упорядкування правил рекламних функцій\n   Назви пакетів / домени / класи / дозволи рекламних SDK ґрунтуються на правилах проєкту DTL-X, доповнені та систематизовані\n   - Домашня сторінка: https://github.com/Gameye98/DTL-X\n   - Використано його підхід adloader / чорний список доменів / ключові слова методів у поєднанні з популярними рекламними SDK\n\n4. Алгоритм багатошаблонного пошуку Ахо-Корасік\n   Використовується для одночасного зіставлення тисяч рекламних функцій за один прохід байтовим потоком, значно прискорюючи аналіз\n   - Джерело: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. Тема та верстка інтерфейсу\n   Написано за специфікацією Material Design та прикладами бібліотеки Material Components\n   - Специфікація: https://m3.material.io/\n   - Компоненти: https://github.com/material-components/material-components-android\n\nНаведений вище матеріал призначено лише для технічного вивчення; підсумкова реалізація повністю розроблена цим проєктом. Авторські права належать оригінальним авторам та їхнім організаціям.</string>
+    <string name="about_privacy_text">Цей застосунок дотримується принципу мінімального збору даних і приділяє велику увагу захисту вашої конфіденційності:\n\n1. Локальна офлайн-обробка: весь аналіз рекламних функцій APK виконується локально на вашому пристрої. Застосунок ніколи не завантажує файли APK або внутрішні дані на жодні сервери.\n\n2. Прозора поведінка в мережі: застосунок підключається до мережі лише тоді, коли ви активно натискаєте «Перевірити оновлення» для запиту інформації про версію. Він ніколи не підключається у фоновому режимі та не збирає й не завантажує особисту інформацію.\n\n3. Мінімум дозволів: застосунок не читає, не зберігає та не отримує доступ до ваших контактів, галереї, геолокації, SMS, журналу дзвінків та інших конфіденційних даних.\n\n4. Локальне зберігання даних: конфігурація та результати аналізу зберігаються лише на вашому пристрої та видаляються після видалення застосунку, без жодних хмарних записів.\n\n5. Сторонні посилання: сторінки «Про застосунок» та «Оновлення» можуть містити зовнішні посилання. Після переходу сторонні платформи обробляють ваші дії. Рекомендуємо ознайомитися з їхніми політиками конфіденційності.\n\n6. Якщо під час використання у вас виникнуть запитання, пропозиції чи занепокоєння щодо конфіденційності, зв\'яжіться з нами через контакти автора. Ми постараємося відповісти.</string>
+    <string name="about_disclaimer_text">Будь ласка, уважно прочитайте наступний відказ від відповідальності перед використанням цього застосунку:\n\n1. Обмеження законного використання: застосунок призначено лише для навчання, досліджень та особистого законного використання. Аналізуйте лише застосунки, на які ви маєте авторські права, дозвіл або право на аналіз.\n\n2. Результати лише для довідки: виявлені рекламні функції призначені лише для технічного дослідження та довідки й не є технічним висновком чи гарантією. Належність рекламних SDK може змінюватися з версіями; використовуйте з урахуванням реальних функцій APK і ручної перевірки.\n\n3. Обмеження сфери аналізу: застосунок виявляє лише заздалегідь задані правила. Ненайдений рекламний SDK не означає відсутності реклами, результати можуть містити пропуски або хибні спрацювання.\n\n4. Відсутність гарантій: застосунок надається «як є», без будь-яких явних чи неявних гарантій. Автор не несе відповідальності за будь-які прямі чи непрямі збитки, спричинені використанням або неможливістю використання цього застосунку.\n\n5. Сторонній вміст: згадані відкриті проєкти та правила рекламних функцій взято з відкритих джерел і призначено лише для технічної довідки; їхні авторські права належать оригінальним авторам.\n\n6. Зміна умов: автор залишає за собою право змінювати цей відказ від відповідальності будь-коли. Оновлений вміст набуває чинності в нових версіях.\n\n7. Використання застосунку означає, що ви прочитали, зрозуміли та погодилися з усіма наведеними вище умовами. Якщо ви не згодні, припиніть використання застосунку.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · Усі права захищено\nПрацює на Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Оновлення UpdateChecker -->
+    <string name="update_checking">Перевірка оновлень…</string>
+    <string name="update_official_announce">Офіційне оголошення</string>
+    <string name="update_know">Зрозуміло</string>
+    <string name="update_latest">Установлено останню версію (%1$s)</string>
+    <string name="update_check_failed_title">Не вдалося перевірити оновлення</string>
+    <string name="update_check_failed_msg">Не вдалося підключитися до сервера оновлень.\n\nВи можете відкрити хмару Lanzou в браузері телефону та вручну завантажити останню версію:\n\n%1$s</string>
+    <string name="update_go_browser">Перейти в браузер для завантаження</string>
+    <string name="update_cancel">Скасувати</string>
+    <string name="update_cannot_open_browser">Не вдалося відкрити браузер, відкрийте Lanzou вручну для завантаження</string>
+    <string name="update_download_center">Центр завантажень</string>
+    <string name="update_cannot_open_center">Не вдалося відкрити центр завантажень</string>
+    <string name="update_no_desc">Немає детального опису</string>
+    <string name="update_downloading">Завантаження</string>
+    <string name="update_web_link_hint">Адреса оновлення — це веб-посилання; відкриється вбудований браузер для завантаження з Lanzou</string>
+    <string name="update_dl_zero_total">Завантажено 0 Б / %1$s</string>
+    <string name="update_dl_zero">Завантажено 0 Б</string>
+    <string name="update_dl_progress">Завантажено %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">Завантаження</string>
+    <string name="update_dl_amount">Завантажено %1$s</string>
+    <string name="update_dl_done">Завантаження завершено, відкривається інсталятор...</string>
+    <string name="update_dl_done_toast">Завантаження завершено, відкривається інсталятор…</string>
+    <string name="update_dl_failed_retry">Помилка завантаження, натисніть, щоб повторити</string>
+    <string name="update_dl_failed">Помилка завантаження: %1$s</string>
+    <string name="update_pkg_invalid">Завантажений пакет оновлення недійсний, повторіть спробу</string>
+    <string name="update_install_permission_title">Потрібен дозвіл на встановлення</string>
+    <string name="update_install_permission_msg">Щоб установити нову версію, дозвольте цьому застосунку встановлювати застосунки з невідомих джерел.</string>
+    <string name="update_go_enable">Увімкнути</string>
+    <string name="update_cannot_open_perm">Не вдалося відкрити налаштування дозволу на встановлення</string>
+    <string name="update_later">Пізніше</string>
+    <string name="update_cannot_open_installer">Не вдалося відкрити системний інсталятор, установіть пакет оновлення вручну</string>
+    <string name="update_no_url">Не виявлено дійсної адреси завантаження</string>
+    <string name="update_no_direct_link">Не виявлено прямого посилання на APK, натисніть кнопку завантаження на сторінці та повторіть</string>
+
+    <!-- Вбудований браузер WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ Файл APK не існує: %1$s</string>
+    <string name="anl_start_scan">  · Початок сканування: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Прогрес: %1$d/%2$d (%3$d%%) Поточний: %4$s</string>
+    <string name="anl_exception">  ✗ Помилка аналізу: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d записів=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Так</string>
+    <string name="anl_no">Ні</string>
+    <string name="anl_hits">  · Усього збігів функцій: %1$d</string>
+    <string name="anl_no_hit">  ⚠ У цьому APK не знайдено жодної налаштованої рекламної функції</string>
+    <string name="anl_tip">  ⚠ Примітка: проаналізовані функції наведено лише для довідки; звірте з фактичною поведінкою APK</string>
+
+    <string name="webview_detect_download">Виявлено адресу завантаження, завантаження всередині застосунку…</string>
+    <string name="webview_cannot_open_link">Не вдалося відкрити зовнішнє посилання</string>
+    <string name="main_title">Аналіз реклами</string>
+    <string name="main_subtitle">Аналіз рекламних функцій APK · експорт конфігурації</string>
+    <string name="nav_back_desc">Назад</string>
+    <string name="btn_select_apk">Вибрати APK</string>
+    <string name="tv_no_apk">APK ще не вибрано</string>
+    <string name="btn_copy_config">Копіювати конфігурацію</string>
+    <string name="btn_save_config">Зберегти конфігурацію</string>
+    <string name="progress_analyzing_placeholder">Аналіз...</string>
+    <string name="section_result">Результат аналізу</string>
+    <string name="content_desc_clear">Очистити</string>
+    <string name="content_desc_feature">Можливість</string>
+    <string name="update_found_new">Знайдено нову версію</string>
+    <string name="update_welcome">Вийшла нова версія, оновіться, щоб спробувати</string>
+    <string name="content_desc_close">Закрити</string>
+    <string name="update_current_version">Поточна версія</string>
+    <string name="content_desc_upgrade_to">Оновити до</string>
+    <string name="update_latest_version">Остання версія</string>
+    <string name="update_content_title">Що нового</string>
+    <string name="update_open_browser">Відкрити посилання в браузері</string>
+    <string name="update_immediately">Оновити зараз</string>
+    <string name="content_desc_announcement">Оголошення</string>
+    <string name="content_desc_update">Оновити</string>
+
+    <string name="update_read_carefully">Будь ласка, уважно прочитайте наступне</string>
+    <string name="update_no_more">Більше не показувати</string>
+    <string name="content_desc_download">Завантажити</string>
+    <string name="update_captured_download">Посилання на завантаження знайдено, завантажуємо для вас</string>
+    <string name="webview_hint">Натисніть кнопку завантаження на сторінці — цей застосунок автоматично перехопить посилання на APK і завантажить його всередині застосунку.</string>
+</resources>

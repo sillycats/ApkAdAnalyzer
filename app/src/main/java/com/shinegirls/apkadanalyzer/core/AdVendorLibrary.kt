@@ -1,26 +1,22 @@
 package com.shinegirls.apkadanalyzer.core
 
 import android.content.Context
-import com.shinegirls.apkadanalyzer.utils.PathPreferences
 import org.json.JSONArray
 import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
 
 /**
- * 在线广告厂商广告特征库（网络获取）。
+ * 内置广告厂商广告特征库（本地读取）。
  *
- * 从远程地址拉取"按广告厂商组织"的广告特征（SDK 包名 / 类名 / 方法 / URL / 原生库 /
- * assets 等），覆盖国内外主流广告厂商。远程库以混淆加密形式（online_ad_vendors.enc）
- * 存储，运行态经 [NativeCrypto]（libnative_crypto.so）解密后解析为 [Vendor] 列表并
- * 加密缓存到本地，供 APK 分析时与内置特征合并使用：
+ * 厂商特征随 APK 打包在 assets 的混淆加密文件（online_ad_vendors_default.enc）中，
+ * 全程离线读取，不发起任何网络请求。文件以混淆加密形式存储，运行态经
+ * [NativeCrypto]（libnative_crypto.so）解密后解析为 [Vendor] 列表，供 APK 分析时
+ * 与内置特征合并使用：
  * - 覆盖范围：国内厂商（广点通 / 百度 / 快手 / 穿山甲 / 华为 / Sigmob / TopOn 等）+ 国际厂商
  *   （AdMob / Meta / AppLovin / Unity / ironSource / Mintegral / Pangle / Vungle 等）。
  * - 合并策略：将每个厂商的 features 累加为一份 [AdPatternConfig.AdPatterns]（去重），
  *   与内置（assets 默认配置 + 本地 ad_patterns.json）合并后再交给 [AdFeatureAnalyzer] 分析。
- * - 离线兜底：成功拉取后缓存原始 JSON 到本地，网络不可用时优先读取缓存，保证分析不中断。
  *
- * 远程库 JSON 结构（供应商列表）：
+ * 厂商库 JSON 结构（供应商列表）：
  * {
  *   "version": 1,
  *   "updated": "2026-08-21",
@@ -37,20 +33,8 @@ import java.net.URL
  */
 object AdVendorLibrary {
 
-    /** 在线厂商库主地址：jsDelivr CDN（国内可访问性更好）。 */
-    const val DEFAULT_VENDOR_URL =
-        "https://cdn.jsdelivr.net/gh/sillycats/ApkAdAnalyzer@main/online_ad_vendors.enc"
-
-    /** 备用在线厂商库地址：GitHub raw（CDN 不可用时回退）。 */
-    const val FALLBACK_VENDOR_URL =
-        "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/online_ad_vendors.enc"
-
-    /** 缓存文件名（存放于除外存储的配置目录下，跟随用户自定义路径）。 */
-    private const val CACHE_FILE_NAME = "online_ad_vendors.enc"
-
-    /** 网络超时（毫秒）。 */
-    private const val CONNECT_TIMEOUT_MS = 8_000
-    private const val READ_TIMEOUT_MS = 12_000
+    /** 内置广告厂商库（assets 中，混淆加密）。随 APK 打包，全程离线加载，不发起任何网络请求。 */
+    private const val EMBEDDED_ASSET_NAME = "online_ad_vendors_default.enc"
 
     /**
      * 单个广告厂商及其广告特征。
@@ -87,51 +71,10 @@ object AdVendorLibrary {
     )
 
     /**
-     * 依次尝试多个在线厂商库地址拉取（同步，需在子线程执行）。
+     * 解密广告厂商库原始字节（兼容旧版明文与新版加密格式）。
      *
-     * @param urls 按优先级排列的地址列表
-     * @return 首个成功解析的 [VendorLibrary]；全部失败返回 null。
-     */
-    fun fetchVendorLibrary(urls: List<String>): VendorLibrary? {
-        for (url in urls) {
-            val lib = fetchFromSingleUrl(url)
-            if (lib != null) return lib
-        }
-        return null
-    }
-
-    /**
-     * 从单个地址拉取并解析在线厂商库（同步，需在子线程执行）。
-     */
-    private fun fetchFromSingleUrl(url: String): VendorLibrary? {
-        return try {
-            val conn = (URL(url).openConnection() as HttpURLConnection).apply {
-                requestMethod = "GET"
-                connectTimeout = CONNECT_TIMEOUT_MS
-                readTimeout = READ_TIMEOUT_MS
-                setRequestProperty("Accept", "application/json")
-                setRequestProperty("User-Agent", "ApkAdAnalyzer/1.0")
-                instanceFollowRedirects = true
-            }
-            try {
-                val code = conn.responseCode
-                if (code !in 200..299) return null
-                val bytes = conn.inputStream.use { it.readBytes() }
-                val jsonStr = decryptVendorBytes(bytes) ?: return null
-                parseVendorLibrary(jsonStr, url)
-            } finally {
-                conn.disconnect()
-            }
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    /**
-     * 解密在线厂商库原始字节（兼容旧版明文与新版加密格式）。
-     *
-     * 远程库以 [NativeCrypto]（libnative_crypto.so）混淆加密存储，避免广告厂商特征
-     * 以明文暴露在公开仓库；通过首字节判断：明文 JSON 以 '{' 开头，其余按加密格式解密。
+     * 厂商库以 [NativeCrypto]（libnative_crypto.so）混淆加密存储，避免广告厂商特征
+     * 以明文暴露在 APK 资源中；通过首字节判断：明文 JSON 以 '{' 开头，其余按加密格式解密。
      */
     private fun decryptVendorBytes(bytes: ByteArray): String? {
         if (bytes.isEmpty()) return null
@@ -234,70 +177,19 @@ object AdVendorLibrary {
         )
     }
 
-    // ==================== 本地缓存 ====================
-
     /**
-     * 读取缓存的厂商库 JSON 明文（位于配置目录下）。
+     * 读取内置广告厂商库（assets 中混淆加密）。
      *
-     * 缓存以混淆加密形式落盘（与内置特征一致），运行态经 [NativeCrypto]
-     * （libnative_crypto.so）解密为 JSON；解密失败或原生库不可用时，回退读取
-     * 旧版明文缓存（升级兼容）。返回 null 表示无缓存或读取失败。
+     * 厂商特征随 APK 打包在 assets 中，全程离线读取，不发起任何网络请求；
+     * 解析成功后即可合并进分析。文件缺失或解密失败返回 null。
      */
-    fun readCached(context: Context): String? {
+    fun readEmbedded(context: Context): VendorLibrary? {
         return try {
-            val file = getCacheFile(context)
-            if (!file.exists()) return null
-            decryptVendorBytes(file.readBytes())?.takeIf { it.isNotBlank() }
+            val bytes = context.assets.open(EMBEDDED_ASSET_NAME).use { it.readBytes() }
+            val jsonStr = decryptVendorBytes(bytes) ?: return null
+            parseVendorLibrary(jsonStr, "embedded")
         } catch (_: Exception) {
             null
         }
-    }
-
-    /**
-     * 将厂商库原始 JSON 明文以混淆加密形式写入缓存（位于配置目录下）。
-     *
-     * 使用与内置特征完全一致的 [NativeCrypto] 加密，避免在线广告厂商特征以
-     * 明文暴露在外部存储中；解密密钥与算法分布在 libnative_crypto.so 内。
-     */
-    fun writeCache(context: Context, jsonStr: String): Boolean {
-        return try {
-            val file = getCacheFile(context)
-            if (NativeCrypto.isAvailable()) {
-                NativeCrypto.writeEncryptedFile(file, jsonStr)
-            } else {
-                // 原生库不可用时降级：明文写入（保证功能可用，但存在明文暴露，仅在异常环境）
-                file.parentFile?.mkdirs()
-                file.writeText(jsonStr, Charsets.UTF_8)
-                true
-            }
-        } catch (_: Exception) {
-            false
-        }
-    }
-
-    /**
-     * 从缓存文本解析为 [VendorLibrary]。
-     */
-    fun parseCached(jsonStr: String): VendorLibrary? {
-        return try {
-            parseVendorLibrary(jsonStr, "cache")
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    /** 获取缓存文件路径（配置目录 / online_ad_vendors.json）。 */
-    fun getCacheFile(context: Context): java.io.File {
-        val configFile = AdPatternConfig.getConfigFile(context)
-        val parent = configFile.parentFile ?: java.io.File(PathPreferences.getConfigFilePath(context)).parentFile
-        return java.io.File(parent, CACHE_FILE_NAME)
-    }
-
-    /** 获取在线厂商库地址（预留自定义能力，目前使用默认+备用）。 */
-    fun getVendorUrls(): List<String> {
-        val urls = LinkedHashSet<String>()
-        urls.add(DEFAULT_VENDOR_URL)
-        urls.add(FALLBACK_VENDOR_URL)
-        return urls.toList()
     }
 }

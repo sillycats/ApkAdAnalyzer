@@ -28,7 +28,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:background="@drawable/bg_icon_round"
-                android:contentDescription="下载"
+                android:contentDescription="@string/content_desc_download"
                 android:padding="10dp"
                 android:src="@drawable/ic_update" />
 
@@ -43,7 +43,7 @@
                     android:id="@+id/tvDlTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发现新版本"
+                    android:text="@string/update_found_new"
                     android:textColor="@color/white"
                     android:textSize="19sp"
                     android:textStyle="bold" />
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="已捕获下载地址，正在为您下载"
+                    android:text="@string/update_captured_download"
                     android:textColor="@color/text_on_primary_80"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -62,7 +62,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="关闭"
+                android:contentDescription="@string/content_desc_close"
                 android:src="@drawable/ic_close" />
         </LinearLayout>
 

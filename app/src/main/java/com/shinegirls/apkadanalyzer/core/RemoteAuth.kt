@@ -17,11 +17,9 @@ import java.net.URL
  */
 object RemoteAuth {
 
-    /** 授权配置文件地址列表（按优先级，jsDelivr CDN 为主，GitHub raw 为备用）。 */
-    private val AUTH_CONFIG_URLS = listOf(
-        "https://cdn.jsdelivr.net/gh/sillycats/ApkAdAnalyzer@main/auth_config.json",
+    /** 授权配置文件远程地址（仓库根目录，raw 直链）。 */
+    private const val AUTH_CONFIG_URL =
         "https://raw.githubusercontent.com/sillycats/ApkAdAnalyzer/main/auth_config.json"
-    )
 
     /** 拉取超时（毫秒）。 */
     private const val TIMEOUT_MS = 8000
@@ -35,27 +33,18 @@ object RemoteAuth {
      * @return 0=无效/失败 1=已授权 2=已吊销
      */
     suspend fun refresh(): Int = withContext(Dispatchers.IO) {
-        for (url in AUTH_CONFIG_URLS) {
-            val result = fetchFrom(url)
-            if (result != 0) return@withContext result
-        }
-        0
-    }
-
-    /** 从单个地址拉取授权配置并应用；成功(1/2)或失败不可达(0)返回对应值。 */
-    private fun fetchFrom(url: String): Int {
-        return try {
-            val conn = URL(url).openConnection() as HttpURLConnection
+        try {
+            val conn = URL(AUTH_CONFIG_URL).openConnection() as HttpURLConnection
             try {
                 conn.connectTimeout = TIMEOUT_MS
                 conn.readTimeout = TIMEOUT_MS
                 conn.requestMethod = "GET"
                 conn.setRequestProperty("Accept", "application/json")
                 val code = conn.responseCode
-                if (code != HttpURLConnection.HTTP_OK) return 0
+                if (code != HttpURLConnection.HTTP_OK) return@withContext 0
                 val stream = conn.inputStream
                 val bytes = stream.readBytes().let { if (it.size > MAX_BYTES) it.copyOf(MAX_BYTES) else it }
-                if (bytes.isEmpty()) return 0
+                if (bytes.isEmpty()) return@withContext 0
                 NativeCrypto.setAuthConfig(bytes)
             } finally {
                 conn.disconnect()

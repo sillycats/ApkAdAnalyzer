@@ -17,16 +17,53 @@
             android:background="@drawable/bg_gradient_header"
             app:elevation="0dp">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="广告特征分析"
-                app:titleTextColor="@color/white"
-                app:subtitle="分析 APK 广告特征 · 导出特征配置"
-                app:subtitleTextColor="@color/primary_light"
-                app:navigationIcon="@drawable/ic_back"
-                app:navigationContentDescription="返回" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <!-- 标题/副标题：自动换行，避免长语言被截断 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:text="@string/main_title"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:maxLines="2"
+                        android:text="@string/main_subtitle"
+                        android:textColor="@color/primary_light"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- 菜单宿主 Toolbar：仅承载右侧竖排菜单 -->
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    app:contentInsetEndWithActions="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:title="" />
+            </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progressBar"
@@ -65,7 +102,7 @@
                         style="@style/Widget.MaterialComponents.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="选择 APK"
+                        android:text="@string/btn_select_apk"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:minWidth="0dp"
@@ -81,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
-                        android:text="尚未选择 APK"
+                        android:text="@string/tv_no_apk"
                         android:maxLines="2"
                         android:ellipsize="middle"
                         android:textColor="@color/text_secondary"
@@ -102,13 +139,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="复制配置"
+                    android:layout_marginEnd="5dp"
+                    android:minHeight="52dp"
+                    android:minWidth="0dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:text="@string/btn_copy_config"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:minWidth="0dp"
                     app:cornerRadius="18dp"
                     app:icon="@drawable/ic_copy"
-                    app:iconSize="16dp" />
+                    app:iconSize="16dp"
+                    app:iconTint="@color/text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveConfig"
@@ -116,14 +161,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:text="保存配置"
+                    android:layout_marginStart="5dp"
+                    android:minHeight="52dp"
+                    android:minWidth="0dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:text="@string/btn_save_config"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:minWidth="0dp"
                     app:cornerRadius="18dp"
                     app:icon="@drawable/ic_check_circle"
-                    app:iconSize="16dp" />
+                    app:iconSize="16dp"
+                    app:iconTint="@color/text_primary" />
             </LinearLayout>
 
             <TextView
@@ -138,7 +190,7 @@
                 android:drawablePadding="6dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
-                android:text="正在分析..." />
+                android:text="@string/progress_analyzing_placeholder" />
         </LinearLayout>
 
         <!-- 分析结果区 -->
@@ -175,7 +227,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="分析结果"
+                        android:text="@string/section_result"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -185,7 +237,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="清空"
+                        android:contentDescription="@string/content_desc_clear"
                         android:src="@drawable/ic_clear"
                         app:tint="@color/primary_dark" />
                 </LinearLayout>
@@ -209,7 +261,7 @@
                         android:textIsSelectable="true"
                         android:scrollbars="vertical"
                         android:background="@color/bg_card"
-                        android:text="选择一个有广告的 APK 文件开始分析。\n分析完成后可复制或保存广告特征配置文件。" />
+                        android:text="@string/hint_initial" />
                 </ScrollView>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

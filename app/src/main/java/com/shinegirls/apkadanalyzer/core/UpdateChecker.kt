@@ -212,7 +212,7 @@ object UpdateChecker {
      * @param activity 用于展示结果弹窗的 Activity（需持有 lifecycleScope）。
      */
     fun checkForUpdate(activity: androidx.appcompat.app.AppCompatActivity) {
-        UiUtils.info(activity, "正在检查更新…")
+        UiUtils.info(activity, activity.getString(R.string.update_checking))
         activity.lifecycleScope.launch(Dispatchers.IO) {
             val info = fetchLatestUpdate(getCheckUrls(activity))
             withContext(Dispatchers.Main) {
@@ -372,7 +372,7 @@ object UpdateChecker {
 
         val currentCode = getCurrentVersionCode(activity)
         if (info.versionCode <= currentCode) {
-            UiUtils.success(activity, "已是最新版本 (${getCurrentVersionName(activity)})")
+            UiUtils.success(activity, activity.getString(R.string.update_latest, getCurrentVersionName(activity)))
             return
         }
 
@@ -388,14 +388,10 @@ object UpdateChecker {
     private fun showCheckFailedDialog(activity: Activity) {
         if (activity.isFinishing || activity.isDestroyed) return
         AlertDialog.Builder(activity, R.style.RoundedAlertDialog)
-            .setTitle("检查更新失败")
-            .setMessage(
-                "暂时无法连接更新服务器。\n\n" +
-                    "你可以通过手机浏览器访问蓝奏云网盘，手动下载最新版本：\n\n" +
-                    LANZOU_DOWNLOAD_URL
-            )
-            .setPositiveButton("前往浏览器下载") { _, _ -> openLanzouInBuiltInBrowser(activity) }
-            .setNegativeButton("取消", null)
+            .setTitle(R.string.update_check_failed_title)
+            .setMessage(activity.getString(R.string.update_check_failed_msg, LANZOU_DOWNLOAD_URL))
+            .setPositiveButton(R.string.update_go_browser) { _, _ -> openLanzouInBuiltInBrowser(activity) }
+            .setNegativeButton(R.string.update_cancel, null)
             .show()
     }
 
@@ -408,7 +404,7 @@ object UpdateChecker {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             activity.startActivity(intent)
         } catch (_: Exception) {
-            UiUtils.error(activity, "无法打开浏览器，请手动访问蓝奏云下载")
+            UiUtils.error(activity, activity.getString(R.string.update_cannot_open_browser))
         }
     }
 
@@ -423,12 +419,12 @@ object UpdateChecker {
         try {
             val intent = Intent(activity, WebViewActivity::class.java).apply {
                 putExtra(WebViewActivity.EXTRA_URL, LANZOU_DOWNLOAD_URL)
-                putExtra(WebViewActivity.EXTRA_TITLE, "下载中心")
+                putExtra(WebViewActivity.EXTRA_TITLE, activity.getString(R.string.update_download_center))
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             activity.startActivity(intent)
         } catch (_: Exception) {
-            UiUtils.error(activity, "无法打开下载中心")
+            UiUtils.error(activity, activity.getString(R.string.update_cannot_open_center))
         }
     }
 
@@ -456,7 +452,7 @@ object UpdateChecker {
         tvNewVersion.text = if (info.versionName.isBlank()) "v${info.versionCode}" else "v${info.versionName}"
 
         // 更新说明
-        tvUpdateDesc.text = if (info.description.isBlank()) "暂无详细说明" else info.description
+        tvUpdateDesc.text = if (info.description.isBlank()) activity.getString(R.string.update_no_desc) else info.description
 
         // 构建弹窗
         val dialog = AlertDialog.Builder(activity)
@@ -493,13 +489,13 @@ object UpdateChecker {
             // 若内置下载链接不是 APK 直链（如网盘页面 / 下载站中转页），
             // 应用内无法直接下载，自动改用手机浏览器跳转蓝奏云供用户下载
             if (!isApkDirectLink(info.downloadUrl)) {
-                UiUtils.info(activity, "更新地址为网页链接，将打开内置浏览器前往蓝奏云下载")
+                UiUtils.info(activity, activity.getString(R.string.update_web_link_hint))
                 dialog.dismiss()
                 openLanzouInBuiltInBrowser(activity)
                 return@setOnClickListener
             }
             btnUpdate.isEnabled = false
-            btnUpdate.text = "正在下载"
+            btnUpdate.text = activity.getString(R.string.update_downloading)
             btnLater.isEnabled = false
             progressSection.visibility = View.VISIBLE
             startDownload(
@@ -550,9 +546,10 @@ object UpdateChecker {
         val btnNoMore = view.findViewById<MaterialButton>(R.id.btnAnnNoMore)
         val btnOk = view.findViewById<MaterialButton>(R.id.btnAnnOk)
 
-        tvTitle.text = ann.title
+        // 标题与确认按钮：远程未覆盖（使用默认值）时改用本地化资源
+        tvTitle.text = if (ann.title == "官方公告") activity.getString(R.string.update_official_announce) else ann.title
         tvContent.text = ann.content
-        btnOk.text = ann.buttonText
+        btnOk.text = if (ann.buttonText == "知道了") activity.getString(R.string.update_know) else ann.buttonText
 
         // 构建弹窗
         val dialog = AlertDialog.Builder(activity)
@@ -705,7 +702,7 @@ object UpdateChecker {
 
                 val code = conn.responseCode
                 if (code !in 200..299) {
-                    throw IOException("服务器响应异常 (HTTP $code)")
+                    throw IOException(activity.getString(R.string.err_server_response, code))
                 }
 
                 // 若预检仍未拿到大小，再尝试从 GET 响应头获取
@@ -722,9 +719,9 @@ object UpdateChecker {
                     progressBar.isIndeterminate = false
                     progressBar.setProgressCompat(0, true)
                     tvProgressDetail.text = if (total > 0) {
-                        "已下载 0 B / ${formatSize(total)}"
+                        activity.getString(R.string.update_dl_zero_total, formatSize(total))
                     } else {
-                        "已下载 0 B"
+                        activity.getString(R.string.update_dl_zero)
                     }
                 }
 
@@ -747,13 +744,20 @@ object UpdateChecker {
                                 handler.post {
                                     progressBar.setProgressCompat(percent, true)
                                     tvPercent.text = "$percent%"
-                                    tvProgressDetail.text = "已下载 ${formatSize(downloaded)} / ${formatSize(total)}"
+                                    tvProgressDetail.text = activity.getString(
+                                        R.string.update_dl_progress,
+                                        formatSize(downloaded),
+                                        formatSize(total)
+                                    )
                                 }
                             } else {
                                 // 极端兜底：确实拿不到总大小时，仅显示已下载量
                                 handler.post {
-                                    tvPercent.text = "下载中"
-                                    tvProgressDetail.text = "已下载 ${formatSize(downloaded)}"
+                                    tvPercent.text = activity.getString(R.string.update_dl_indeterminate)
+                                    tvProgressDetail.text = activity.getString(
+                                        R.string.update_dl_amount,
+                                        formatSize(downloaded)
+                                    )
                                 }
                             }
                         }
@@ -766,16 +770,16 @@ object UpdateChecker {
                     progressBar.isIndeterminate = false
                     progressBar.setProgressCompat(100, true)
                     tvPercent.text = "100%"
-                    tvProgressDetail.text = "下载完成，正在打开安装器..."
-                    UiUtils.success(activity, "下载完成，正在打开安装器…")
+                    tvProgressDetail.text = activity.getString(R.string.update_dl_done)
+                    UiUtils.success(activity, activity.getString(R.string.update_dl_done_toast))
                     installApk(activity, target)
                     onSuccess()
                 }
             } catch (e: Exception) {
                 handler.post {
                     btnUpdate.isEnabled = true
-                    btnUpdate.text = "下载失败，点击重试"
-                    UiUtils.error(activity, "下载失败: ${e.message}")
+                    btnUpdate.text = activity.getString(R.string.update_dl_failed_retry)
+                    UiUtils.error(activity, activity.getString(R.string.update_dl_failed, e.message))
                 }
             } finally {
                 conn?.disconnect()
@@ -793,16 +797,16 @@ object UpdateChecker {
     private fun installApk(activity: Activity, file: File) {
         // 校验下载的 APK 文件是否存在且非空
         if (!file.exists() || file.length() == 0L) {
-            UiUtils.error(activity, "下载的更新包无效，请重试")
+            UiUtils.error(activity, activity.getString(R.string.update_pkg_invalid))
             return
         }
 
         // Android 8.0+ 需要"安装未知来源应用"权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !canRequestPackageInstalls(activity)) {
             AlertDialog.Builder(activity)
-                .setTitle("需要安装权限")
-                .setMessage("为了安装新版本，请允许本应用安装未知来源应用。")
-                .setPositiveButton("去开启") { _, _ ->
+                .setTitle(R.string.update_install_permission_title)
+                .setMessage(R.string.update_install_permission_msg)
+                .setPositiveButton(R.string.update_go_enable) { _, _ ->
                     try {
                         val intent = Intent(
                             Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
@@ -810,10 +814,10 @@ object UpdateChecker {
                         )
                         activity.startActivity(intent)
                     } catch (_: Exception) {
-                        UiUtils.warning(activity, "无法打开安装权限设置")
+                        UiUtils.warning(activity, activity.getString(R.string.update_cannot_open_perm))
                     }
                 }
-                .setNegativeButton("稍后再说", null)
+                .setNegativeButton(R.string.update_later, null)
                 .show()
             return
         }
@@ -835,7 +839,7 @@ object UpdateChecker {
                 }
                 activity.startActivity(intent)
             } catch (_: Exception) {
-                UiUtils.error(activity, "无法打开系统安装器，请手动安装更新包")
+                UiUtils.error(activity, activity.getString(R.string.update_cannot_open_installer))
             }
         }
     }
@@ -869,12 +873,12 @@ object UpdateChecker {
     ) {
         if (activity.isFinishing || activity.isDestroyed) return
         if (downloadUrl.isBlank()) {
-            UiUtils.error(activity, "未捕获到有效的下载地址")
+            UiUtils.error(activity, activity.getString(R.string.update_no_url))
             return
         }
         if (!isApkDirectLink(downloadUrl)) {
             // 非直链时给用户提示，防止把网页/中转页误当文件下载
-            UiUtils.warning(activity, "未捕获到 APK 直链，请在页面内点击下载按钮后重试")
+            UiUtils.warning(activity, activity.getString(R.string.update_no_direct_link))
             return
         }
 
@@ -935,7 +939,7 @@ object UpdateChecker {
 
                 val code = conn.responseCode
                 if (code !in 200..299) {
-                    throw IOException("服务器响应异常 (HTTP $code)")
+                    throw IOException(activity.getString(R.string.err_server_response, code))
                 }
 
                 if (total <= 0) {
@@ -949,9 +953,9 @@ object UpdateChecker {
                     progressBar.isIndeterminate = false
                     progressBar.setProgressCompat(0, true)
                     tvProgressDetail.text = if (total > 0) {
-                        "已下载 0 B / ${formatSize(total)}"
+                        activity.getString(R.string.update_dl_zero_total, formatSize(total))
                     } else {
-                        "已下载 0 B"
+                        activity.getString(R.string.update_dl_zero)
                     }
                 }
 
@@ -972,12 +976,19 @@ object UpdateChecker {
                                 handler.post {
                                     progressBar.setProgressCompat(percent, true)
                                     tvPercent.text = "$percent%"
-                                    tvProgressDetail.text = "已下载 ${formatSize(downloaded)} / ${formatSize(total)}"
+                                    tvProgressDetail.text = activity.getString(
+                                        R.string.update_dl_progress,
+                                        formatSize(downloaded),
+                                        formatSize(total)
+                                    )
                                 }
                             } else {
                                 handler.post {
-                                    tvPercent.text = "下载中"
-                                    tvProgressDetail.text = "已下载 ${formatSize(downloaded)}"
+                                    tvPercent.text = activity.getString(R.string.update_dl_indeterminate)
+                                    tvProgressDetail.text = activity.getString(
+                                        R.string.update_dl_amount,
+                                        formatSize(downloaded)
+                                    )
                                 }
                             }
                         }
@@ -989,14 +1000,14 @@ object UpdateChecker {
                     progressBar.isIndeterminate = false
                     progressBar.setProgressCompat(100, true)
                     tvPercent.text = "100%"
-                    tvProgressDetail.text = "下载完成，正在打开安装器..."
-                    UiUtils.success(activity, "下载完成，正在打开安装器…")
+                    tvProgressDetail.text = activity.getString(R.string.update_dl_done)
+                    UiUtils.success(activity, activity.getString(R.string.update_dl_done_toast))
                     dialog.dismiss()
                     installApk(activity, target)
                 }
             } catch (e: Exception) {
                 handler.post {
-                    UiUtils.error(activity, "下载失败: ${e.message}")
+                    UiUtils.error(activity, activity.getString(R.string.update_dl_failed, e.message))
                     if (dialog.isShowing) dialog.dismiss()
                 }
             } finally {

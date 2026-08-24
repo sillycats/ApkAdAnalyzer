@@ -28,7 +28,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:background="@drawable/bg_icon_round"
-                android:contentDescription="更新"
+                android:contentDescription="@string/content_desc_update"
                 android:padding="10dp"
                 android:src="@drawable/ic_update" />
 
@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发现新版本"
+                    android:text="@string/update_found_new"
                     android:textColor="@color/white"
                     android:textSize="19sp"
                     android:textStyle="bold" />
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="新版本已发布，欢迎升级体验"
+                    android:text="@string/update_welcome"
                     android:textColor="@color/text_on_primary_80"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -61,7 +61,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="关闭"
+                android:contentDescription="@string/content_desc_close"
                 android:src="@drawable/ic_close" />
         </LinearLayout>
 
@@ -91,7 +91,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="当前版本"
+                        android:text="@string/update_current_version"
                         android:textColor="@color/text_hint"
                         android:textSize="12sp" />
 
@@ -109,7 +109,7 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:contentDescription="升级到"
+                    android:contentDescription="@string/content_desc_upgrade_to"
                     android:src="@drawable/ic_arrow_forward" />
 
                 <LinearLayout
@@ -122,7 +122,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="最新版本"
+                        android:text="@string/update_latest_version"
                         android:textColor="@color/accent"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="更新内容"
+                android:text="@string/update_content_title"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -228,7 +228,7 @@
                     android:layout_height="52dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="用浏览器打开链接"
+                    android:text="@string/update_open_browser"
                     android:textSize="13sp"
                     android:textColor="@color/text_secondary"
                     app:cornerRadius="26dp"
@@ -246,7 +246,7 @@
                     android:layout_height="52dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="立即更新"
+                    android:text="@string/update_immediately"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -265,7 +265,7 @@
                 android:minWidth="0dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
-                android:text="稍后再说"
+                android:text="@string/update_later"
                 android:textColor="@color/text_hint"
                 android:textSize="12sp"
                 app:cornerRadius="18dp"

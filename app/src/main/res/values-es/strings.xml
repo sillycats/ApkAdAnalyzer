@@ -1,0 +1,200 @@
+<resources>
+    <!-- Conceptos básicos de la aplicación -->
+    <string name="app_name">Analizador de características de anuncios APK</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">Icono de archivo</string>
+    <string name="common_unknown">Desconocido</string>
+    <string name="err_cannot_read_file">No se puede leer el archivo seleccionado</string>
+    <string name="err_server_response">Error de respuesta del servidor (HTTP %1$d)</string>
+    <string name="err_config_unreadable">No se puede leer el archivo de configuración</string>
+
+    <!-- Menú -->
+    <string name="menu_language">Cambiar idioma</string>
+    <string name="menu_about">Acerca de</string>
+
+    <!-- Cambio de idioma -->
+    <string name="locale_system_default">Seguir sistema</string>
+    <string name="dlg_choose_language">Elegir idioma</string>
+    <string name="dlg_cancel">Cancelar</string>
+
+    <!-- Pantalla principal AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Seleccione primero un APK y complete el análisis</string>
+    <string name="clip_ad_config">Configuración de características de anuncios</string>
+    <string name="toast_config_copied">Configuración copiada al portapapeles</string>
+    <string name="toast_auth_revoked">La autorización de la aplicación ha sido revocada de forma remota; las funciones están desactivadas</string>
+    <string name="toast_grant_all_files">Conceda primero el permiso de \'Acceso a todos los archivos\'</string>
+    <string name="chooser_pick_apk">Seleccionar archivo APK</string>
+    <string name="log_start_analyze">▶ Iniciar análisis: %1$s</string>
+    <string name="log_read_apk">  · Leyendo archivo APK...</string>
+    <string name="log_load_config">  · Cargando configuración de características: %1$d características, %2$d categorías (incl. Flutter)</string>
+    <string name="log_merged_online">  · Biblioteca de proveedores integrada fusionada, %1$d características en total</string>
+    <string name="log_no_online">  · Biblioteca de proveedores integrada no encontrada, usando solo características base</string>
+    <string name="log_analyze_failed">  ✗ Análisis fallido: %1$s</string>
+    <string name="toast_analyze_failed">Análisis fallido: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d proveedores, %2$d características</string>
+    <string name="report_header">════════ Resumen del análisis ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Paquete: %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Archivos: %1$d</string>
+    <string name="report_flutter">Flutter: %1$d libapp.so</string>
+    <string name="report_hits">Coincidencias: %1$d características</string>
+    <string name="report_no_hit">No se encontró ninguna característica de anuncios configurada.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · %1$d más omitidos</string>
+    <string name="report_tip">⚠ Nota: Los resultados del análisis son solo de referencia; revise manualmente antes de importar.</string>
+    <string name="report_export_hint">Use los botones \'Copiar configuración\' o \'Guardar configuración\' de abajo para exportar la configuración completa.</string>
+    <string name="hint_initial">Seleccione un APK con anuncios para iniciar el análisis.\nDespués del análisis, puede copiar o guardar el archivo de configuración de características de anuncios.</string>
+    <string name="progress_analyzing">Analizando %1$s   Procesados %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">características_anuncios</string>
+    <string name="save_file_pattern">%1$s_características_anuncios_%2$s.json</string>
+    <string name="toast_saved">Configuración guardada: %1$s</string>
+    <string name="log_saved">  ✓ Configuración guardada: %1$s</string>
+    <string name="toast_save_failed">Error al guardar: %1$s</string>
+    <string name="log_save_failed">  ✗ Error al guardar: %1$s</string>
+
+    <!-- Nombres de categorías de características de anuncios AdPatternConfig -->
+    <string name="cat_sdk_packages">Nombres de paquetes de SDK de anuncios</string>
+    <string name="cat_class_keywords">Palabras clave de nombres de clase de anuncios</string>
+    <string name="cat_method_patterns">Nombres de métodos de anuncios</string>
+    <string name="cat_url_patterns">URLs/dominios de anuncios</string>
+    <string name="cat_ad_view_names">Nombres de clases View de anuncios</string>
+    <string name="cat_ad_activities">Activities de anuncios</string>
+    <string name="cat_ad_services">Services de anuncios</string>
+    <string name="cat_ad_receivers">Receivers de anuncios</string>
+    <string name="cat_force_true_methods">Métodos forzados a devolver true</string>
+    <string name="cat_force_false_methods">Métodos forzados a devolver false</string>
+    <string name="cat_ad_asset_paths">Rutas de archivos de anuncios en assets</string>
+    <string name="cat_lib_file_keywords">Palabras clave de bibliotecas nativas de SDK de anuncios</string>
+    <string name="cat_asset_keywords">Palabras clave de anuncios en assets</string>
+    <string name="cat_method_neutralize_keywords">Palabras clave de anulación de métodos de anuncios</string>
+    <string name="cat_ad_permissions">Características de permisos de anuncios</string>
+    <string name="cat_root_file_keywords">Palabras clave de archivos del directorio raíz del APK</string>
+    <string name="cat_res_layout_keywords">Palabras clave de Views de anuncios en layout de Res</string>
+    <string name="cat_string_patterns">Características de anuncios en cadenas DEX</string>
+    <string name="cat_flutter_patterns">Características de cadenas Flutter</string>
+
+    <!-- Página Acerca de AboutActivity -->
+    <string name="about_version">Versión %1$s</string>
+    <string name="about_version_default">Versión</string>
+    <string name="about_subtitle">Acerca de · Analizador de características de anuncios APK</string>
+    <string name="about_app_icon_desc">Icono de la aplicación</string>
+    <string name="about_check_update">Buscar actualizaciones</string>
+    <string name="about_direct_download">Descargar ahora</string>
+    <string name="about_description">Análisis de anuncios del APK con un toque · exportar configuración
+Procesamiento local sin conexión, identifica SDK de anuncios rápidamente</string>
+    <string name="about_section_features">Características</string>
+    <string name="about_section_author">Información del autor</string>
+    <string name="about_author">Autor</string>
+    <string name="about_qq">Contacto QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Correo de contacto</string>
+    <string name="about_email_desc">Correo</string>
+    <string name="about_section_opensource">Proyectos de código abierto</string>
+    <string name="about_section_reference">Referencias y fuentes</string>
+    <string name="about_section_privacy">Política de privacidad</string>
+    <string name="about_section_disclaimer">Aviso legal</string>
+
+    <string name="clip_author_qq">QQ del autor</string>
+    <string name="toast_qq_copied">QQ copiado al portapapeles</string>
+    <string name="email_subject">Comentarios sobre el analizador de características de anuncios APK</string>
+    <string name="chooser_send_email">Enviar correo</string>
+    <string name="toast_no_mail_app">No se encontró ninguna aplicación de correo</string>
+    <string name="feat_01">Análisis de características de anuncios APK con un toque, totalmente local y sin conexión, sin subir archivos</string>
+    <string name="feat_02">Seleccione un APK con anuncios para identificar rápidamente sus SDK y características de anuncios</string>
+    <string name="feat_03">Cubre bytecode DEX, AndroidManifest, res/layout, assets, archivos del directorio raíz, etc.</string>
+    <string name="feat_04">Detecta automáticamente aplicaciones Flutter y escanea libapp.so en busca de características de cadenas de anuncios</string>
+    <string name="feat_05">19 categorías de características de anuncios, que cubren nombres de paquetes SDK / permisos / clases / métodos / recursos / URLs</string>
+    <string name="feat_06">Registro de análisis en color en tiempo real, con barra de progreso y archivo actual</string>
+    <string name="feat_07">Resultados agregados automáticamente; las características coincidentes se muestran claramente por categoría</string>
+    <string name="feat_08">Generación y exportación con un toque del archivo de configuración ad_patterns.json</string>
+    <string name="feat_09">La configuración generada es totalmente compatible con el formato integrado y se puede copiar o guardar localmente</string>
+    <string name="feat_10">Temas claro y oscuro, con tres modos: seguir sistema, claro y nocturno</string>
+    <string name="feat_11">18 idiomas intercambiables libremente, seguir sistema o elegir manualmente</string>
+    <string name="about_opensource_text">Esta aplicación se basa en los siguientes proyectos de código abierto y los utiliza. Agradecemos y respetamos sinceramente a todos los autores:\n\n1. DTL-X (Gameye98)\n   Fuente de referencia de reglas de características de anuncios: nombres de paquetes SDK / clases / dominios / permisos\n   - Página: https://github.com/Gameye98/DTL-X\n   - Solo para referencia y aprendizaje de características\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Bibliotecas de soporte oficiales de Android Jetpack\n   - Página: https://developer.android.com/jetpack\n   - Licencia: Apache License 2.0\n\n3. Material Components (Google)\n   Biblioteca de componentes de Material Design que proporciona tarjetas, botones, diálogos y otros componentes de interfaz\n   - Página: https://github.com/material-components/material-components-android\n   - Licencia: Apache License 2.0\n\n4. Biblioteca estándar de Kotlin (JetBrains)\n   Lenguaje de programación Kotlin y su biblioteca estándar\n   - Página: https://kotlinlang.org/\n   - Licencia: Apache License 2.0\n\nPara ver el texto completo de derechos de autor y licencia de los proyectos anteriores, visite las páginas correspondientes.</string>
+    <string name="about_reference_text">La implementación del análisis de esta aplicación hace referencia a los siguientes documentos técnicos públicos y recursos de la comunidad. Agradecemos y citamos las fuentes:\n\n1. Estructura de empaquetado de APK de Android (ZIP / AXML / DEX)\n   Referencia a la documentación oficial de AOSP y Android sobre la estructura ZIP, XML binario de Android y bytecode DEX\n   - Fuente: https://developer.android.com/guide/components\n   - Se usa para descomprimir y leer classes*.dex, AndroidManifest, res/layout, assets y otras entradas\n\n2. Análisis de instantáneas AOT de Dart (Flutter libapp.so)\n   Referencia al snapshot.h del código fuente de la VM de Dart y a recursos de ingeniería inversa de Flutter de la comunidad\n   - Fuente de snapshot.h: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Se usa para localizar la instantánea de Dart dentro de libapp.so y escanear características de cadenas de anuncios\n\n3. Recopilación de reglas de características de anuncios\n   Palabras clave de paquetes SDK / dominios / clases / permisos de anuncios, referenciadas y ampliadas a partir de las reglas del proyecto de código abierto DTL-X\n   - Página: https://github.com/Gameye98/DTL-X\n   - Se referencia su enfoque de adloader / lista negra de dominios / palabras clave de métodos, combinado con los principales SDK de anuncios\n\n4. Algoritmo de coincidencia de múltiples patrones Aho-Corasick\n   Se usa para coincidir miles de características de anuncios en una sola pasada sobre el flujo de bytes del archivo, acelerando significativamente el análisis\n   - Fuente: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. Tema y diseño de la interfaz\n   Escrito según las pautas de Material Design y los ejemplos de la biblioteca de componentes de Material Components\n   - Pautas: https://m3.material.io/\n   - Componentes: https://github.com/material-components/material-components-android\n\nEl contenido anterior es solo para referencia de aprendizaje técnico; la implementación final es completamente de desarrollo propio de este proyecto. Los derechos de autor pertenecen a los autores originales y sus organizaciones.</string>
+    <string name="about_privacy_text">Esta aplicación sigue el principio de recopilación mínima de datos y valora y protege su privacidad:\n\n1. Procesamiento local sin conexión: todo el análisis de características de anuncios de APK se realiza localmente en su dispositivo. La aplicación nunca sube archivos APK ni datos internos a ningún servidor.\n\n2. Comportamiento de red transparente: la aplicación solo se conecta a la red cuando usted toca activamente \'Comprobar actualizaciones\' para solicitar información de versión. Nunca se conecta en segundo plano ni recopila o sube información personal.\n\n3. Permisos mínimos: la aplicación no lee, almacena ni accede a sus contactos, galería, ubicación, SMS, historial de llamadas u otra información sensible.\n\n4. Almacenamiento local de datos: la configuración de características y los resultados del análisis se guardan solo en su dispositivo y se eliminan al desinstalar la aplicación. No se guardan registros en la nube.\n\n5. Enlaces de terceros: las páginas Acerca de y Actualización pueden contener enlaces externos. Al tocarlos, las plataformas de terceros gestionan su comportamiento de acceso. Le recomendamos revisar las políticas de privacidad de los terceros correspondientes.\n\n6. Si tiene preguntas, sugerencias o inquietudes sobre privacidad durante el uso, no dude en contactarnos a través de la información de contacto del autor. Haremos todo lo posible por responder.</string>
+    <string name="about_disclaimer_text">Lea atentamente la siguiente exención de responsabilidad antes de usar esta aplicación:\n\n1. Restricción de uso legal: esta aplicación es solo para fines de aprendizaje, investigación y uso personal legal. Analice únicamente aplicaciones de las que posea los derechos de autor, esté autorizado o tenga derecho a analizar.\n\n2. Resultados solo de referencia: las características de anuncios analizadas son solo para investigación y referencia técnica y no constituyen ninguna conclusión técnica ni garantía. La atribución de los SDK de anuncios puede cambiar con las versiones; úselas junto con la funcionalidad real del APK y la revisión manual.\n\n3. Limitación del alcance del análisis: esta aplicación solo detecta reglas de características predefinidas. Que un SDK de anuncios no coincida no significa que no haya anuncios; los resultados pueden contener omisiones o falsos positivos.\n\n4. Sin garantía: esta aplicación se proporciona \'tal cual\', sin garantías expresas ni implícitas de ningún tipo. El autor no se hace responsable de ninguna pérdida directa o indirecta causada por el uso o la imposibilidad de usar esta aplicación.\n\n5. Contenido de terceros: los proyectos de código abierto y las reglas de características de anuncios referenciados por esta aplicación provienen de canales públicos y son solo para referencia técnica; sus derechos de autor pertenecen a los autores originales.\n\n6. Cambios en los términos: el autor se reserva el derecho de modificar esta exención de responsabilidad en cualquier momento. El contenido actualizado entrará en vigor en las nuevas versiones.\n\n7. El uso de esta aplicación implica que ha leído, comprendido y aceptado todos los términos anteriores. Si no está de acuerdo, deje de usar esta aplicación.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · Todos los derechos reservados\nPowered by Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Actualización UpdateChecker -->
+    <string name="update_checking">Comprobando actualizaciones…</string>
+    <string name="update_official_announce">Anuncio oficial</string>
+    <string name="update_know">Entendido</string>
+    <string name="update_latest">Ya está actualizado (%1$s)</string>
+    <string name="update_check_failed_title">Error al comprobar actualizaciones</string>
+    <string name="update_check_failed_msg">No se puede conectar con el servidor de actualizaciones.\n\nPuede visitar el disco en la nube 蓝奏云 con el navegador de su teléfono para descargar manualmente la última versión:\n\n%1$s</string>
+    <string name="update_go_browser">Ir al navegador para descargar</string>
+    <string name="update_cancel">Cancelar</string>
+    <string name="update_cannot_open_browser">No se puede abrir el navegador. Visite 蓝奏云 para descargar manualmente</string>
+    <string name="update_download_center">Centro de descargas</string>
+    <string name="update_cannot_open_center">No se puede abrir el centro de descargas</string>
+    <string name="update_no_desc">Sin descripción detallada</string>
+    <string name="update_downloading">Descargando</string>
+    <string name="update_web_link_hint">La dirección de actualización es un enlace web; el navegador integrado abrirá 蓝奏云 para descargar</string>
+    <string name="update_dl_zero_total">Descargado 0 B / %1$s</string>
+    <string name="update_dl_zero">Descargado 0 B</string>
+    <string name="update_dl_progress">Descargado %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">Descargando</string>
+    <string name="update_dl_amount">Descargado %1$s</string>
+    <string name="update_dl_done">Descarga completa, abriendo el instalador...</string>
+    <string name="update_dl_done_toast">Descarga completa, abriendo el instalador…</string>
+    <string name="update_dl_failed_retry">Error de descarga, toque para reintentar</string>
+    <string name="update_dl_failed">Error de descarga: %1$s</string>
+    <string name="update_pkg_invalid">El paquete de actualización descargado no es válido. Inténtelo de nuevo</string>
+    <string name="update_install_permission_title">Se requiere permiso de instalación</string>
+    <string name="update_install_permission_msg">Para instalar la nueva versión, permita que esta aplicación instale aplicaciones de fuentes desconocidas.</string>
+    <string name="update_go_enable">Habilitar</string>
+    <string name="update_cannot_open_perm">No se pueden abrir los ajustes de permiso de instalación</string>
+    <string name="update_later">Más tarde</string>
+    <string name="update_cannot_open_installer">No se puede abrir el instalador del sistema. Instale el paquete de actualización manualmente</string>
+    <string name="update_no_url">No se capturó una dirección de descarga válida</string>
+    <string name="update_no_direct_link">No se capturó un enlace directo APK. Toque el botón de descarga en la página y vuelva a intentarlo</string>
+
+    <!-- Navegador integrado WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ El archivo APK no existe: %1$s</string>
+    <string name="anl_start_scan">  · Iniciando escaneo: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Progreso: %1$d/%2$d (%3$d%%) Actual: %4$s</string>
+    <string name="anl_exception">  ✗ Error de análisis: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d entradas=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Sí</string>
+    <string name="anl_no">No</string>
+    <string name="anl_hits">  · Total de características coincidentes: %1$d</string>
+    <string name="anl_no_hit">  ⚠ Este APK no coincidió con ninguna característica de anuncios configurada</string>
+    <string name="anl_tip">  ⚠ Nota: las características analizadas son solo de referencia; verifíquelas con el comportamiento real del APK</string>
+
+    <string name="webview_detect_download">Dirección de descarga detectada, descargando en la aplicación…</string>
+    <string name="webview_cannot_open_link">No se puede abrir el enlace externo</string>
+    <string name="main_title">Análisis de anuncios</string>
+    <string name="main_subtitle">Analiza anuncios del APK · exporta la configuración</string>
+    <string name="nav_back_desc">Atrás</string>
+    <string name="btn_select_apk">Seleccionar APK</string>
+    <string name="tv_no_apk">Aún no se ha seleccionado un APK</string>
+    <string name="btn_copy_config">Copiar configuración</string>
+    <string name="btn_save_config">Guardar configuración</string>
+    <string name="progress_analyzing_placeholder">Analizando...</string>
+    <string name="section_result">Resultado del análisis</string>
+    <string name="content_desc_clear">Limpiar</string>
+    <string name="content_desc_feature">Característica</string>
+    <string name="update_found_new">Nueva versión disponible</string>
+    <string name="update_welcome">Se ha publicado una nueva versión, ¡actualiza para disfrutarla!</string>
+    <string name="content_desc_close">Cerrar</string>
+    <string name="update_current_version">Versión actual</string>
+    <string name="content_desc_upgrade_to">Actualizar a</string>
+    <string name="update_latest_version">Última versión</string>
+    <string name="update_content_title">Novedades</string>
+    <string name="update_open_browser">Abrir enlace en el navegador</string>
+    <string name="update_immediately">Actualizar ahora</string>
+    <string name="content_desc_announcement">Anuncio</string>
+    <string name="content_desc_update">Actualizar</string>
+
+    <string name="update_read_carefully">Lea atentamente lo siguiente</string>
+    <string name="update_no_more">No volver a mostrar</string>
+    <string name="content_desc_download">Descargar</string>
+    <string name="update_captured_download">Se capturó el enlace de descarga, descargando para ti</string>
+    <string name="webview_hint">Toca el botón de descarga en la página; esta app interceptará automáticamente el enlace de descarga del APK y lo descargará dentro de la app.</string>
+</resources>

@@ -1,0 +1,200 @@
+<resources>
+    <!-- Dasar aplikasi -->
+    <string name="app_name">Penganalisis Fitur Iklan APK</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">Ikon berkas</string>
+    <string name="common_unknown">Tidak diketahui</string>
+    <string name="err_cannot_read_file">Tidak dapat membaca berkas yang dipilih</string>
+    <string name="err_server_response">Respons server tidak normal (HTTP %1$d)</string>
+    <string name="err_config_unreadable">File konfigurasi tidak dapat dibaca</string>
+
+    <!-- Menu -->
+    <string name="menu_language">Ganti bahasa</string>
+    <string name="menu_about">Tentang aplikasi</string>
+
+    <!-- Penggantian bahasa -->
+    <string name="locale_system_default">Ikuti sistem</string>
+    <string name="dlg_choose_language">Pilih bahasa</string>
+    <string name="dlg_cancel">Batal</string>
+
+    <!-- Layar utama AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Silakan pilih APK dan selesaikan analisis terlebih dahulu</string>
+    <string name="clip_ad_config">Konfigurasi fitur iklan</string>
+    <string name="toast_config_copied">Konfigurasi disalin ke papan klip</string>
+    <string name="toast_auth_revoked">Otorisasi aplikasi telah dicabut dari jarak jauh, fitur dinonaktifkan</string>
+    <string name="toast_grant_all_files">Silakan berikan izin \"Akses semua berkas\" terlebih dahulu</string>
+    <string name="chooser_pick_apk">Pilih berkas APK</string>
+    <string name="log_start_analyze">▶ Mulai analisis: %1$s</string>
+    <string name="log_read_apk">  · Membaca berkas APK...</string>
+    <string name="log_load_config">  · Memuat konfigurasi: %1$d fitur, %2$d kategori (termasuk Flutter)</string>
+    <string name="log_merged_online">  · Pustaka vendor bawaan digabungkan, %1$d fitur total</string>
+    <string name="log_no_online">  · Pustaka vendor bawaan tidak ditemukan, hanya fitur dasar</string>
+    <string name="log_analyze_failed">  ✗ Analisis gagal: %1$s</string>
+    <string name="toast_analyze_failed">Analisis gagal: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d vendor, %2$d fitur</string>
+    <string name="report_header">════════ Ringkasan Analisis ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Paket : %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Berkas : %1$d</string>
+    <string name="report_flutter">Flutter : %1$d libapp.so</string>
+    <string name="report_hits">Kecocokan : %1$d fitur</string>
+    <string name="report_no_hit">Tidak ada fitur iklan yang dikonfigurasi cocok.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · %1$d lainnya dihilangkan</string>
+    <string name="report_tip">⚠ Catatan: hasil hanya untuk referensi, harap tinjau manual sebelum mengimpor.</string>
+    <string name="report_export_hint">Gunakan \"Salin konfigurasi\" atau \"Simpan konfigurasi\" di bawah untuk mengekspor konfigurasi lengkap.</string>
+    <string name="hint_initial">Pilih APK yang mengandung iklan untuk memulai analisis.\nSetelah analisis, Anda dapat menyalin atau menyimpan berkas konfigurasi.</string>
+    <string name="progress_analyzing">Menganalisis %1$s   Diproses %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">fitur_iklan</string>
+    <string name="save_file_pattern">%1$s_fitur_iklan_%2$s.json</string>
+    <string name="toast_saved">Konfigurasi disimpan: %1$s</string>
+    <string name="log_saved">  ✓ Konfigurasi disimpan: %1$s</string>
+    <string name="toast_save_failed">Penyimpanan gagal: %1$s</string>
+    <string name="log_save_failed">  ✗ Penyimpanan gagal: %1$s</string>
+
+    <!-- Nama kategori AdPatternConfig -->
+    <string name="cat_sdk_packages">Nama paket SDK iklan</string>
+    <string name="cat_class_keywords">Kata kunci nama kelas iklan</string>
+    <string name="cat_method_patterns">Nama metode iklan</string>
+    <string name="cat_url_patterns">URL/domain iklan</string>
+    <string name="cat_ad_view_names">Nama kelas View iklan</string>
+    <string name="cat_ad_activities">Activity iklan</string>
+    <string name="cat_ad_services">Service iklan</string>
+    <string name="cat_ad_receivers">Receiver iklan</string>
+    <string name="cat_force_true_methods">Metode yang dipaksa mengembalikan true</string>
+    <string name="cat_force_false_methods">Metode yang dipaksa mengembalikan false</string>
+    <string name="cat_ad_asset_paths">Jalur berkas aset iklan</string>
+    <string name="cat_lib_file_keywords">Kata kunci pustaka native SDK iklan</string>
+    <string name="cat_asset_keywords">Kata kunci aset iklan</string>
+    <string name="cat_method_neutralize_keywords">Kata kunci penetralan metode iklan</string>
+    <string name="cat_ad_permissions">Fitur izin iklan</string>
+    <string name="cat_root_file_keywords">Kata kunci berkas direktori akar APK</string>
+    <string name="cat_res_layout_keywords">Kata kunci View iklan di tata letak res</string>
+    <string name="cat_string_patterns">Fitur string DEX iklan</string>
+    <string name="cat_flutter_patterns">Fitur string Flutter</string>
+
+    <!-- Halaman Tentang AboutActivity -->
+    <string name="about_version">Versi %1$s</string>
+    <string name="about_version_default">Versi</string>
+    <string name="about_subtitle">Tentang · Penganalisis Fitur Iklan APK</string>
+    <string name="about_app_icon_desc">Ikon aplikasi</string>
+    <string name="about_check_update">Periksa pembaruan</string>
+    <string name="about_direct_download">Unduh sekarang</string>
+    <string name="about_description">Analisis fitur iklan APK sekali sentuh · ekspor konfigurasi
+Pemrosesan lokal offline, identifikasi SDK iklan dengan cepat</string>
+    <string name="about_section_features">Fitur</string>
+    <string name="about_section_author">Informasi penulis</string>
+    <string name="about_author">Penulis</string>
+    <string name="about_qq">Hubungi QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Email kontak</string>
+    <string name="about_email_desc">Email</string>
+    <string name="about_section_opensource">Proyek sumber terbuka</string>
+    <string name="about_section_reference">Referensi dan sumber</string>
+    <string name="about_section_privacy">Kebijakan privasi</string>
+    <string name="about_section_disclaimer">Penyangkalan</string>
+
+    <string name="clip_author_qq">QQ penulis</string>
+    <string name="toast_qq_copied">QQ disalin ke papan klip</string>
+    <string name="email_subject">Masukan Penganalisis Fitur Iklan APK</string>
+    <string name="chooser_send_email">Kirim email</string>
+    <string name="toast_no_mail_app">Klien email tidak ditemukan</string>
+    <string name="feat_01">Analisis fitur iklan APK sekali klik, sepenuhnya lokal dan offline, tanpa mengunggah berkas apa pun</string>
+    <string name="feat_02">Pilih APK yang mengandung iklan untuk mengidentifikasi SDK dan fitur iklannya dengan cepat</string>
+    <string name="feat_03">Mencakup bytecode DEX, AndroidManifest, res/layout, aset, berkas akar, dan lainnya</string>
+    <string name="feat_04">Mendeteksi aplikasi Flutter secara otomatis dan memindai libapp.so untuk fitur string iklan</string>
+    <string name="feat_05">19 kategori fitur iklan: nama paket SDK / izin / kelas / metode / sumber daya / URL</string>
+    <string name="feat_06">Log analisis berwarna real-time dengan bilah progres dan berkas yang sedang diproses</string>
+    <string name="feat_07">Hasil dikumpulkan otomatis, fitur iklan yang cocok ditampilkan jelas per kategori</string>
+    <string name="feat_08">Pembuatan dan ekspor berkas konfigurasi ad_patterns.json sekali klik</string>
+    <string name="feat_09">Konfigurasi yang dihasilkan sepenuhnya sesuai format bawaan, dapat disalin atau disimpan secara lokal</string>
+    <string name="feat_10">Tema terang dan gelap, tiga mode: ikuti sistem, terang, dan malam</string>
+    <string name="feat_11">18 bahasa dapat diganti bebas, ikuti sistem atau pilih manual</string>
+    <string name="about_opensource_text">Aplikasi ini dibangun di atas dan memanggil proyek open source berikut. Kami berterima kasih dan menghormati semua penulis:\n\n1. DTL-X (Gameye98)\n   Sumber referensi untuk aturan nama paket / kelas / domain / izin SDK iklan\n   - Beranda: https://github.com/Gameye98/DTL-X\n   - Hanya untuk referensi dan pembelajaran\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Pustaka dukungan resmi Android Jetpack\n   - Beranda: https://developer.android.com/jetpack\n   - Lisensi: Apache License 2.0\n\n3. Material Components (Google)\n   Pustaka komponen Material Design yang menyediakan kartu, tombol, dialog, dan komponen UI lainnya\n   - Beranda: https://github.com/material-components/material-components-android\n   - Lisensi: Apache License 2.0\n\n4. Pustaka standar Kotlin (JetBrains)\n   Bahasa pemrograman Kotlin dan pustaka standarnya\n   - Beranda: https://kotlinlang.org/\n   - Lisensi: Apache License 2.0\n\nUntuk teks lengkap hak cipta dan lisensi proyek di atas, silakan kunjungi beranda masing-masing.</string>
+    <string name="about_reference_text">Implementasi analisis aplikasi ini merujuk pada dokumen teknis publik dan sumber daya komunitas berikut. Kami berterima kasih dan menyatakan sumbernya:\n\n1. Struktur pengemasan APK Android (ZIP / AXML / DEX)\n   Merujuk AOSP dan dokumentasi resmi Android tentang struktur ZIP, XML biner Android, dan bytecode DEX\n   - Sumber: https://developer.android.com/guide/components\n   - Digunakan untuk membongkar dan membaca classes*.dex, AndroidManifest, res/layout, aset, dan entri lainnya\n\n2. Parsing snapshot Dart AOT (Flutter libapp.so)\n   Merujuk kode sumber snapshot.h VM Dart dan sumber daya rekayasa balik Flutter komunitas\n   - Sumber snapshot.h: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Digunakan untuk menemukan snapshot Dart di libapp.so dan memindai fitur string iklan\n\n3. Penyusunan aturan fitur iklan\n   Nama paket / domain / kelas / izin SDK iklan merujuk aturan proyek open source DTL-X, diperluas dan diorganisir\n   - Beranda: https://github.com/Gameye98/DTL-X\n   - Merujuk pendekatan adloader / daftar hitam domain / kata kunci metode, dikombinasikan dengan SDK iklan mainstream\n\n4. Algoritma pencocokan multi-pola Aho-Corasick\n   Digunakan untuk mencocokkan ribuan fitur iklan dalam satu lintasan aliran byte berkas, mempercepat analisis secara signifikan\n   - Sumber: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. Tema dan tata letak antarmuka\n   Ditulis berdasarkan spesifikasi Material Design dan contoh pustaka Material Components\n   - Spesifikasi: https://m3.material.io/\n   - Komponen: https://github.com/material-components/material-components-android\n\nKonten di atas hanya untuk referensi pembelajaran teknis; implementasi akhir sepenuhnya dikembangkan oleh proyek ini. Hak cipta milik penulis asli dan organisasi mereka.</string>
+    <string name="about_privacy_text">Aplikasi ini mematuhi prinsip pengumpulan data minimal dan sangat memperhatikan perlindungan privasi Anda:\n\n1. Pemrosesan lokal offline: semua analisis fitur iklan APK dilakukan secara lokal di perangkat Anda. Aplikasi tidak pernah mengunggah berkas APK atau data internal ke server mana pun.\n\n2. Perilaku jaringan transparan: aplikasi hanya terhubung ke jaringan saat Anda mengetuk \"Periksa pembaruan\" untuk meminta informasi versi. Aplikasi tidak pernah terhubung di latar belakang, tidak mengumpulkan atau mengunggah informasi pribadi apa pun.\n\n3. Izin minimal: aplikasi tidak membaca, menyimpan, atau mengakses kontak, galeri, lokasi, SMS, riwayat panggilan, atau informasi sensitif lainnya.\n\n4. Penyimpanan data lokal: konfigurasi dan hasil analisis hanya disimpan di perangkat Anda dan dihapus saat aplikasi di-uninstall, tanpa catatan cloud.\n\n5. Tautan pihak ketiga: halaman Tentang dan Pembaruan mungkin berisi tautan eksternal. Saat diketuk, platform pihak ketiga memproses perilaku akses Anda. Disarankan untuk meninjau kebijakan privasi pihak ketiga terkait.\n\n6. Jika Anda memiliki pertanyaan, saran, atau kekhawatiran tentang privasi selama penggunaan, hubungi kami melalui informasi kontak penulis. Kami akan berusaha sebaik mungkin untuk menjawab.</string>
+    <string name="about_disclaimer_text">Harap baca penyangkalan berikut dengan cermat sebelum menggunakan aplikasi ini:\n\n1. Batasan penggunaan legal: aplikasi ini hanya untuk pembelajaran, penelitian, dan penggunaan pribadi yang sah. Harap hanya menganalisis aplikasi yang Anda miliki hak ciptanya, telah diberi izin, atau berhak menganalisisnya.\n\n2. Hasil hanya untuk referensi: fitur iklan yang dianalisis hanya untuk penelitian teknis dan referensi, tidak merupakan kesimpulan teknis atau jaminan apa pun. Atribusi SDK iklan dapat berubah seiring versi; gunakan dengan fungsi aktual APK dan tinjauan manual.\n\n3. Batasan cakupan analisis: aplikasi ini hanya mendeteksi aturan yang telah ditentukan. SDK iklan yang tidak cocok tidak berarti tidak ada iklan, dan hasil dapat mengandung kekeliruan atau positif palsu.\n\n4. Tanpa jaminan: aplikasi ini disediakan \"sebagaimana adanya\", tanpa jaminan tersurat maupun tersirat. Penulis tidak bertanggung jawab atas kerugian langsung atau tidak langsung yang disebabkan oleh penggunaan atau ketidakmampuan menggunakan aplikasi ini.\n\n5. Konten pihak ketiga: proyek open source dan aturan iklan yang dirujuk berasal dari sumber publik dan hanya untuk referensi teknis; hak ciptanya milik penulis asli.\n\n6. Perubahan ketentuan: penulis berhak mengubah penyangkalan ini kapan saja. Konten yang diperbarui akan berlaku di versi baru.\n\n7. Menggunakan aplikasi ini berarti Anda telah membaca, memahami, dan menyetujui semua ketentuan di atas. Jika tidak setuju, harap berhenti menggunakan aplikasi ini.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · Semua hak dilindungi\nDidukung oleh Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Pembaruan UpdateChecker -->
+    <string name="update_checking">Memeriksa pembaruan…</string>
+    <string name="update_official_announce">Pengumuman resmi</string>
+    <string name="update_know">Mengerti</string>
+    <string name="update_latest">Anda sudah menggunakan versi terbaru (%1$s)</string>
+    <string name="update_check_failed_title">Pemeriksaan pembaruan gagal</string>
+    <string name="update_check_failed_msg">Tidak dapat terhubung ke server pembaruan.\n\nAnda dapat membuka cloud Lanzou dengan browser ponsel untuk mengunduh versi terbaru secara manual:\n\n%1$s</string>
+    <string name="update_go_browser">Buka browser untuk mengunduh</string>
+    <string name="update_cancel">Batal</string>
+    <string name="update_cannot_open_browser">Tidak dapat membuka browser, silakan kunjungi Lanzou untuk mengunduh manual</string>
+    <string name="update_download_center">Pusat unduhan</string>
+    <string name="update_cannot_open_center">Tidak dapat membuka pusat unduhan</string>
+    <string name="update_no_desc">Tidak ada deskripsi detail</string>
+    <string name="update_downloading">Mengunduh</string>
+    <string name="update_web_link_hint">Alamat pembaruan adalah tautan web; browser bawaan akan membuka Lanzou untuk mengunduh</string>
+    <string name="update_dl_zero_total">Terunduh 0 B / %1$s</string>
+    <string name="update_dl_zero">Terunduh 0 B</string>
+    <string name="update_dl_progress">Terunduh %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">Mengunduh</string>
+    <string name="update_dl_amount">Terunduh %1$s</string>
+    <string name="update_dl_done">Unduhan selesai, membuka penginstal...</string>
+    <string name="update_dl_done_toast">Unduhan selesai, membuka penginstal…</string>
+    <string name="update_dl_failed_retry">Unduhan gagal, ketuk untuk mencoba lagi</string>
+    <string name="update_dl_failed">Unduhan gagal: %1$s</string>
+    <string name="update_pkg_invalid">Paket pembaruan yang diunduh tidak valid, silakan coba lagi</string>
+    <string name="update_install_permission_title">Izin pemasangan diperlukan</string>
+    <string name="update_install_permission_msg">Untuk memasang versi baru, izinkan aplikasi ini memasang aplikasi dari sumber tidak dikenal.</string>
+    <string name="update_go_enable">Aktifkan</string>
+    <string name="update_cannot_open_perm">Tidak dapat membuka pengaturan izin pemasangan</string>
+    <string name="update_later">Nanti</string>
+    <string name="update_cannot_open_installer">Tidak dapat membuka penginstal sistem, silakan pasang paket pembaruan secara manual</string>
+    <string name="update_no_url">Tidak ada alamat unduhan valid yang terdeteksi</string>
+    <string name="update_no_direct_link">Tidak ada tautan langsung APK yang terdeteksi, ketuk tombol unduh di halaman lalu coba lagi</string>
+
+    <!-- Browser bawaan WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ File APK tidak ada: %1$s</string>
+    <string name="anl_start_scan">  · Mulai memindai: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Kemajuan: %1$d/%2$d (%3$d%%) Saat ini: %4$s</string>
+    <string name="anl_exception">  ✗ Kesalahan analisis: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d entri=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Ya</string>
+    <string name="anl_no">Tidak</string>
+    <string name="anl_hits">  · Total fitur yang cocok: %1$d</string>
+    <string name="anl_no_hit">  ⚠ APK ini tidak cocok dengan fitur iklan yang dikonfigurasi</string>
+    <string name="anl_tip">  ⚠ Catatan: fitur yang dianalisis hanya untuk referensi; silakan verifikasi dengan perilaku APK yang sebenarnya</string>
+
+    <string name="webview_detect_download">Alamat unduhan terdeteksi, mengunduh dalam aplikasi…</string>
+    <string name="webview_cannot_open_link">Tidak dapat membuka tautan eksternal</string>
+    <string name="main_title">Analisis Iklan</string>
+    <string name="main_subtitle">Analisis fitur iklan APK · ekspor konfigurasi</string>
+    <string name="nav_back_desc">Kembali</string>
+    <string name="btn_select_apk">Pilih APK</string>
+    <string name="tv_no_apk">Belum ada APK yang dipilih</string>
+    <string name="btn_copy_config">Salin konfigurasi</string>
+    <string name="btn_save_config">Simpan konfigurasi</string>
+    <string name="progress_analyzing_placeholder">Menganalisis...</string>
+    <string name="section_result">Hasil analisis</string>
+    <string name="content_desc_clear">Bersihkan</string>
+    <string name="content_desc_feature">Fitur</string>
+    <string name="update_found_new">Versi baru ditemukan</string>
+    <string name="update_welcome">Versi baru telah dirilis, silakan perbarui untuk mencobanya</string>
+    <string name="content_desc_close">Tutup</string>
+    <string name="update_current_version">Versi saat ini</string>
+    <string name="content_desc_upgrade_to">Perbarui ke</string>
+    <string name="update_latest_version">Versi terbaru</string>
+    <string name="update_content_title">Yang baru</string>
+    <string name="update_open_browser">Buka tautan di browser</string>
+    <string name="update_immediately">Perbarui sekarang</string>
+    <string name="content_desc_announcement">Pengumuman</string>
+    <string name="content_desc_update">Perbarui</string>
+
+    <string name="update_read_carefully">Silakan baca berikut ini dengan saksama</string>
+    <string name="update_no_more">Jangan tampilkan lagi</string>
+    <string name="content_desc_download">Unduh</string>
+    <string name="update_captured_download">Tautan unduhan terdeteksi, sedang mengunduh untuk Anda</string>
+    <string name="webview_hint">Ketuk tombol unduh di halaman; aplikasi ini akan otomatis menangkap tautan unduhan APK dan mengunduhnya di dalam aplikasi.</string>
+</resources>

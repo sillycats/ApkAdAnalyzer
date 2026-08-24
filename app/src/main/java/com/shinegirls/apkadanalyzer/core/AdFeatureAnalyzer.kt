@@ -1,5 +1,7 @@
 package com.shinegirls.apkadanalyzer.core
 
+import android.content.Context
+import com.shinegirls.apkadanalyzer.R
 import com.shinegirls.apkadanalyzer.utils.Format
 import java.io.File
 import java.util.ArrayDeque
@@ -47,6 +49,7 @@ object AdFeatureAnalyzer {
      *
      * @param apkFile APK 文件
      * @param config  广告特征配置（用于提取各分类的检测特征）
+     * @param context 上下文（用于解析日志文案资源）
      * @param logger  进度日志回调（可选）
      * @param progress 实时进度回调（可选）：(已处理条目数, 总条目数, 当前文件名)，用于 UI 展示进度条。
      * @return 分析结果
@@ -54,6 +57,7 @@ object AdFeatureAnalyzer {
     fun analyze(
         apkFile: File,
         config: AdPatternConfig.AdPatterns,
+        context: Context,
         logger: Logger? = null,
         progress: ((done: Int, total: Int, fileName: String) -> Unit)? = null
     ): AdAnalysisResult {
@@ -92,11 +96,11 @@ object AdFeatureAnalyzer {
         var flutterStringCount = 0
 
         if (!apkFile.exists()) {
-            log("  ✗ APK 文件不存在: ${apkFile.absolutePath}")
+            log(context.getString(R.string.anl_file_not_exist, apkFile.absolutePath))
             return result.copy(matches = emptyMap())
         }
 
-        log("  · 开始扫描: ${apkFile.name} (${Format.formatSize(apkFile.length())})")
+        log(context.getString(R.string.anl_start_scan, apkFile.name, Format.formatSize(apkFile.length())))
 
         // 单遍遍历：同时完成包名提取、文件计数与全部特征扫描
         try {
@@ -111,7 +115,7 @@ object AdFeatureAnalyzer {
                     // 每 50 条记一次日志，显示百分比与当前文件，避免高频日志拖慢分析
                     if (processed % 50 == 0) {
                         val pct = if (entries.isEmpty()) 100 else (processed * 100 / entries.size)
-                        log("  · 进度: $processed/${entries.size} ($pct%) 当前: ${shortName(name)}")
+                        log(context.getString(R.string.anl_progress, processed, entries.size, pct, shortName(name)))
                     }
 
                     when {
@@ -192,7 +196,7 @@ object AdFeatureAnalyzer {
                 }
             }
         } catch (e: Exception) {
-            log("  ✗ 分析过程异常: ${e.message}")
+            log(context.getString(R.string.anl_exception, e.message))
             log("  · ${e.stackTraceToString().take(200)}")
         }
 
@@ -206,12 +210,13 @@ object AdFeatureAnalyzer {
         result.matches = matches.mapValues { (_, v) -> v.toList() }
 
         val totalHits = result.totalHitCount
-        log("  · DEX=${dexCount} 条目=${fileCount} Flutter=${if (result.isFlutter) "是" else "否"}")
-        log("  · 命中特征总条数: $totalHits 个")
+        log(context.getString(R.string.anl_summary, dexCount, fileCount,
+            context.getString(if (result.isFlutter) R.string.anl_yes else R.string.anl_no)))
+        log(context.getString(R.string.anl_hits, totalHits))
         if (totalHits == 0) {
-            log("  ⚠ 该 APK 未命中任何已配置的广告特征")
+            log(context.getString(R.string.anl_no_hit))
         }
-        log("  ⚠ 提示: 分析出的广告特征仅供参考，请结合 APK 实际功能与人工复核后使用")
+        log(context.getString(R.string.anl_tip))
         return result
     }
 

@@ -1,0 +1,200 @@
+<resources>
+    <!-- أساسيات التطبيق -->
+    <string name="app_name">محلل ميزات الإعلانات APK</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">أيقونة الملف</string>
+    <string name="common_unknown">غير معروف</string>
+    <string name="err_cannot_read_file">تعذّرت قراءة الملف المحدد</string>
+    <string name="err_server_response">استجابة الخادم غير طبيعية (HTTP %1$d)</string>
+    <string name="err_config_unreadable">تعذر قراءة ملف الإعدادات</string>
+
+    <!-- القائمة -->
+    <string name="menu_language">تغيير اللغة</string>
+    <string name="menu_about">حول التطبيق</string>
+
+    <!-- تبديل اللغة -->
+    <string name="locale_system_default">اتباع النظام</string>
+    <string name="dlg_choose_language">اختر اللغة</string>
+    <string name="dlg_cancel">إلغاء</string>
+
+    <!-- الشاشة الرئيسية AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">يرجى تحديد ملف APK وإكمال التحليل أولاً</string>
+    <string name="clip_ad_config">تكوين ميزات الإعلانات</string>
+    <string name="toast_config_copied">تم نسخ التكوين إلى الحافظة</string>
+    <string name="toast_auth_revoked">تم إلغاء ترخيص التطبيق عن بُعد، وتم تعطيل الميزات</string>
+    <string name="toast_grant_all_files">يرجى منح إذن «الوصول إلى جميع الملفات» أولاً</string>
+    <string name="chooser_pick_apk">تحديد ملف APK</string>
+    <string name="log_start_analyze">▶ بدء التحليل: %1$s</string>
+    <string name="log_read_apk">  · قراءة ملف APK...</string>
+    <string name="log_load_config">  · تحميل التكوين: %1$d ميزة، %2$d فئة (بما فيها Flutter)</string>
+    <string name="log_merged_online">  · تم دمج مكتبة الموردين المدمجة، %1$d إجمالاً من الميزات</string>
+    <string name="log_no_online">  · مكتبة الموردين المدمجة غير موجودة، استخدام الميزات الأساسية فقط</string>
+    <string name="log_analyze_failed">  ✗ فشل التحليل: %1$s</string>
+    <string name="toast_analyze_failed">فشل التحليل: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d شبكة، %2$d ميزة</string>
+    <string name="report_header">════════ ملخص التحليل ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">الحزمة : %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">الملفات : %1$d</string>
+    <string name="report_flutter">Flutter : %1$d libapp.so</string>
+    <string name="report_hits">التطابقات : %1$d ميزة</string>
+    <string name="report_no_hit">لم يتم العثور على أي ميزة إعلانية مطابقة للتكوين.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · تم حذف %1$d أخرى</string>
+    <string name="report_tip">⚠ ملاحظة: النتائج للاسترشاد فقط، يرجى المراجعة يدويًا قبل الاستيراد.</string>
+    <string name="report_export_hint">استخدم «نسخ التكوين» أو «حفظ التكوين» أدناه لتصدير التكوين الكامل.</string>
+    <string name="hint_initial">حدد ملف APK يحتوي على إعلانات لبدء التحليل.\nبعد التحليل يمكنك نسخ أو حفظ ملف تكوين ميزات الإعلانات.</string>
+    <string name="progress_analyzing">جارٍ تحليل %1$s   تمت معالجة %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">ميزات_الإعلانات</string>
+    <string name="save_file_pattern">%1$s_ميزات_الإعلانات_%2$s.json</string>
+    <string name="toast_saved">تم حفظ التكوين: %1$s</string>
+    <string name="log_saved">  ✓ تم حفظ التكوين: %1$s</string>
+    <string name="toast_save_failed">فشل الحفظ: %1$s</string>
+    <string name="log_save_failed">  ✗ فشل الحفظ: %1$s</string>
+
+    <!-- أسماء الفئات AdPatternConfig -->
+    <string name="cat_sdk_packages">أسماء حزم SDK الإعلانية</string>
+    <string name="cat_class_keywords">كلمات مفتاحية لأسماء الفئات الإعلانية</string>
+    <string name="cat_method_patterns">أسماء الطرق الإعلانية</string>
+    <string name="cat_url_patterns">روابط/نطاقات الإعلانات</string>
+    <string name="cat_ad_view_names">أسماء فئات View الإعلانية</string>
+    <string name="cat_ad_activities">أنشطة الإعلانات</string>
+    <string name="cat_ad_services">خدمات الإعلانات</string>
+    <string name="cat_ad_receivers">مستقبلات الإعلانات</string>
+    <string name="cat_force_true_methods">طرق تُجبر على إرجاع true</string>
+    <string name="cat_force_false_methods">طرق تُجبر على إرجاع false</string>
+    <string name="cat_ad_asset_paths">مسارات ملفات أصول الإعلانات</string>
+    <string name="cat_lib_file_keywords">كلمات مفتاحية للمكتبات الأصلية لـ SDK الإعلانية</string>
+    <string name="cat_asset_keywords">كلمات مفتاحية لأصول الإعلانات</string>
+    <string name="cat_method_neutralize_keywords">كلمات مفتاحية لتحييد الطرق الإعلانية</string>
+    <string name="cat_ad_permissions">ميزات أذونات الإعلانات</string>
+    <string name="cat_root_file_keywords">كلمات مفتاحية لملفات جذر APK</string>
+    <string name="cat_res_layout_keywords">كلمات مفتاحية لعروض الإعلانات في تخطيطات res</string>
+    <string name="cat_string_patterns">ميزات سلاسل DEX الإعلانية</string>
+    <string name="cat_flutter_patterns">ميزات سلاسل Flutter</string>
+
+    <!-- صفحة حول التطبيق AboutActivity -->
+    <string name="about_version">الإصدار %1$s</string>
+    <string name="about_version_default">الإصدار</string>
+    <string name="about_subtitle">حول · محلل ميزات الإعلانات APK</string>
+    <string name="about_app_icon_desc">أيقونة التطبيق</string>
+    <string name="about_check_update">التحقق من التحديثات</string>
+    <string name="about_direct_download">تنزيل الآن</string>
+    <string name="about_description">تحليل ميزات الإعلانات في APK بلمسة واحدة · تصدير الإعدادات
+معالجة محلية دون اتصال، تحديد سريع لـ SDK الإعلانية</string>
+    <string name="about_section_features">الميزات</string>
+    <string name="about_section_author">معلومات المؤلف</string>
+    <string name="about_author">المؤلف</string>
+    <string name="about_qq">تواصل عبر QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">البريد الإلكتروني</string>
+    <string name="about_email_desc">البريد</string>
+    <string name="about_section_opensource">مشاريع مفتوحة المصدر</string>
+    <string name="about_section_reference">المراجع والمصادر</string>
+    <string name="about_section_privacy">سياسة الخصوصية</string>
+    <string name="about_section_disclaimer">إخلاء المسؤولية</string>
+
+    <string name="clip_author_qq">QQ المؤلف</string>
+    <string name="toast_qq_copied">تم نسخ QQ إلى الحافظة</string>
+    <string name="email_subject">ملاحظات حول محلل ميزات الإعلانات APK</string>
+    <string name="chooser_send_email">إرسال بريد إلكتروني</string>
+    <string name="toast_no_mail_app">لم يتم العثور على عميل بريد إلكتروني</string>
+    <string name="feat_01">تحليل ميزات إعلانات APK بنقرة واحدة، محليًا بالكامل وبدون اتصال، دون رفع أي ملفات</string>
+    <string name="feat_02">حدد APK يحتوي على إعلانات لتحديد SDK وميزات الإعلانات بسرعة</string>
+    <string name="feat_03">يغطي كود DEX الثنائي وAndroidManifest وres/layout وassets وملفات الجذر وغيرها</string>
+    <string name="feat_04">يكتشف تلقائيًا تطبيقات Flutter ويفحص libapp.so بحثًا عن سلاسل الإعلانات</string>
+    <string name="feat_05">19 فئة لميزات الإعلانات: أسماء حزم SDK / الأذونات / الفئات / الطرق / الموارد / الروابط</string>
+    <string name="feat_06">سجل تحليل ملون في الوقت الفعلي مع شريط تقدم وملف قيد المعالجة</string>
+    <string name="feat_07">يتم تجميع النتائج تلقائيًا، وتُعرض ميزات الإعلانات المطابقة بوضوح حسب الفئة</string>
+    <string name="feat_08">إنشاء وتصدير ملف تكوين ad_patterns.json بنقرة واحدة</string>
+    <string name="feat_09">التكوين المُنشأ مطابق تمامًا للتنسيق المدمج، ويمكن نسخه أو حفظه محليًا</string>
+    <string name="feat_10">سمات فاتحة وداكنة، ثلاثة أوضاع: اتباع النظام، فاتح، وليلي</string>
+    <string name="feat_11">18 لغة قابلة للتبديل بحرية، اتباع النظام أو الاختيار اليدوي</string>
+    <string name="about_opensource_text">تم بناء هذا التطبيق على المشاريع مفتوحة المصدر التالية ويستخدمها. نعرب عن خالص شكرنا واحترامنا لجميع المؤلفين:\n\n1. DTL-X (Gameye98)\n   مصدر مرجعي لقواعد أسماء حزم / فئات / نطاقات / أذونات SDK الإعلانية\n   - الصفحة الرئيسية: https://github.com/Gameye98/DTL-X\n   - للاسترشاد والتعلم فقط\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   مكتبات دعم Android Jetpack الرسمية\n   - الصفحة الرئيسية: https://developer.android.com/jetpack\n   - الترخيص: Apache License 2.0\n\n3. Material Components (Google)\n   مكتبة مكونات Material Design التي توفر البطاقات والأزرار ومربعات الحوار ومكونات الواجهة الأخرى\n   - الصفحة الرئيسية: https://github.com/material-components/material-components-android\n   - الترخيص: Apache License 2.0\n\n4. المكتبة القياسية لـ Kotlin (JetBrains)\n   لغة البرمجة Kotlin ومكتبتها القياسية\n   - الصفحة الرئيسية: https://kotlinlang.org/\n   - الترخيص: Apache License 2.0\n\nللاطلاع على النص الكامل لحقوق النشر والتراخيص للمشاريع المذكورة أعلاه، يرجى زيارة صفحاتها الرئيسية.</string>
+    <string name="about_reference_text">يعتمد تنفيذ التحليل في هذا التطبيق على المستندات التقنية العامة والموارد المجتمعية التالية. نشكرها ونوضح مصادرها:\n\n1. بنية تغليف APK في Android (ZIP / AXML / DEX)\n   مرجع إلى AOSP والوثائق الرسمية لـ Android حول بنية ZIP وXML الثنائي لـ Android وكود DEX\n   - المصدر: https://developer.android.com/guide/components\n   - يُستخدم لفك ضغط وقراءة classes*.dex وAndroidManifest وres/layout وassets وغيرها من الإدخالات\n\n2. تحليل لقطات Dart AOT (Flutter libapp.so)\n   مرجع إلى الكود المصدري snapshot.h لجهاز Dart الظاهري وموارد المجتمع لهندسة Flutter العكسية\n   - مصدر snapshot.h: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - يُستخدم لتحديد لقطة Dart داخل libapp.so وفحص سلاسل الإعلانات\n\n3. تجميع قواعد ميزات الإعلانات\n   أسماء حزم / نطاقات / فئات / أذونات SDK الإعلانية مستندة إلى قواعد المشروع مفتوح المصدر DTL-X، مع التوسعة والتنظيم\n   - الصفحة الرئيسية: https://github.com/Gameye98/DTL-X\n   - مرجع لمنهجه adloader / القائمة السوداء للنطاقات / كلمات الطرق المفتاحية، مع دمجها مع SDK الإعلانية الشائعة\n\n4. خوارزمية المطابقة متعددة الأنماط Aho-Corasick\n   تُستخدم لمطابقة آلاف ميزات الإعلانات في مسح واحد لتدفقات البايت، مما يسرّع التحليل بشكل كبير\n   - المصدر: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. سمة وتخطيط الواجهة\n   مكتوب وفقًا لمواصفات Material Design وأمثلة مكتبة Material Components\n   - المواصفات: https://m3.material.io/\n   - المكونات: https://github.com/material-components/material-components-android\n\nالمحتوى أعلاه مخصص للتعلم التقني فقط؛ التنفيذ النهائي من تطوير هذا المشروع بالكامل. حقوق النشر تعود للمؤلفين الأصليين ومؤسساتهم.</string>
+    <string name="about_privacy_text">يلتزم هذا التطبيق بمبدأ الحد الأدنى من جمع البيانات ويولي أهمية كبيرة لحماية خصوصيتك:\n\n1. المعالجة المحلية دون اتصال: يتم إجراء جميع تحليلات ميزات إعلانات APK محليًا على جهازك. لا يرفع التطبيق أي ملفات APK أو بيانات داخلية إلى أي خادم.\n\n2. سلوك شبكة شفاف: يتصل التطبيق بالشبكة فقط عند الضغط بنشاط على «التحقق من التحديثات» لطلب معلومات الإصدار. لا يتصل أبدًا في الخلفية ولا يجمع أو يرفع أي معلومات شخصية.\n\n3. الحد الأدنى من الأذونات: لا يقرأ التطبيق جهات الاتصال أو المعرض أو الموقع أو الرسائل النصية أو سجل المكالمات أو أي معلومات حساسة أخرى، ولا يخزنها ولا يصل إليها.\n\n4. تخزين البيانات محليًا: يتم حفظ تكوين التطبيق ونتائج التحليل على جهازك فقط وتُمسح عند إلغاء تثبيت التطبيق، دون أي سجلات سحابية.\n\n5. روابط الجهات الخارجية: قد تحتوي صفحتا «حول التطبيق» و«التحديث» على روابط خارجية. عند النقر عليها، تعالج منصات خارجية سلوك الوصول الخاص بك. نوصي بمراجعة سياسات الخصوصية الخاصة بها.\n\n6. إذا كانت لديك أي أسئلة أو اقتراحات أو مخاوف بشأن الخصوصية أثناء الاستخدام، فتواصل معنا عبر معلومات الاتصال الخاصة بالمؤلف. سنبذل قصارى جهدنا للإجابة.</string>
+    <string name="about_disclaimer_text">يرجى قراءة إخلاء المسؤولية التالي بعناية قبل استخدام هذا التطبيق:\n\n1. تقييد الاستخدام القانوني: هذا التطبيق مخصص للتعلم والبحث والاستخدام الشخصي القانوني فقط. يرجى تحليل التطبيقات التي تملك حقوقها أو لديك إذن بتحليلها أو يحق لك تحليلها فقط.\n\n2. النتائج للاسترشاد فقط: ميزات الإعلانات التي تم تحليلها مخصصة للبحث الفني والاسترشاد فقط ولا تشكل أي استنتاج فني أو ضمان. قد تتغير تبعية SDK الإعلانية مع الإصدارات؛ يرجى استخدامها مع الوظائف الفعلية لملف APK والمراجعة اليدوية.\n\n3. حدود نطاق التحليل: يكتشف هذا التطبيق القواعد المحددة مسبقًا فقط. عدم العثور على SDK إعلاني لا يعني عدم وجود إعلانات، وقد تتضمن النتائج سهوًا أو نتائج إيجابية خاطئة.\n\n4. عدم وجود ضمان: يُقدم هذا التطبيق «كما هو» دون أي ضمان صريح أو ضمني من أي نوع. لا يتحمل المؤلف المسؤولية عن أي خسائر مباشرة أو غير مباشرة ناتجة عن استخدام التطبيق أو عدم القدرة على استخدامه.\n\n5. محتوى الجهات الخارجية: المشاريع مفتوحة المصدر وقواعد الإعلانات المشار إليها مأخوذة من مصادر عامة ومخصصة للاسترشاد الفني فقط، وحقوق نشرها تعود لمؤلفيها الأصليين.\n\n6. تغيير الشروط: يحتفظ المؤلف بالحق في تعديل إخلاء المسؤولية هذا في أي وقت. سيسري المحتوى المحدث في الإصدارات الجديدة.\n\n7. استخدام هذا التطبيق يعني أنك قرأت وفهمت ووافقت على جميع الشروط المذكورة أعلاه. إذا لم توافق، فيرجى التوقف عن استخدام التطبيق.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · جميع الحقوق محفوظة\nمدعوم بواسطة Aho-Corasick / AndroidX / Material</string>
+
+    <!-- التحديث UpdateChecker -->
+    <string name="update_checking">جارٍ التحقق من التحديثات…</string>
+    <string name="update_official_announce">إعلان رسمي</string>
+    <string name="update_know">حسنًا</string>
+    <string name="update_latest">أنت تستخدم أحدث إصدار (%1$s)</string>
+    <string name="update_check_failed_title">فشل التحقق من التحديثات</string>
+    <string name="update_check_failed_msg">تعذّر الاتصال بخادم التحديثات.\n\nيمكنك فتح سحابة Lanzou عبر متصفح هاتفك وتنزيل أحدث إصدار يدويًا:\n\n%1$s</string>
+    <string name="update_go_browser">الانتقال إلى المتصفح للتنزيل</string>
+    <string name="update_cancel">إلغاء</string>
+    <string name="update_cannot_open_browser">تعذّر فتح المتصفح، يرجى زيارة Lanzou للتنزيل يدويًا</string>
+    <string name="update_download_center">مركز التنزيل</string>
+    <string name="update_cannot_open_center">تعذّر فتح مركز التنزيل</string>
+    <string name="update_no_desc">لا يوجد وصف تفصيلي</string>
+    <string name="update_downloading">جارٍ التنزيل</string>
+    <string name="update_web_link_hint">عنوان التحديث هو رابط ويب؛ سيتم فتح المتصفح المدمج للانتقال إلى Lanzou للتنزيل</string>
+    <string name="update_dl_zero_total">تم تنزيل 0 بايت / %1$s</string>
+    <string name="update_dl_zero">تم تنزيل 0 بايت</string>
+    <string name="update_dl_progress">تم تنزيل %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">جارٍ التنزيل</string>
+    <string name="update_dl_amount">تم تنزيل %1$s</string>
+    <string name="update_dl_done">اكتمل التنزيل، جارٍ فتح المثبّت...</string>
+    <string name="update_dl_done_toast">اكتمل التنزيل، جارٍ فتح المثبّت…</string>
+    <string name="update_dl_failed_retry">فشل التنزيل، انقر لإعادة المحاولة</string>
+    <string name="update_dl_failed">فشل التنزيل: %1$s</string>
+    <string name="update_pkg_invalid">حزمة التحديث التي تم تنزيلها غير صالحة، يرجى إعادة المحاولة</string>
+    <string name="update_install_permission_title">مطلوب إذن التثبيت</string>
+    <string name="update_install_permission_msg">لتثبيت الإصدار الجديد، يرجى السماح لهذا التطبيق بتثبيت التطبيقات من مصادر غير معروفة.</string>
+    <string name="update_go_enable">الانتقال للتفعيل</string>
+    <string name="update_cannot_open_perm">تعذّر فتح إعدادات إذن التثبيت</string>
+    <string name="update_later">لاحقًا</string>
+    <string name="update_cannot_open_installer">تعذّر فتح المثبّت النظامي، يرجى تثبيت حزمة التحديث يدويًا</string>
+    <string name="update_no_url">لم يتم العثور على عنوان تنزيل صالح</string>
+    <string name="update_no_direct_link">لم يتم العثور على رابط مباشر لـ APK، انقر فوق زر التنزيل في الصفحة ثم أعد المحاولة</string>
+
+    <!-- المتصفح المدمج WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ ملف APK غير موجود: %1$s</string>
+    <string name="anl_start_scan">  · بدء الفحص: %1$s (%2$s)</string>
+    <string name="anl_progress">  · التقدم: %1$d/%2$d (%3$d%%) الحالي: %4$s</string>
+    <string name="anl_exception">  ✗ خطأ في التحليل: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d إدخالات=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">نعم</string>
+    <string name="anl_no">لا</string>
+    <string name="anl_hits">  · إجمالي الميزات المتطابقة: %1$d</string>
+    <string name="anl_no_hit">  ⚠ لم يتطابق ملف APK هذا مع أي ميزة إعلانية مُعدة</string>
+    <string name="anl_tip">  ⚠ ملاحظة: الميزات التي تم تحليلها للرجوع إليها فقط؛ يرجى التحقق من السلوك الفعلي لملف APK</string>
+
+    <string name="webview_detect_download">تم اكتشاف عنوان تنزيل، جارٍ التنزيل داخل التطبيق…</string>
+    <string name="webview_cannot_open_link">تعذّر فتح الرابط الخارجي</string>
+    <string name="main_title">تحليل الإعلانات</string>
+    <string name="main_subtitle">تحليل ميزات الإعلانات في APK · تصدير الإعدادات</string>
+    <string name="nav_back_desc">رجوع</string>
+    <string name="btn_select_apk">اختيار APK</string>
+    <string name="tv_no_apk">لم يتم اختيار APK بعد</string>
+    <string name="btn_copy_config">نسخ الإعدادات</string>
+    <string name="btn_save_config">حفظ الإعدادات</string>
+    <string name="progress_analyzing_placeholder">جارٍ التحليل...</string>
+    <string name="section_result">نتيجة التحليل</string>
+    <string name="content_desc_clear">مسح</string>
+    <string name="content_desc_feature">ميزة</string>
+    <string name="update_found_new">تم العثور على إصدار جديد</string>
+    <string name="update_welcome">تم إصدار إصدار جديد، قم بالترقية لتجربته</string>
+    <string name="content_desc_close">إغلاق</string>
+    <string name="update_current_version">الإصدار الحالي</string>
+    <string name="content_desc_upgrade_to">الترقية إلى</string>
+    <string name="update_latest_version">أحدث إصدار</string>
+    <string name="update_content_title">ما الجديد</string>
+    <string name="update_open_browser">فتح الرابط في المتصفح</string>
+    <string name="update_immediately">تحديث الآن</string>
+    <string name="content_desc_announcement">إعلان</string>
+    <string name="content_desc_update">تحديث</string>
+
+    <string name="update_read_carefully">يرجى قراءة ما يلي بعناية</string>
+    <string name="update_no_more">لا تظهر مرة أخرى</string>
+    <string name="content_desc_download">تنزيل</string>
+    <string name="update_captured_download">تم التقاط رابط التنزيل، جارٍ التنزيل لك</string>
+    <string name="webview_hint">اضغط على زر التنزيل في الصفحة، وسيقوم هذا التطبيق تلقائيًا باعتراض رابط تنزيل APK وتنزيله داخل التطبيق.</string>
+</resources>

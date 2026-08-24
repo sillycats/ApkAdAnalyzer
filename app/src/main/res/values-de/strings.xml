@@ -1,0 +1,200 @@
+<resources>
+    <!-- App-Grundlagen -->
+    <string name="app_name">APK-Werbeanzeigen-Funktionsanalysator</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">Dateisymbol</string>
+    <string name="common_unknown">Unbekannt</string>
+    <string name="err_cannot_read_file">Die ausgewählte Datei kann nicht gelesen werden</string>
+    <string name="err_server_response">Serverantwortfehler (HTTP %1$d)</string>
+    <string name="err_config_unreadable">Konfigurationsdatei kann nicht gelesen werden</string>
+
+    <!-- Menü -->
+    <string name="menu_language">Sprache wechseln</string>
+    <string name="menu_about">Über</string>
+
+    <!-- Sprachwechsel -->
+    <string name="locale_system_default">System folgen</string>
+    <string name="dlg_choose_language">Sprache wählen</string>
+    <string name="dlg_cancel">Abbrechen</string>
+
+    <!-- Hauptbildschirm AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Bitte wählen Sie zuerst eine APK aus und schließen Sie die Analyse ab</string>
+    <string name="clip_ad_config">Werbeanzeigen-Funktionskonfiguration</string>
+    <string name="toast_config_copied">Konfiguration in die Zwischenablage kopiert</string>
+    <string name="toast_auth_revoked">Die App-Autorisierung wurde remote widerrufen; die Funktionen sind deaktiviert</string>
+    <string name="toast_grant_all_files">Bitte erteilen Sie zuerst die Berechtigung \'Zugriff auf alle Dateien\'</string>
+    <string name="chooser_pick_apk">APK-Datei auswählen</string>
+    <string name="log_start_analyze">▶ Analyse starten: %1$s</string>
+    <string name="log_read_apk">  · APK-Datei wird gelesen...</string>
+    <string name="log_load_config">  · Funktionskonfiguration wird geladen: %1$d Funktionen, %2$d Kategorien (inkl. Flutter)</string>
+    <string name="log_merged_online">  · Integrierte Anbieter-Bibliothek zusammengeführt, insgesamt %1$d Merkmale</string>
+    <string name="log_no_online">  · Integrierte Anbieter-Bibliothek nicht gefunden, verwende nur Basismerkmale</string>
+    <string name="log_analyze_failed">  ✗ Analyse fehlgeschlagen: %1$s</string>
+    <string name="toast_analyze_failed">Analyse fehlgeschlagen: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d Anbieter, %2$d Funktionen</string>
+    <string name="report_header">════════ Analysezusammenfassung ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Paket: %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Dateien: %1$d</string>
+    <string name="report_flutter">Flutter: %1$d libapp.so</string>
+    <string name="report_hits">Treffer: %1$d Funktionen</string>
+    <string name="report_no_hit">Keine konfigurierten Werbefunktionen gefunden.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · %1$d weitere ausgelassen</string>
+    <string name="report_tip">⚠ Hinweis: Die Analyseergebnisse dienen nur als Referenz; bitte vor dem Import manuell prüfen.</string>
+    <string name="report_export_hint">Verwenden Sie die Schaltflächen \'Konfiguration kopieren\' oder \'Konfiguration speichern\' unten, um die vollständige Konfiguration zu exportieren.</string>
+    <string name="hint_initial">Wählen Sie eine APK mit Werbung aus, um die Analyse zu starten.\nNach der Analyse können Sie die Werbefunktions-Konfigurationsdatei kopieren oder speichern.</string>
+    <string name="progress_analyzing">%1$s wird analysiert   Verarbeitet %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">Werbefunktionen</string>
+    <string name="save_file_pattern">%1$s_Werbefunktionen_%2$s.json</string>
+    <string name="toast_saved">Konfiguration gespeichert: %1$s</string>
+    <string name="log_saved">  ✓ Konfiguration gespeichert: %1$s</string>
+    <string name="toast_save_failed">Speichern fehlgeschlagen: %1$s</string>
+    <string name="log_save_failed">  ✗ Speichern fehlgeschlagen: %1$s</string>
+
+    <!-- Namen der Werbefunktionskategorien AdPatternConfig -->
+    <string name="cat_sdk_packages">Werbe-SDK-Paketnamen</string>
+    <string name="cat_class_keywords">Werbung-Klassennamen-Schlüsselwörter</string>
+    <string name="cat_method_patterns">Werbemethodennamen</string>
+    <string name="cat_url_patterns">Werbe-URLs/Domains</string>
+    <string name="cat_ad_view_names">Werbe-View-Klassennamen</string>
+    <string name="cat_ad_activities">Werbe-Activities</string>
+    <string name="cat_ad_services">Werbe-Services</string>
+    <string name="cat_ad_receivers">Werbe-Receivers</string>
+    <string name="cat_force_true_methods">Methoden, die gezwungen sind, true zurückzugeben</string>
+    <string name="cat_force_false_methods">Methoden, die gezwungen sind, false zurückzugeben</string>
+    <string name="cat_ad_asset_paths">Werbedateipfade in assets</string>
+    <string name="cat_lib_file_keywords">Schlüsselwörter für native Werbe-SDK-Bibliotheken</string>
+    <string name="cat_asset_keywords">Werbeschlüsselwörter in assets</string>
+    <string name="cat_method_neutralize_keywords">Schlüsselwörter für Werbemethoden-Neutralisierung</string>
+    <string name="cat_ad_permissions">Werbeberechtigungs-Funktionen</string>
+    <string name="cat_root_file_keywords">Schlüsselwörter für Dateien im APK-Stammverzeichnis</string>
+    <string name="cat_res_layout_keywords">Schlüsselwörter für Werbe-Views im Res-Layout</string>
+    <string name="cat_string_patterns">DEX-String-Werbefunktionen</string>
+    <string name="cat_flutter_patterns">Flutter-String-Funktionen</string>
+
+    <!-- Über-Seite AboutActivity -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_version_default">Version</string>
+    <string name="about_subtitle">Über · APK-Werbeanzeigen-Funktionsanalysator</string>
+    <string name="about_app_icon_desc">App-Symbol</string>
+    <string name="about_check_update">Nach Updates suchen</string>
+    <string name="about_direct_download">Jetzt herunterladen</string>
+    <string name="about_description">APK-Werbefunktionen mit einem Tipp analysieren · Konfiguration exportieren
+Lokale Offline-Verarbeitung, Werbe-SDKs schnell erkennen</string>
+    <string name="about_section_features">Funktionen</string>
+    <string name="about_section_author">Autor</string>
+    <string name="about_author">Autor</string>
+    <string name="about_qq">QQ kontaktieren</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Kontakt-E-Mail</string>
+    <string name="about_email_desc">E-Mail</string>
+    <string name="about_section_opensource">Open-Source-Projekte</string>
+    <string name="about_section_reference">Referenzen und Quellen</string>
+    <string name="about_section_privacy">Datenschutzerklärung</string>
+    <string name="about_section_disclaimer">Haftungsausschluss</string>
+
+    <string name="clip_author_qq">Autor-QQ</string>
+    <string name="toast_qq_copied">QQ in die Zwischenablage kopiert</string>
+    <string name="email_subject">Feedback zum APK-Werbeanzeigen-Funktionsanalysator</string>
+    <string name="chooser_send_email">E-Mail senden</string>
+    <string name="toast_no_mail_app">Keine E-Mail-App gefunden</string>
+    <string name="feat_01">Ein-Tipp-Analyse der APK-Werbefunktionen, vollständig lokal und offline, ohne Hochladen von Dateien</string>
+    <string name="feat_02">Wählen Sie eine APK mit Werbung aus, um deren Werbe-SDKs und Funktionen schnell zu identifizieren</string>
+    <string name="feat_03">Abdeckung von DEX-Bytecode, AndroidManifest, res/layout, assets, Stammverzeichnisdateien usw.</string>
+    <string name="feat_04">Erkennt Flutter-Apps automatisch und scannt libapp.so nach Werbe-String-Funktionen</string>
+    <string name="feat_05">19 Werbefunktionskategorien, die SDK-Paketnamen / Berechtigungen / Klassen / Methoden / Ressourcen / URLs abdecken</string>
+    <string name="feat_06">Echtzeit-Farbanalyseprotokoll mit Fortschrittsbalken und Anzeige der aktuellen Datei</string>
+    <string name="feat_07">Analyseergebnisse werden automatisch aggregiert; Treffer werden übersichtlich nach Kategorie angezeigt</string>
+    <string name="feat_08">Ein-Tipp-Generierung und Export der ad_patterns.json-Werbefunktions-Konfigurationsdatei</string>
+    <string name="feat_09">Die generierte Konfiguration ist vollständig mit dem integrierten Format kompatibel und kann kopiert oder lokal gespeichert werden</string>
+    <string name="feat_10">Helle und dunkle Designs mit drei Modi: System folgen, hell und Nacht</string>
+    <string name="feat_11">18 Sprachen frei wechselbar, System folgen oder manuell wählen</string>
+    <string name="about_opensource_text">Diese App basiert auf den folgenden Open-Source-Projekten und nutzt sie. Wir danken und respektieren alle Autoren aufrichtig:\n\n1. DTL-X (Gameye98)\n   Referenzquelle für Werbe-SDK-Paketnamen / Klassennamen / Domains / Berechtigungen\n   - Homepage: https://github.com/Gameye98/DTL-X\n   - Nur zur Funktionsreferenz und zum Lernen\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Offizielle Android-Jetpack-Supportbibliotheken\n   - Homepage: https://developer.android.com/jetpack\n   - Lizenz: Apache License 2.0\n\n3. Material Components (Google)\n   Material-Design-Komponentenbibliothek mit Karten, Schaltflächen, Dialogen und anderen UI-Komponenten\n   - Homepage: https://github.com/material-components/material-components-android\n   - Lizenz: Apache License 2.0\n\n4. Kotlin-Standardbibliothek (JetBrains)\n   Kotlin-Programmiersprache und Standardbibliothek\n   - Homepage: https://kotlinlang.org/\n   - Lizenz: Apache License 2.0\n\nDen vollständigen Urheberrechts- und Lizenztext der obigen Projekte finden Sie auf den jeweiligen Homepages.</string>
+    <string name="about_reference_text">Die Analyseimplementierung dieser App bezieht sich auf die folgenden öffentlichen technischen Dokumente und Community-Ressourcen. Wir danken und geben die Quellen an:\n\n1. Android-APK-Paketstruktur (ZIP / AXML / DEX)\n   Referenz auf die offizielle AOSP- und Android-Dokumentation zu ZIP-Struktur, Android Binary XML und DEX-Bytecode\n   - Quelle: https://developer.android.com/guide/components\n   - Wird zum Entpacken und Lesen von classes*.dex, AndroidManifest, res/layout, assets und anderen Einträgen verwendet\n\n2. Dart-AOT-Snapshot-Analyse (Flutter libapp.so)\n   Referenz auf snapshot.h des Dart-VM-Quellcodes und Community-Flutter-Reverse-Engineering-Materialien\n   - snapshot.h-Quelle: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Wird verwendet, um den Dart-Snapshot in libapp.so zu lokalisieren und nach Werbe-String-Funktionen zu scannen\n\n3. Zusammenstellung der Werbefunktionsregeln\n   Werbe-SDK-Paketnamen / Domains / Klassennamen / Berechtigungsschlüsselwörter, referenziert und erweitert aus den Regeln des Open-Source-Projekts DTL-X\n   - Homepage: https://github.com/Gameye98/DTL-X\n   - Referenziert dessen adloader / Domain-Blacklist / Methodenschlüsselwort-Ansatz, kombiniert mit gängigen Werbe-SDKs\n\n4. Aho-Corasick-Multimuster-Matching-Algorithmus\n   Wird verwendet, um Tausende von Werbefunktionen in einem einzigen Durchlauf über den Datei-Bytestrom abzugleichen und die Analyse erheblich zu beschleunigen\n   - Quelle: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. UI-Design und Layout\n   Basierend auf den Material-Design-Richtlinien und Beispielen der Material-Components-Komponentenbibliothek erstellt\n   - Richtlinien: https://m3.material.io/\n   - Komponenten: https://github.com/material-components/material-components-android\n\nDie obigen Inhalte dienen nur als technische Lernreferenz; die endgültige Implementierung ist vollständig eigene Entwicklung dieses Projekts. Die Urheberrechte liegen bei den ursprünglichen Autoren und ihren Organisationen.</string>
+    <string name="about_privacy_text">Diese App befolgt das Prinzip der minimalen Datenerfassung und legt großen Wert auf den Schutz Ihrer Privatsphäre:\n\n1. Lokale Offline-Verarbeitung: Die gesamte Werbefunktionsanalyse von APKs erfolgt lokal auf Ihrem Gerät. Die App lädt keine APK-Dateien oder internen Daten auf Server hoch.\n\n2. Transparentes Netzwerkverhalten: Die App verbindet sich nur dann mit dem Netzwerk, wenn Sie aktiv auf \'Nach Updates suchen\' tippen, um Versionsinformationen anzufordern. Sie verbindet sich nie im Hintergrund und erfasst oder lädt keine persönlichen Informationen hoch.\n\n3. Minimale Berechtigungen: Die App liest, speichert oder greift nicht auf Ihre Kontakte, Galerie, Ihren Standort, SMS, Anrufverlauf oder andere sensible Informationen zu.\n\n4. Lokale Datenspeicherung: Die Funktionskonfiguration und die Analyseergebnisse der App werden nur auf Ihrem Gerät gespeichert und beim Deinstallieren der App gelöscht. Es werden keine Cloud-Aufzeichnungen gespeichert.\n\n5. Drittanbieter-Links: Die Seiten Über und Update können externe Links enthalten. Wenn Sie darauf tippen, verarbeiten Drittanbieter-Plattformen Ihr Zugriffsverhalten. Wir empfehlen, die Datenschutzrichtlinien der jeweiligen Drittanbieter zu prüfen.\n\n6. Wenn Sie während der Nutzung Fragen, Anregungen oder Bedenken zum Datenschutz haben, kontaktieren Sie uns bitte über die Kontaktinformationen des Autors. Wir werden unser Bestes tun, um zu antworten.</string>
+    <string name="about_disclaimer_text">Bitte lesen Sie den folgenden Haftungsausschluss sorgfältig, bevor Sie diese App verwenden:\n\n1. Einschränkung der legalen Nutzung: Diese App dient nur zu Lern-, Forschungs- und persönlichen legalen Zwecken. Analysieren Sie nur Apps, deren Urheberrechte Sie besitzen, für die Sie autorisiert sind oder die Sie analysieren dürfen.\n\n2. Ergebnisse nur als Referenz: Die analysierten Werbefunktionen dienen nur der technischen Forschung und Referenz und stellen keine technische Schlussfolgerung oder Garantie dar. Die Zuordnung von Werbe-SDKs kann sich mit Versionen ändern; verwenden Sie sie zusammen mit der tatsächlichen Funktionalität des APK und manueller Prüfung.\n\n3. Einschränkung des Analyseumfangs: Diese App erkennt nur vordefinierte Funktionsregeln. Ein nicht übereinstimmendes Werbe-SDK bedeutet nicht, dass keine Werbung vorhanden ist; die Ergebnisse können Auslassungen oder Fehlmeldungen enthalten.\n\n4. Keine Garantie: Diese App wird \'wie besehen\' bereitgestellt, ohne ausdrückliche oder stillschweigende Garantien jeglicher Art. Der Autor haftet nicht für direkte oder indirekte Schäden, die durch die Nutzung oder Nichtnutzung dieser App entstehen.\n\n5. Inhalte Dritter: Die von dieser App referenzierten Open-Source-Projekte und Werbefunktionsregeln stammen aus öffentlichen Kanälen und dienen nur der technischen Referenz; ihre Urheberrechte liegen bei den ursprünglichen Autoren.\n\n6. Änderungen der Bedingungen: Der Autor behält sich das Recht vor, diesen Haftungsausschluss jederzeit zu ändern. Aktualisierte Inhalte werden in neuen Versionen wirksam.\n\n7. Die Nutzung dieser App bedeutet, dass Sie alle oben genannten Bedingungen gelesen, verstanden und akzeptiert haben. Wenn Sie nicht einverstanden sind, beenden Sie die Nutzung dieser App.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · Alle Rechte vorbehalten\nPowered by Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Update UpdateChecker -->
+    <string name="update_checking">Suche nach Updates…</string>
+    <string name="update_official_announce">Offizielle Ankündigung</string>
+    <string name="update_know">Verstanden</string>
+    <string name="update_latest">Sie sind auf dem neuesten Stand (%1$s)</string>
+    <string name="update_check_failed_title">Update-Prüfung fehlgeschlagen</string>
+    <string name="update_check_failed_msg">Keine Verbindung zum Update-Server möglich.\n\nSie können die 蓝奏云-Cloud mit dem Browser Ihres Telefons besuchen, um die neueste Version manuell herunterzuladen:\n\n%1$s</string>
+    <string name="update_go_browser">Zum Browser zum Herunterladen</string>
+    <string name="update_cancel">Abbrechen</string>
+    <string name="update_cannot_open_browser">Browser kann nicht geöffnet werden. Bitte besuchen Sie 蓝奏云, um manuell herunterzuladen</string>
+    <string name="update_download_center">Download-Center</string>
+    <string name="update_cannot_open_center">Download-Center kann nicht geöffnet werden</string>
+    <string name="update_no_desc">Keine detaillierte Beschreibung</string>
+    <string name="update_downloading">Wird heruntergeladen</string>
+    <string name="update_web_link_hint">Die Update-Adresse ist ein Weblink; der integrierte Browser öffnet 蓝奏云 zum Herunterladen</string>
+    <string name="update_dl_zero_total">0 B heruntergeladen / %1$s</string>
+    <string name="update_dl_zero">0 B heruntergeladen</string>
+    <string name="update_dl_progress">%1$s / %2$s heruntergeladen</string>
+    <string name="update_dl_indeterminate">Wird heruntergeladen</string>
+    <string name="update_dl_amount">%1$s heruntergeladen</string>
+    <string name="update_dl_done">Download abgeschlossen, Installationsprogramm wird geöffnet...</string>
+    <string name="update_dl_done_toast">Download abgeschlossen, Installationsprogramm wird geöffnet…</string>
+    <string name="update_dl_failed_retry">Download fehlgeschlagen, tippen Sie zum Wiederholen</string>
+    <string name="update_dl_failed">Download fehlgeschlagen: %1$s</string>
+    <string name="update_pkg_invalid">Das heruntergeladene Update-Paket ist ungültig. Bitte erneut versuchen</string>
+    <string name="update_install_permission_title">Installationsberechtigung erforderlich</string>
+    <string name="update_install_permission_msg">Um die neue Version zu installieren, erlauben Sie dieser App bitte, Apps aus unbekannten Quellen zu installieren.</string>
+    <string name="update_go_enable">Aktivieren</string>
+    <string name="update_cannot_open_perm">Installationsberechtigungseinstellungen können nicht geöffnet werden</string>
+    <string name="update_later">Später</string>
+    <string name="update_cannot_open_installer">Systeminstallationsprogramm kann nicht geöffnet werden. Bitte installieren Sie das Update-Paket manuell</string>
+    <string name="update_no_url">Keine gültige Download-Adresse erfasst</string>
+    <string name="update_no_direct_link">Kein direkter APK-Link erfasst. Tippen Sie auf die Download-Schaltfläche auf der Seite und versuchen Sie es erneut</string>
+
+    <!-- Integrierter Browser WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ APK-Datei existiert nicht: %1$s</string>
+    <string name="anl_start_scan">  · Scan wird gestartet: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Fortschritt: %1$d/%2$d (%3$d%%) Aktuell: %4$s</string>
+    <string name="anl_exception">  ✗ Analysefehler: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d Einträge=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Ja</string>
+    <string name="anl_no">Nein</string>
+    <string name="anl_hits">  · Übereinstimmende Funktionen insgesamt: %1$d</string>
+    <string name="anl_no_hit">  ⚠ Diese APK stimmte mit keiner konfigurierten Werbefunktion überein</string>
+    <string name="anl_tip">  ⚠ Hinweis: Die analysierten Funktionen dienen nur als Referenz; bitte mit dem tatsächlichen APK-Verhalten abgleichen</string>
+
+    <string name="webview_detect_download">Download-Adresse erkannt, wird in der App heruntergeladen…</string>
+    <string name="webview_cannot_open_link">Externer Link kann nicht geöffnet werden</string>
+    <string name="main_title">Werbefunktions-Analyse</string>
+    <string name="main_subtitle">APK-Werbefunktionen analysieren · Konfiguration exportieren</string>
+    <string name="nav_back_desc">Zurück</string>
+    <string name="btn_select_apk">APK auswählen</string>
+    <string name="tv_no_apk">Noch kein APK ausgewählt</string>
+    <string name="btn_copy_config">Konfiguration kopieren</string>
+    <string name="btn_save_config">Konfiguration speichern</string>
+    <string name="progress_analyzing_placeholder">Analysiere...</string>
+    <string name="section_result">Analyseergebnis</string>
+    <string name="content_desc_clear">Löschen</string>
+    <string name="content_desc_feature">Funktion</string>
+    <string name="update_found_new">Neue Version gefunden</string>
+    <string name="update_welcome">Eine neue Version ist verfügbar, aktualisieren Sie jetzt!</string>
+    <string name="content_desc_close">Schließen</string>
+    <string name="update_current_version">Aktuelle Version</string>
+    <string name="content_desc_upgrade_to">Aktualisieren auf</string>
+    <string name="update_latest_version">Neueste Version</string>
+    <string name="update_content_title">Neuigkeiten</string>
+    <string name="update_open_browser">Link im Browser öffnen</string>
+    <string name="update_immediately">Jetzt aktualisieren</string>
+    <string name="content_desc_announcement">Ankündigung</string>
+    <string name="content_desc_update">Aktualisieren</string>
+
+    <string name="update_read_carefully">Bitte lesen Sie Folgendes sorgfältig</string>
+    <string name="update_no_more">Nicht mehr anzeigen</string>
+    <string name="content_desc_download">Herunterladen</string>
+    <string name="update_captured_download">Download-Link erkannt, wird für Sie heruntergeladen</string>
+    <string name="webview_hint">Tippen Sie auf der Seite auf die Download-Schaltfläche; diese App erkennt den APK-Download-Link automatisch und lädt ihn in der App herunter.</string>
+</resources>

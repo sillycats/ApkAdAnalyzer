@@ -1,0 +1,200 @@
+<resources>
+    <!-- ऐप की मूल बातें -->
+    <string name="app_name">APK विज्ञापन सुविधा विश्लेषक</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">फ़ाइल आइकन</string>
+    <string name="common_unknown">अज्ञात</string>
+    <string name="err_cannot_read_file">चयनित फ़ाइल पढ़ी नहीं जा सकी</string>
+    <string name="err_server_response">सर्वर से असामान्य प्रतिक्रिया (HTTP %1$d)</string>
+    <string name="err_config_unreadable">कॉन्फ़िगरेशन फ़ाइल पढ़ी नहीं जा सकी</string>
+
+    <!-- मेनू -->
+    <string name="menu_language">भाषा बदलें</string>
+    <string name="menu_about">ऐप के बारे में</string>
+
+    <!-- भाषा बदलना -->
+    <string name="locale_system_default">सिस्टम के अनुसार</string>
+    <string name="dlg_choose_language">भाषा चुनें</string>
+    <string name="dlg_cancel">रद्द करें</string>
+
+    <!-- मुख्य स्क्रीन AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">कृपया पहले APK चुनें और विश्लेषण पूरा करें</string>
+    <string name="clip_ad_config">विज्ञापन सुविधा कॉन्फ़िगरेशन</string>
+    <string name="toast_config_copied">कॉन्फ़िगरेशन क्लिपबोर्ड पर कॉपी हो गया</string>
+    <string name="toast_auth_revoked">ऐप का प्राधिकरण दूरस्थ रूप से रद्द कर दिया गया है, सुविधाएँ अक्षम हैं</string>
+    <string name="toast_grant_all_files">कृपया पहले «सभी फ़ाइलों तक पहुँच» की अनुमति दें</string>
+    <string name="chooser_pick_apk">APK फ़ाइल चुनें</string>
+    <string name="log_start_analyze">▶ विश्लेषण प्रारंभ: %1$s</string>
+    <string name="log_read_apk">  · APK फ़ाइल पढ़ी जा रही है...</string>
+    <string name="log_load_config">  · कॉन्फ़िगरेशन लोड हो रहा है: %1$d सुविधाएँ, %2$d श्रेणियाँ (Flutter सहित)</string>
+    <string name="log_merged_online">  · अंतर्निहित विक्रेता लाइब्रेरी मर्ज की गई, कुल %1$d विशेषताएँ</string>
+    <string name="log_no_online">  · अंतर्निहित विक्रेता लाइब्रेरी नहीं मिली, केवल आधार विशेषताएँ उपयोग</string>
+    <string name="log_analyze_failed">  ✗ विश्लेषण विफल: %1$s</string>
+    <string name="toast_analyze_failed">विश्लेषण विफल: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d विक्रेता, %2$d सुविधाएँ</string>
+    <string name="report_header">════════ विश्लेषण सारांश ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">पैकेज : %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">फ़ाइलें : %1$d</string>
+    <string name="report_flutter">Flutter : %1$d libapp.so</string>
+    <string name="report_hits">हिट : %1$d सुविधाएँ</string>
+    <string name="report_no_hit">कोई कॉन्फ़िगर की गई विज्ञापन सुविधा मेल नहीं खाई।</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · %1$d और छोड़े गए</string>
+    <string name="report_tip">⚠ नोट: परिणाम केवल संदर्भ के लिए हैं, आयात से पहले मैन्युअल समीक्षा करें।</string>
+    <string name="report_export_hint">पूर्ण कॉन्फ़िगरेशन निर्यात करने के लिए नीचे «कॉन्फ़िगरेशन कॉपी करें» या «कॉन्फ़िगरेशन सहेजें» का उपयोग करें।</string>
+    <string name="hint_initial">विश्लेषण शुरू करने के लिए विज्ञापनों वाला APK चुनें।\nविश्लेषण के बाद आप कॉन्फ़िगरेशन फ़ाइल कॉपी या सहेज सकते हैं।</string>
+    <string name="progress_analyzing">%1$s का विश्लेषण   संसाधित %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">विज्ञापन_सुविधाएँ</string>
+    <string name="save_file_pattern">%1$s_विज्ञापन_सुविधाएँ_%2$s.json</string>
+    <string name="toast_saved">कॉन्फ़िगरेशन सहेजा गया: %1$s</string>
+    <string name="log_saved">  ✓ कॉन्फ़िगरेशन सहेजा गया: %1$s</string>
+    <string name="toast_save_failed">सहेजना विफल: %1$s</string>
+    <string name="log_save_failed">  ✗ सहेजना विफल: %1$s</string>
+
+    <!-- श्रेणी नाम AdPatternConfig -->
+    <string name="cat_sdk_packages">विज्ञापन SDK पैकेज नाम</string>
+    <string name="cat_class_keywords">विज्ञापन क्लास नाम कीवर्ड</string>
+    <string name="cat_method_patterns">विज्ञापन विधि नाम</string>
+    <string name="cat_url_patterns">विज्ञापन URL/डोमेन</string>
+    <string name="cat_ad_view_names">विज्ञापन View क्लास नाम</string>
+    <string name="cat_ad_activities">विज्ञापन Activity</string>
+    <string name="cat_ad_services">विज्ञापन Service</string>
+    <string name="cat_ad_receivers">विज्ञापन Receiver</string>
+    <string name="cat_force_true_methods">true लौटाने के लिए बाध्य विधियाँ</string>
+    <string name="cat_force_false_methods">false लौटाने के लिए बाध्य विधियाँ</string>
+    <string name="cat_ad_asset_paths">विज्ञापन assets फ़ाइल पथ</string>
+    <string name="cat_lib_file_keywords">विज्ञापन SDK नेटिव लाइब्रेरी कीवर्ड</string>
+    <string name="cat_asset_keywords">विज्ञापन assets कीवर्ड</string>
+    <string name="cat_method_neutralize_keywords">विज्ञापन विधि निष्प्रभावी कीवर्ड</string>
+    <string name="cat_ad_permissions">विज्ञापन अनुमति सुविधाएँ</string>
+    <string name="cat_root_file_keywords">APK रूट निर्देशिका फ़ाइल कीवर्ड</string>
+    <string name="cat_res_layout_keywords">res लेआउट विज्ञापन View कीवर्ड</string>
+    <string name="cat_string_patterns">DEX स्ट्रिंग विज्ञापन सुविधाएँ</string>
+    <string name="cat_flutter_patterns">Flutter स्ट्रिंग सुविधाएँ</string>
+
+    <!-- ऐप के बारे में पृष्ठ AboutActivity -->
+    <string name="about_version">संस्करण %1$s</string>
+    <string name="about_version_default">संस्करण</string>
+    <string name="about_subtitle">के बारे में · APK विज्ञापन सुविधा विश्लेषक</string>
+    <string name="about_app_icon_desc">ऐप आइकन</string>
+    <string name="about_check_update">अपडेट जाँचें</string>
+    <string name="about_direct_download">अभी डाउनलोड करें</string>
+    <string name="about_description">एक टैप में APK विज्ञापन सुविधाओं का विश्लेषण · कॉन्फ़िगरेशन निर्यात करें
+स्थानीय ऑफ़लाइन प्रोसेसिंग, विज्ञापन SDK की तेज़ पहचान</string>
+    <string name="about_section_features">विशेषताएँ</string>
+    <string name="about_section_author">लेखक जानकारी</string>
+    <string name="about_author">लेखक</string>
+    <string name="about_qq">QQ से संपर्क करें</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">संपर्क ईमेल</string>
+    <string name="about_email_desc">ईमेल</string>
+    <string name="about_section_opensource">ओपन सोर्स परियोजनाएँ</string>
+    <string name="about_section_reference">संदर्भ और स्रोत</string>
+    <string name="about_section_privacy">गोपनीयता नीति</string>
+    <string name="about_section_disclaimer">अस्वीकरण</string>
+
+    <string name="clip_author_qq">लेखक का QQ</string>
+    <string name="toast_qq_copied">QQ क्लिपबोर्ड पर कॉपी हो गया</string>
+    <string name="email_subject">APK विज्ञापन सुविधा विश्लेषक प्रतिक्रिया</string>
+    <string name="chooser_send_email">ईमेल भेजें</string>
+    <string name="toast_no_mail_app">कोई ईमेल क्लाइंट नहीं मिला</string>
+    <string name="feat_01">एक क्लिक में APK विज्ञापन सुविधा विश्लेषण, पूरी तरह स्थानीय और ऑफ़लाइन, कोई फ़ाइल अपलोड नहीं</string>
+    <string name="feat_02">विज्ञापनों वाला APK चुनें और उसके विज्ञापन SDK व सुविधाओं की तेज़ी से पहचान करें</string>
+    <string name="feat_03">DEX बाइटकोड, AndroidManifest, res/layout, assets, रूट फ़ाइलें आदि को कवर करता है</string>
+    <string name="feat_04">Flutter ऐप्स का स्वचालित पता लगाता है और libapp.so में विज्ञापन स्ट्रिंग सुविधाओं को स्कैन करता है</string>
+    <string name="feat_05">19 विज्ञापन सुविधा श्रेणियाँ: SDK पैकेज नाम / अनुमतियाँ / क्लास / विधियाँ / संसाधन / URL</string>
+    <string name="feat_06">प्रगति पट्टी और वर्तमान फ़ाइल के साथ रीयल-टाइम रंगीन विश्लेषण लॉग</string>
+    <string name="feat_07">परिणाम स्वचालित रूप से एकत्रित, मेल खाती सुविधाएँ श्रेणी के अनुसार स्पष्ट रूप से प्रस्तुत</string>
+    <string name="feat_08">ad_patterns.json कॉन्फ़िगरेशन फ़ाइल एक क्लिक में जनरेट और निर्यात</string>
+    <string name="feat_09">जनरेट किया गया कॉन्फ़िगरेशन अंतर्निहित प्रारूप से पूरी तरह मेल खाता है, कॉपी या स्थानीय रूप से सहेजा जा सकता है</string>
+    <string name="feat_10">हल्का और गहरा थीम, तीन मोड: सिस्टम के अनुसार, हल्का और रात</string>
+    <string name="feat_11">18 भाषाएँ स्वतंत्र रूप से बदलने योग्य, सिस्टम के अनुसार या मैन्युअल चयन</string>
+    <string name="about_opensource_text">यह ऐप निम्नलिखित ओपन-सोर्स परियोजनाओं पर आधारित है और उन्हें कॉल करता है। हम सभी लेखकों को हार्दिक धन्यवाद और सम्मान देते हैं:\n\n1. DTL-X (Gameye98)\n   विज्ञापन SDK पैकेज / क्लास / डोमेन / अनुमति सुविधा नियमों का संदर्भ स्रोत\n   - होमपेज: https://github.com/Gameye98/DTL-X\n   - केवल संदर्भ और सीखने के लिए\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   आधिकारिक Android Jetpack समर्थन लाइब्रेरी\n   - होमपेज: https://developer.android.com/jetpack\n   - लाइसेंस: Apache License 2.0\n\n3. Material Components (Google)\n   Material Design घटक लाइब्रेरी जो कार्ड, बटन, डायलॉग और अन्य UI घटक प्रदान करती है\n   - होमपेज: https://github.com/material-components/material-components-android\n   - लाइसेंस: Apache License 2.0\n\n4. Kotlin मानक लाइब्रेरी (JetBrains)\n   Kotlin प्रोग्रामिंग भाषा और मानक लाइब्रेरी\n   - होमपेज: https://kotlinlang.org/\n   - लाइसेंस: Apache License 2.0\n\nउपरोक्त परियोजनाओं के पूर्ण कॉपीराइट और लाइसेंस पाठ के लिए कृपया उनके होमपेज देखें।</string>
+    <string name="about_reference_text">इस ऐप का विश्लेषण कार्यान्वयन निम्नलिखित सार्वजनिक तकनीकी दस्तावेज़ों और समुदाय संसाधनों को संदर्भित करता है। हम उन्हें धन्यवाद देते हैं और स्रोत बताते हैं:\n\n1. Android APK पैकेजिंग संरचना (ZIP / AXML / DEX)\n   ZIP संरचना, Android बाइनरी XML और DEX बाइटकोड पर AOSP और आधिकारिक Android दस्तावेज़ का संदर्भ\n   - स्रोत: https://developer.android.com/guide/components\n   - classes*.dex, AndroidManifest, res/layout, assets आदि को अनपैक और पढ़ने के लिए उपयोग\n\n2. Dart AOT स्नैपशॉट पार्सिंग (Flutter libapp.so)\n   Dart VM स्रोत snapshot.h और समुदाय Flutter रिवर्स इंजीनियरिंग संसाधनों का संदर्भ\n   - snapshot.h स्रोत: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - libapp.so में Dart स्नैपशॉट ढूंढकर विज्ञापन स्ट्रिंग सुविधाओं को स्कैन करने के लिए उपयोग\n\n3. विज्ञापन सुविधा नियम संकलन\n   विज्ञापन SDK पैकेज / डोमेन / क्लास / अनुमति कीवर्ड ओपन-सोर्स परियोजना DTL-X के नियमों को संदर्भित करते हैं, विस्तारित और व्यवस्थित\n   - होमपेज: https://github.com/Gameye98/DTL-X\n   - इसके adloader / डोमेन ब्लैकलिस्ट / विधि कीवर्ड दृष्टिकोण का संदर्भ, मुख्यधारा के विज्ञापन SDK के साथ संयुक्त\n\n4. Aho-Corasick मल्टी-पैटर्न मिलान एल्गोरिथ्म\n   फ़ाइल बाइट स्ट्रीम में एक पास में हज़ारों विज्ञापन सुविधाओं का मिलान करने के लिए उपयोग, विश्लेषण को काफी तेज़ करता है\n   - स्रोत: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. इंटरफ़ेस थीम और लेआउट\n   Material Design विनिर्देश और Material Components लाइब्रेरी उदाहरणों के आधार पर लिखा गया\n   - विनिर्देश: https://m3.material.io/\n   - घटक: https://github.com/material-components/material-components-android\n\nउपरोक्त सामग्री केवल तकनीकी सीखने के संदर्भ के लिए है; अंतिम कार्यान्वयन पूरी तरह से इस परियोजना द्वारा विकसित है। कॉपीराइट मूल लेखकों और उनके संगठनों के पास है।</string>
+    <string name="about_privacy_text">यह ऐप न्यूनतम डेटा संग्रह के सिद्धांत का पालन करता है और आपकी गोपनीयता की सुरक्षा को बहुत महत्व देता है:\n\n1. स्थानीय ऑफ़लाइन प्रोसेसिंग: सभी APK विज्ञापन सुविधा विश्लेषण आपके डिवाइस पर स्थानीय रूप से किए जाते हैं। ऐप कभी भी कोई APK फ़ाइल या आंतरिक डेटा सर्वर पर अपलोड नहीं करता।\n\n2. पारदर्शी नेटवर्क व्यवहार: ऐप केवल तब नेटवर्क से जुड़ता है जब आप संस्करण जानकारी मांगने के लिए «अपडेट जाँचें» पर सक्रिय रूप से टैप करते हैं। यह कभी भी बैकग्राउंड में कनेक्ट नहीं होता और न ही कोई व्यक्तिगत जानकारी एकत्र या अपलोड करता है।\n\n3. न्यूनतम अनुमतियाँ: ऐप आपके संपर्क, गैलरी, स्थान, SMS, कॉल इतिहास या अन्य संवेदनशील जानकारी को नहीं पढ़ता, संग्रहीत या एक्सेस नहीं करता।\n\n4. स्थानीय डेटा संग्रहण: ऐप का कॉन्फ़िगरेशन और विश्लेषण परिणाम केवल आपके डिवाइस पर संग्रहीत होते हैं और ऐप अनइंस्टॉल होने पर मिट जाते हैं, कोई क्लाउड रिकॉर्ड नहीं रहता।\n\n5. तृतीय-पक्ष लिंक: ऐप के बारे में और अपडेट पृष्ठों में बाहरी लिंक हो सकते हैं। टैप करने पर तृतीय-पक्ष प्लेटफ़ॉर्म आपकी पहुँच व्यवहार को संसाधित करते हैं। कृपया उनकी गोपनीयता नीतियाँ देखें।\n\n6. उपयोग के दौरान गोपनीयता से संबंधित कोई प्रश्न, सुझाव या चिंता हो तो लेखक की संपर्क जानकारी के माध्यम से हमसे संपर्क करें। हम उत्तर देने की पूरी कोशिश करेंगे।</string>
+    <string name="about_disclaimer_text">इस ऐप का उपयोग करने से पहले कृपया निम्नलिखित अस्वीकरण ध्यान से पढ़ें:\n\n1. कानूनी उपयोग प्रतिबंध: यह ऐप केवल सीखने, शोध और व्यक्तिगत कानूनी उपयोग के लिए है। कृपया केवल उन ऐप्स का विश्लेषण करें जिनके आप स्वामी हैं, जिनका विश्लेषण करने के लिए आप अधिकृत हैं या जिनका अधिकार आपके पास है।\n\n2. परिणाम केवल संदर्भ के लिए: विश्लेषित विज्ञापन सुविधाएँ केवल तकनीकी शोध और संदर्भ के लिए हैं, कोई तकनीकी निष्कर्ष या गारंटी नहीं बनतीं। विज्ञापन SDK की पहचान संस्करणों के साथ बदल सकती है; कृपया APK की वास्तविक कार्यक्षमता और मैन्युअल समीक्षा के साथ उपयोग करें।\n\n3. विश्लेषण सीमा: यह ऐप केवल पूर्वनिर्धारित नियमों का पता लगाता है। मेल न खाने वाला विज्ञापन SDK का मतलब विज्ञापन नहीं होना नहीं है, और परिणामों में चूक या गलत सकारात्मक हो सकते हैं।\n\n4. कोई गारंटी नहीं: यह ऐप «जैसा है» प्रदान किया गया है, बिना किसी स्पष्ट या निहित गारंटी के। लेखक इस ऐप के उपयोग या उपयोग करने में असमर्थता से होने वाले किसी भी प्रत्यक्ष या अप्रत्यक्ष नुकसान के लिए उत्तरदायी नहीं है।\n\n5. तृतीय-पक्ष सामग्री: संदर्भित ओपन-सोर्स परियोजनाएँ और विज्ञापन सुविधा नियम सार्वजनिक स्रोतों से हैं, केवल तकनीकी संदर्भ के लिए; उनका कॉपीराइट मूल लेखकों के पास है।\n\n6. शर्तों में परिवर्तन: लेखक किसी भी समय इस अस्वीकरण को संशोधित करने का अधिकार सुरक्षित रखता है। अद्यतन सामग्री नए संस्करणों में प्रभावी होगी।\n\n7. इस ऐप का उपयोग करने का अर्थ है कि आपने उपरोक्त सभी शर्तों को पढ़, समझ और स्वीकार कर लिया है। यदि आप सहमत नहीं हैं, तो कृपया इस ऐप का उपयोग बंद करें।</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · सर्वाधिकार सुरक्षित\nAho-Corasick / AndroidX / Material द्वारा संचालित</string>
+
+    <!-- अपडेट UpdateChecker -->
+    <string name="update_checking">अपडेट जाँचे जा रहे हैं…</string>
+    <string name="update_official_announce">आधिकारिक घोषणा</string>
+    <string name="update_know">ठीक है</string>
+    <string name="update_latest">आप नवीनतम संस्करण (%1$s) पर हैं</string>
+    <string name="update_check_failed_title">अपडेट जाँच विफल</string>
+    <string name="update_check_failed_msg">अपडेट सर्वर से कनेक्ट नहीं हो सका।\n\nआप अपने फ़ोन ब्राउज़र से Lanzou क्लाउड खोलकर नवीनतम संस्करण मैन्युअल रूप से डाउनलोड कर सकते हैं:\n\n%1$s</string>
+    <string name="update_go_browser">डाउनलोड के लिए ब्राउज़र पर जाएँ</string>
+    <string name="update_cancel">रद्द करें</string>
+    <string name="update_cannot_open_browser">ब्राउज़र नहीं खोल सके, कृपया Lanzou पर जाकर मैन्युअल डाउनलोड करें</string>
+    <string name="update_download_center">डाउनलोड केंद्र</string>
+    <string name="update_cannot_open_center">डाउनलोड केंद्र नहीं खोल सके</string>
+    <string name="update_no_desc">कोई विस्तृत विवरण नहीं</string>
+    <string name="update_downloading">डाउनलोड हो रहा है</string>
+    <string name="update_web_link_hint">अपडेट पता एक वेब लिंक है; डाउनलोड के लिए अंतर्निहित ब्राउज़र Lanzou खोलेगा</string>
+    <string name="update_dl_zero_total">0 बाइट / %1$s डाउनलोड</string>
+    <string name="update_dl_zero">0 बाइट डाउनलोड</string>
+    <string name="update_dl_progress">%1$s / %2$s डाउनलोड</string>
+    <string name="update_dl_indeterminate">डाउनलोड हो रहा है</string>
+    <string name="update_dl_amount">%1$s डाउनलोड</string>
+    <string name="update_dl_done">डाउनलोड पूर्ण, इंस्टॉलर खोला जा रहा है...</string>
+    <string name="update_dl_done_toast">डाउनलोड पूर्ण, इंस्टॉलर खोला जा रहा है…</string>
+    <string name="update_dl_failed_retry">डाउनलोड विफल, पुनः प्रयास के लिए टैप करें</string>
+    <string name="update_dl_failed">डाउनलोड विफल: %1$s</string>
+    <string name="update_pkg_invalid">डाउनलोड किया गया अपडेट पैकेज अमान्य है, कृपया पुनः प्रयास करें</string>
+    <string name="update_install_permission_title">इंस्टॉल अनुमति आवश्यक</string>
+    <string name="update_install_permission_msg">नया संस्करण इंस्टॉल करने के लिए, कृपया इस ऐप को अज्ञात स्रोतों से ऐप्स इंस्टॉल करने की अनुमति दें।</string>
+    <string name="update_go_enable">सक्षम करने जाएँ</string>
+    <string name="update_cannot_open_perm">इंस्टॉल अनुमति सेटिंग्स नहीं खोल सके</string>
+    <string name="update_later">बाद में</string>
+    <string name="update_cannot_open_installer">सिस्टम इंस्टॉलर नहीं खोल सके, कृपया अपडेट पैकेज मैन्युअल रूप से इंस्टॉल करें</string>
+    <string name="update_no_url">कोई मान्य डाउनलोड पता नहीं मिला</string>
+    <string name="update_no_direct_link">कोई सीधा APK लिंक नहीं मिला, कृपया पृष्ठ पर डाउनलोड बटन टैप करके पुनः प्रयास करें</string>
+
+    <!-- अंतर्निहित ब्राउज़र WebView -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ APK फ़ाइल मौजूद नहीं है: %1$s</string>
+    <string name="anl_start_scan">  · स्कैन शुरू: %1$s (%2$s)</string>
+    <string name="anl_progress">  · प्रगति: %1$d/%2$d (%3$d%%) वर्तमान: %4$s</string>
+    <string name="anl_exception">  ✗ विश्लेषण त्रुटि: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d प्रविष्टियाँ=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">हाँ</string>
+    <string name="anl_no">नहीं</string>
+    <string name="anl_hits">  · कुल मिलान सुविधाएँ: %1$d</string>
+    <string name="anl_no_hit">  ⚠ इस APK में कोई कॉन्फ़िगर की गई विज्ञापन सुविधा नहीं मिली</string>
+    <string name="anl_tip">  ⚠ नोट: विश्लेषित सुविधाएँ केवल संदर्भ के लिए हैं; कृपया वास्तविक APK व्यवहार से जाँच करें</string>
+
+    <string name="webview_detect_download">डाउनलोड पता मिला, ऐप में डाउनलोड हो रहा है…</string>
+    <string name="webview_cannot_open_link">बाहरी लिंक नहीं खोल सके</string>
+    <string name="main_title">विज्ञापन विश्लेषण</string>
+    <string name="main_subtitle">APK विज्ञापन सुविधाओं का विश्लेषण · कॉन्फ़िगरेशन निर्यात करें</string>
+    <string name="nav_back_desc">वापस</string>
+    <string name="btn_select_apk">APK चुनें</string>
+    <string name="tv_no_apk">अभी तक कोई APK नहीं चुना गया</string>
+    <string name="btn_copy_config">कॉन्फ़िगरेशन कॉपी करें</string>
+    <string name="btn_save_config">कॉन्फ़िगरेशन सहेजें</string>
+    <string name="progress_analyzing_placeholder">विश्लेषण हो रहा है...</string>
+    <string name="section_result">विश्लेषण परिणाम</string>
+    <string name="content_desc_clear">साफ़ करें</string>
+    <string name="content_desc_feature">विशेषता</string>
+    <string name="update_found_new">नया संस्करण मिला</string>
+    <string name="update_welcome">नया संस्करण जारी हुआ है, अपग्रेड करके आज़माएँ</string>
+    <string name="content_desc_close">बंद करें</string>
+    <string name="update_current_version">वर्तमान संस्करण</string>
+    <string name="content_desc_upgrade_to">अपग्रेड करें</string>
+    <string name="update_latest_version">नवीनतम संस्करण</string>
+    <string name="update_content_title">नया क्या है</string>
+    <string name="update_open_browser">ब्राउज़र में लिंक खोलें</string>
+    <string name="update_immediately">अभी अपडेट करें</string>
+    <string name="content_desc_announcement">घोषणा</string>
+    <string name="content_desc_update">अपडेट</string>
+
+    <string name="update_read_carefully">कृपया निम्नलिखित ध्यान से पढ़ें</string>
+    <string name="update_no_more">फिर से न दिखाएँ</string>
+    <string name="content_desc_download">डाउनलोड</string>
+    <string name="update_captured_download">डाउनलोड लिंक मिल गया, आपके लिए डाउनलोड हो रहा है</string>
+    <string name="webview_hint">पेज पर डाउनलोड बटन टैप करें; यह ऐप APK डाउनलोड लिंक को स्वचालित रूप से इंटरसेप्ट करके ऐप के भीतर डाउनलोड करेगा।</string>
+</resources>

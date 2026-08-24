@@ -1,0 +1,200 @@
+<resources>
+    <!-- App basics -->
+    <string name="app_name">APK Ad Feature Analyzer</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">File icon</string>
+    <string name="common_unknown">Unknown</string>
+    <string name="err_cannot_read_file">Unable to read the selected file</string>
+    <string name="err_server_response">Server responded with an error (HTTP %1$d)</string>
+    <string name="err_config_unreadable">Configuration file unreadable</string>
+
+    <!-- Menu -->
+    <string name="menu_language">Switch language</string>
+    <string name="menu_about">About</string>
+
+    <!-- Language switching -->
+    <string name="locale_system_default">Follow system</string>
+    <string name="dlg_choose_language">Choose language</string>
+    <string name="dlg_cancel">Cancel</string>
+
+    <!-- Main screen AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">Please select an APK and complete the analysis first</string>
+    <string name="clip_ad_config">Ad feature configuration</string>
+    <string name="toast_config_copied">Configuration copied to clipboard</string>
+    <string name="toast_auth_revoked">App authorization has been revoked remotely; features are disabled</string>
+    <string name="toast_grant_all_files">Please grant the \"All files access\" permission first</string>
+    <string name="chooser_pick_apk">Select APK file</string>
+    <string name="log_start_analyze">▶ Start analysis: %1$s</string>
+    <string name="log_read_apk">  · Reading APK file...</string>
+    <string name="log_load_config">  · Loading feature configuration: %1$d features, %2$d categories (incl. Flutter)</string>
+    <string name="log_merged_online">  · Merged built-in ad vendor library, %1$d features total</string>
+    <string name="log_no_online">  · Built-in ad vendor library not found, using base features only</string>
+    <string name="log_analyze_failed">  ✗ Analysis failed: %1$s</string>
+    <string name="toast_analyze_failed">Analysis failed: %1$s</string>
+    <string name="fmt_vendor_summary">%1$d vendors, %2$d features</string>
+    <string name="report_header">════════ Analysis Summary ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">Package: %1$s</string>
+    <string name="report_dex">DEX   : %1$d</string>
+    <string name="report_files">Files : %1$d</string>
+    <string name="report_flutter">Flutter: %1$d libapp.so</string>
+    <string name="report_hits">Hits  : %1$d features</string>
+    <string name="report_no_hit">No configured ad features matched.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · %1$d more omitted</string>
+    <string name="report_tip">⚠ Note: Analysis results are for reference only; please review manually before importing.</string>
+    <string name="report_export_hint">Use the \"Copy config\" or \"Save config\" buttons below to export the full configuration.</string>
+    <string name="hint_initial">Select an APK with ads to start analysis.\nAfter analysis, you can copy or save the ad feature configuration file.</string>
+    <string name="progress_analyzing">Analyzing %1$s   Processed %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">ad_features</string>
+    <string name="save_file_pattern">%1$s_ad_features_%2$s.json</string>
+    <string name="toast_saved">Configuration saved: %1$s</string>
+    <string name="log_saved">  ✓ Configuration saved: %1$s</string>
+    <string name="toast_save_failed">Save failed: %1$s</string>
+    <string name="log_save_failed">  ✗ Save failed: %1$s</string>
+
+    <!-- Ad feature category names AdPatternConfig -->
+    <string name="cat_sdk_packages">Ad SDK package names</string>
+    <string name="cat_class_keywords">Ad class name keywords</string>
+    <string name="cat_method_patterns">Ad method names</string>
+    <string name="cat_url_patterns">Ad URLs/domains</string>
+    <string name="cat_ad_view_names">Ad View class names</string>
+    <string name="cat_ad_activities">Ad Activities</string>
+    <string name="cat_ad_services">Ad Services</string>
+    <string name="cat_ad_receivers">Ad Receivers</string>
+    <string name="cat_force_true_methods">Methods forced to return true</string>
+    <string name="cat_force_false_methods">Methods forced to return false</string>
+    <string name="cat_ad_asset_paths">Ad asset file paths</string>
+    <string name="cat_lib_file_keywords">Ad SDK native library keywords</string>
+    <string name="cat_asset_keywords">Ad asset keywords</string>
+    <string name="cat_method_neutralize_keywords">Ad method nulling keywords</string>
+    <string name="cat_ad_permissions">Ad permission features</string>
+    <string name="cat_root_file_keywords">APK root directory file keywords</string>
+    <string name="cat_res_layout_keywords">Res layout ad View keywords</string>
+    <string name="cat_string_patterns">DEX string ad features</string>
+    <string name="cat_flutter_patterns">Flutter string features</string>
+
+    <!-- About page AboutActivity -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_version_default">Version</string>
+    <string name="about_subtitle">About · APK Ad Feature Analyzer</string>
+    <string name="about_app_icon_desc">App icon</string>
+    <string name="about_check_update">Check for updates</string>
+    <string name="about_direct_download">Download now</string>
+    <string name="about_description">One-tap analysis of APK ad features · export feature config
+Local offline processing, quickly identify ad SDKs</string>
+    <string name="about_section_features">Features</string>
+    <string name="about_section_author">Author</string>
+    <string name="about_author">Author</string>
+    <string name="about_qq">Contact QQ</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">Contact email</string>
+    <string name="about_email_desc">Email</string>
+    <string name="about_section_opensource">Open source projects</string>
+    <string name="about_section_reference">References &amp; sources</string>
+    <string name="about_section_privacy">Privacy policy</string>
+    <string name="about_section_disclaimer">Disclaimer</string>
+
+    <string name="clip_author_qq">Author QQ</string>
+    <string name="toast_qq_copied">QQ copied to clipboard</string>
+    <string name="email_subject">APK Ad Feature Analyzer feedback</string>
+    <string name="chooser_send_email">Send email</string>
+    <string name="toast_no_mail_app">No email client found</string>
+    <string name="feat_01">One-click APK ad feature analysis, fully local and offline, no files are uploaded</string>
+    <string name="feat_02">Pick an APK with ads to quickly identify its ad SDKs and features</string>
+    <string name="feat_03">Covers DEX bytecode, AndroidManifest, res/layout, assets, root directory files, and more</string>
+    <string name="feat_04">Automatically detects Flutter apps and scans libapp.so for ad string features</string>
+    <string name="feat_05">19 ad feature categories covering SDK package names / permissions / classes / methods / resources / URLs</string>
+    <string name="feat_06">Real-time colored analysis log with progress bar and current file display</string>
+    <string name="feat_07">Analysis results auto-aggregated; matched ad features presented clearly by category</string>
+    <string name="feat_08">One-click generation and export of the ad_patterns.json ad feature configuration file</string>
+    <string name="feat_09">Generated configuration is fully consistent with the built-in format and can be copied or saved locally</string>
+    <string name="feat_10">Light and dark themes with three modes: follow system, light, and night</string>
+    <string name="feat_11">18 languages freely switchable, follow system or choose manually</string>
+    <string name="about_opensource_text">This app is built on and calls the following open source projects. We sincerely thank and respect all the authors:\n\n1. DTL-X (Gameye98)\n   Reference source for ad SDK package / class / domain / permission feature rules\n   - Homepage: https://github.com/Gameye98/DTL-X\n   - For feature reference and learning only\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Official Android Jetpack support libraries\n   - Homepage: https://developer.android.com/jetpack\n   - License: Apache License 2.0\n\n3. Material Components (Google)\n   Material Design component library providing cards, buttons, dialogs and other UI components\n   - Homepage: https://github.com/material-components/material-components-android\n   - License: Apache License 2.0\n\n4. Kotlin Standard Library (JetBrains)\n   Kotlin programming language and standard library\n   - Homepage: https://kotlinlang.org/\n   - License: Apache License 2.0\n\nFor the full copyright and license text of the above projects, please visit the corresponding homepages.</string>
+    <string name="about_reference_text">The analysis implementation of this app references the following public technical documents and community resources. We thank them and state the sources:\n\n1. Android APK packaging structure (ZIP / AXML / DEX)\n   References AOSP and official Android documentation on ZIP structure, Android Binary XML and DEX bytecode\n   - Source: https://developer.android.com/guide/components\n   - Used to unpack and read classes*.dex, AndroidManifest, res/layout, assets and other entries\n\n2. Dart AOT snapshot parsing (Flutter libapp.so)\n   References Dart VM source snapshot.h and community Flutter reverse engineering resources\n   - snapshot.h source: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - Used to locate the Dart snapshot inside libapp.so and scan for ad string features\n\n3. Ad feature rule compilation\n   Ad SDK package / domain / class / permission keywords reference the open source project DTL-X rules, expanded and organized\n   - Homepage: https://github.com/Gameye98/DTL-X\n   - References its adloader / domain blacklist / method keyword approach, combined with mainstream ad SDKs\n\n4. Aho-Corasick multi-pattern matching algorithm\n   Used to match thousands of ad features in a single pass over file byte streams, significantly speeding up analysis\n   - Source: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. UI theme and layout\n   Written based on Material Design guidelines and Material Components component library examples\n   - Guidelines: https://m3.material.io/\n   - Components: https://github.com/material-components/material-components-android\n\nThe above content is for technical learning reference only; the final implementation is entirely self-developed by this project. Copyright belongs to the original authors and their organizations.</string>
+    <string name="about_privacy_text">This app follows the principle of minimal data collection and attaches great importance to protecting your privacy:\n\n1. Local offline processing: All APK ad feature analysis is done locally on your device. The app never uploads any APK files or internal data to any server.\n\n2. Transparent network behavior: The app only connects to the network when you actively tap \"Check for updates\" to request version information. It never connects in the background, nor collects or uploads any personal information.\n\n3. Minimal permissions: The app does not read, store, or access your contacts, gallery, location, SMS, call history, or other sensitive information.\n\n4. Local data storage: The app\'s feature configuration and analysis results are stored only on your device and are cleared when the app is uninstalled. No cloud records are kept.\n\n5. Third-party links: The About and Update pages may contain external links. Tapping them lets third-party platforms handle your access behavior. We recommend reviewing the relevant third-party privacy policies.\n\n6. If you have any privacy questions, suggestions, or concerns while using the app, feel free to contact us through the author\'s contact information. We will do our best to answer.</string>
+    <string name="about_disclaimer_text">Please read the following disclaimer carefully before using this app:\n\n1. Legal use restriction: This app is for learning, research, and personal lawful use only. Please analyze only apps you own, are authorized for, or have the right to analyze.\n\n2. Results for reference only: The analyzed ad features are for technical research and reference only and do not constitute any technical conclusion or warranty. Ad SDK attribution may change with versions; please combine with the actual functionality of the APK and manual review.\n\n3. Analysis scope limitation: This app only detects preset feature rules. An ad SDK that is not matched does not mean no ads exist, and results may contain omissions or false positives.\n\n4. No warranty: This app is provided \"as is\" without any express or implied warranty. The author is not liable for any direct or indirect loss caused by using or being unable to use this app.\n\n5. Third-party content: The open source projects and ad feature rules referenced by this app come from public channels and are for technical reference only; their copyright belongs to the original authors.\n\n6. Term changes: The author reserves the right to modify this disclaimer at any time. Updated content will take effect in new versions.\n\n7. Using this app means you have read, understood, and agreed to all the above terms. If you do not agree, please stop using this app.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · All rights reserved\nPowered by Aho-Corasick / AndroidX / Material</string>
+
+    <!-- Update UpdateChecker -->
+    <string name="update_checking">Checking for updates…</string>
+    <string name="update_official_announce">Official announcement</string>
+    <string name="update_know">Got it</string>
+    <string name="update_latest">You are up to date (%1$s)</string>
+    <string name="update_check_failed_title">Update check failed</string>
+    <string name="update_check_failed_msg">Unable to connect to the update server.\n\nYou can visit the Lanzou cloud drive with your phone browser to manually download the latest version:\n\n%1$s</string>
+    <string name="update_go_browser">Go to browser to download</string>
+    <string name="update_cancel">Cancel</string>
+    <string name="update_cannot_open_browser">Unable to open the browser. Please visit Lanzou to download manually</string>
+    <string name="update_download_center">Download center</string>
+    <string name="update_cannot_open_center">Unable to open the download center</string>
+    <string name="update_no_desc">No detailed description</string>
+    <string name="update_downloading">Downloading</string>
+    <string name="update_web_link_hint">The update address is a web page link; the built-in browser will open Lanzou to download</string>
+    <string name="update_dl_zero_total">Downloaded 0 B / %1$s</string>
+    <string name="update_dl_zero">Downloaded 0 B</string>
+    <string name="update_dl_progress">Downloaded %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">Downloading</string>
+    <string name="update_dl_amount">Downloaded %1$s</string>
+    <string name="update_dl_done">Download complete, opening installer...</string>
+    <string name="update_dl_done_toast">Download complete, opening installer…</string>
+    <string name="update_dl_failed_retry">Download failed, tap to retry</string>
+    <string name="update_dl_failed">Download failed: %1$s</string>
+    <string name="update_pkg_invalid">The downloaded update package is invalid. Please try again</string>
+    <string name="update_install_permission_title">Install permission required</string>
+    <string name="update_install_permission_msg">To install the new version, please allow this app to install apps from unknown sources.</string>
+    <string name="update_go_enable">Enable</string>
+    <string name="update_cannot_open_perm">Unable to open install permission settings</string>
+    <string name="update_later">Later</string>
+    <string name="update_cannot_open_installer">Unable to open the system installer. Please install the update package manually</string>
+    <string name="update_no_url">No valid download address captured</string>
+    <string name="update_no_direct_link">No direct APK link captured. Please tap the download button on the page and try again</string>
+
+    <!-- WebView built-in browser -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ APK file does not exist: %1$s</string>
+    <string name="anl_start_scan">  · Starting scan: %1$s (%2$s)</string>
+    <string name="anl_progress">  · Progress: %1$d/%2$d (%3$d%%) Current: %4$s</string>
+    <string name="anl_exception">  ✗ Analysis error: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d entries=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">Yes</string>
+    <string name="anl_no">No</string>
+    <string name="anl_hits">  · Total matched features: %1$d</string>
+    <string name="anl_no_hit">  ⚠ This APK did not match any configured ad features</string>
+    <string name="anl_tip">  ⚠ Note: the analyzed ad features are for reference only; please verify against the actual APK behavior before use</string>
+
+    <string name="webview_detect_download">Download address detected, downloading in-app…</string>
+    <string name="webview_cannot_open_link">Unable to open external link</string>
+    <string name="main_title">Ad Feature Analysis</string>
+    <string name="main_subtitle">Analyze APK ad features · export feature config</string>
+    <string name="nav_back_desc">Back</string>
+    <string name="btn_select_apk">Select APK</string>
+    <string name="tv_no_apk">No APK selected yet</string>
+    <string name="btn_copy_config">Copy config</string>
+    <string name="btn_save_config">Save config</string>
+    <string name="progress_analyzing_placeholder">Analyzing...</string>
+    <string name="section_result">Analysis result</string>
+    <string name="content_desc_clear">Clear</string>
+    <string name="content_desc_feature">Feature</string>
+    <string name="update_found_new">New version found</string>
+    <string name="update_welcome">A new version is available, upgrade to enjoy it</string>
+    <string name="content_desc_close">Close</string>
+    <string name="update_current_version">Current version</string>
+    <string name="content_desc_upgrade_to">Upgrade to</string>
+    <string name="update_latest_version">Latest version</string>
+    <string name="update_content_title">What\'s new</string>
+    <string name="update_open_browser">Open link in browser</string>
+    <string name="update_immediately">Update now</string>
+    <string name="content_desc_announcement">Announcement</string>
+    <string name="content_desc_update">Update</string>
+
+    <string name="update_read_carefully">Please read the following carefully</string>
+    <string name="update_no_more">Don\'t show again</string>
+    <string name="content_desc_download">Download</string>
+    <string name="update_captured_download">Download link captured, downloading for you</string>
+    <string name="webview_hint">Tap the download button on the page; this app will automatically intercept the APK download link and download it in-app.</string>
+</resources>

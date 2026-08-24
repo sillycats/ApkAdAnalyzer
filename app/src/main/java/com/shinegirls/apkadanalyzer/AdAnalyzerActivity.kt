@@ -19,9 +19,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -34,6 +35,7 @@ import com.shinegirls.apkadanalyzer.core.AdPatternConfig
 import com.shinegirls.apkadanalyzer.core.AdVendorLibrary
 import com.shinegirls.apkadanalyzer.core.ThemeManager
 import com.shinegirls.apkadanalyzer.core.RemoteAuth
+import com.shinegirls.apkadanalyzer.core.LocaleManager
 import com.shinegirls.apkadanalyzer.utils.Format
 import com.shinegirls.apkadanalyzer.utils.PathPreferences
 import com.shinegirls.apkadanalyzer.utils.UiUtils
@@ -51,7 +53,7 @@ import java.util.Locale
  * 选择 APK 后，分析其包含的广告特征（含 Flutter 应用），将命中的特征按分类展示，
  * 并可生成与 ad_patterns.json 格式完全一致的广告特征配置文件，支持复制或保存到本地。
  */
-class AdAnalyzerActivity : AppCompatActivity() {
+class AdAnalyzerActivity : BaseActivity() {
 
     private companion object {
         private const val REQUEST_CODE_PICK_APK = 2001
@@ -84,6 +86,8 @@ class AdAnalyzerActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        // 标题/副标题由布局中的多语言 TextView 展示；隐藏 Toolbar 自带的默认应用名，避免语言不跟随/重复显示
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(false)
 
@@ -105,19 +109,19 @@ class AdAnalyzerActivity : AppCompatActivity() {
         btnCopyConfig.setOnClickListener {
             val result = currentResult
             if (result == null) {
-                UiUtils.warning(this, "请先选择 APK 并完成分析")
+                UiUtils.warning(this, getString(R.string.toast_select_apk_first))
                 return@setOnClickListener
             }
             val json = result.toConfigJson()
-            val clip = ClipData.newPlainText("广告特征配置", json)
+            val clip = ClipData.newPlainText(getString(R.string.clip_ad_config), json)
             (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-            UiUtils.success(this, "配置已复制到剪贴板")
+            UiUtils.success(this, getString(R.string.toast_config_copied))
         }
 
         btnSaveConfig.setOnClickListener {
             val result = currentResult
             if (result == null) {
-                UiUtils.warning(this, "请先选择 APK 并完成分析")
+                UiUtils.warning(this, getString(R.string.toast_select_apk_first))
                 return@setOnClickListener
             }
             saveConfigLocally(result)
@@ -134,7 +138,7 @@ class AdAnalyzerActivity : AppCompatActivity() {
             val status = RemoteAuth.refresh()
             if (status == 2) {
                 // 已被作者远程吊销：提示并停用分析能力
-                UiUtils.error(this@AdAnalyzerActivity, "应用授权已被远程吊销，功能已停用")
+                UiUtils.error(this@AdAnalyzerActivity, getString(R.string.toast_auth_revoked))
                 btnSelectApk.isEnabled = false
                 btnCopyConfig.isEnabled = false
                 btnSaveConfig.isEnabled = false
@@ -153,11 +157,67 @@ class AdAnalyzerActivity : AppCompatActivity() {
                 startActivity(Intent(this, AboutActivity::class.java))
                 true
             }
-            R.id.action_sync_vendors -> {
-                syncOnlineVendors()
+            R.id.action_language -> {
+                showLangDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    /**
+     * 语言选择对话框：跟随系统 + 全部支持语言（原生显示名）。
+     * 选中后持久化，并重启 Activity 重建资源以应用新语言。
+     */
+    private fun showLangDialog() {
+        val current = LocaleManager.getLangId(this)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_language_choice, null)
+        val container = dialogView.findViewById<LinearLayout>(R.id.langListContainer)
+
+        // 顺序：跟随系统 + SUPPORTED 全部语言
+        val order = ArrayList<String>()
+        order.add(LocaleManager.FOLLOW_SYSTEM)
+        order.addAll(LocaleManager.SUPPORTED.keys)
+
+        val buttons = ArrayList<RadioButton>()
+        order.forEach { langId ->
+            val label = when (langId) {
+                LocaleManager.FOLLOW_SYSTEM -> getString(R.string.locale_system_default)
+                else -> LocaleManager.DISPLAY_NAMES[langId] ?: langId
+            }
+            val rb = RadioButton(this)
+            rb.text = label
+            rb.id = View.generateViewId()
+            rb.isChecked = langId == current
+            rb.buttonTintList = ContextCompat.getColorStateList(this, R.color.accent)
+            rb.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+            rb.textSize = 15f
+            rb.setPaddingRelative(
+                4,
+                (resources.displayMetrics.density * 12).toInt(),
+                4,
+                (resources.displayMetrics.density * 12).toInt()
+            )
+            rb.tag = langId
+            rb.setOnClickListener { chooseLang(langId, buttons) }
+            buttons.add(rb)
+            container.addView(rb)
+        }
+
+        val langDialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.dlg_choose_language)
+            .setView(dialogView)
+            .setPositiveButton(R.string.dlg_cancel, null)
+            .create()
+        langDialog.show()
+        UiUtils.fitDialogToScreen(langDialog)
+    }
+
+    private fun chooseLang(langId: String, buttons: List<RadioButton>) {
+        buttons.forEach { it.isChecked = it.tag == langId }
+        if (LocaleManager.getLangId(this) != langId) {
+            LocaleManager.setLangId(this, langId)
+            recreate()
         }
     }
 
@@ -184,7 +244,7 @@ class AdAnalyzerActivity : AppCompatActivity() {
 
     private fun checkPermissionsAndPick() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            UiUtils.warning(this, "请先授予\"所有文件访问\"权限")
+            UiUtils.warning(this, getString(R.string.toast_grant_all_files))
             try {
                 startActivity(Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION))
             } catch (_: Exception) {
@@ -199,7 +259,7 @@ class AdAnalyzerActivity : AppCompatActivity() {
             type = "application/vnd.android.package-archive"
             addCategory(Intent.CATEGORY_OPENABLE)
         }
-        startActivityForResult(Intent.createChooser(intent, "选择 APK 文件"), REQUEST_CODE_PICK_APK)
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.chooser_pick_apk)), REQUEST_CODE_PICK_APK)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -232,36 +292,40 @@ class AdAnalyzerActivity : AppCompatActivity() {
         tvApkName.text = queryDisplayName(uri) ?: uri.toString()
 
         val displayName = queryDisplayName(uri) ?: "APK"
-        appendLog("▶ 开始分析: $displayName")
+        appendLog(getString(R.string.log_start_analyze, displayName))
 
         lifecycleScope.launch(Dispatchers.IO) {
             var apkFile: File? = null
             try {
+                // 0. 清理缓存目录中历史分析残留（analysis_*.apk 及临时解压目录），
+                //    避免多次选择 APK 分析时因残留缓存冲突导致本次处理失败
+                clearAnalysisCache()
+
                 // 1. 拷贝 APK 到缓存
-                appendLog("  · 读取 APK 文件...")
+                appendLog(getString(R.string.log_read_apk))
                 apkFile = File(cacheDir, "analysis_${System.currentTimeMillis()}.apk")
                 contentResolver.openInputStream(uri)?.use { input ->
                     apkFile!!.outputStream().use { output -> input.copyTo(output) }
-                } ?: throw IllegalStateException("无法读取所选文件")
+                } ?: throw IllegalStateException(getString(R.string.err_cannot_read_file))
 
                 // 2. 加载广告特征配置
                 var config = AdPatternConfig.loadConfig(this@AdAnalyzerActivity)
-                appendLog("  · 加载特征配置: 共 ${config.totalCount()} 条特征，分类 ${config.flutterPatterns.size + 1}（含 Flutter）")
+                appendLog(getString(R.string.log_load_config, config.totalCount(), config.flutterPatterns.size + 1))
 
-                // 2.1 合并在线广告厂商特征库后再分析（在线 + 内置联合分析）
-                //     优先使用本地缓存；无缓存时自动联网获取一次，保证联网/离线用户都能同时调用在线特征
-                val onlineMerged = loadAndMergeOnlineFeatures(config)
-                if (onlineMerged != null) {
-                    config = onlineMerged
-                    appendLog("  · 已合并在线广告厂商特征库，当前特征: 共 ${config.totalCount()} 条")
+                // 2.1 加载内置（assets）广告厂商特征库并合并到基础配置（全程离线）
+                val embeddedMerged = loadEmbeddedFeatures(config)
+                if (embeddedMerged != null) {
+                    config = embeddedMerged
+                    appendLog(getString(R.string.log_merged_online, config.totalCount()))
                 } else {
-                    appendLog("  · 未获取到在线广告厂商特征库，仅使用内置特征（可在菜单中手动同步）")
+                    appendLog(getString(R.string.log_no_online))
                 }
 
                 // 3. 执行分析
                 val result = AdFeatureAnalyzer.analyze(
                     apkFile!!,
                     config,
+                    context = this@AdAnalyzerActivity,
                     logger = { msg -> appendLog(msg) },
                     progress = { done, total, name -> updateProgress(done, total, name) }
                 )
@@ -273,12 +337,12 @@ class AdAnalyzerActivity : AppCompatActivity() {
                     isAnalyzing = false
                 }
             } catch (e: Exception) {
-                appendLog("  ✗ 分析失败: ${e.message}")
+                appendLog(getString(R.string.log_analyze_failed, e.message))
                 withContext(Dispatchers.Main) {
                     showProgress(false)
                     isAnalyzing = false
                     renderLogOnly()
-                    UiUtils.error(this@AdAnalyzerActivity, "分析失败: ${e.message}")
+                    UiUtils.error(this@AdAnalyzerActivity, getString(R.string.toast_analyze_failed, e.message))
                 }
             } finally {
                 apkFile?.let {
@@ -289,167 +353,81 @@ class AdAnalyzerActivity : AppCompatActivity() {
     }
 
     /**
-     * 合并在线广告厂商特征库到基础配置中（在线 + 内置联合分析）。
-     *
-     * 获取在线特征依赖顺序：
-     * 1. 优先读取本地缓存（离线可用，避免每次分析都联网拉取）；
-     * 2. 无有效缓存时，自动联网拉取一次在线厂商库并写入缓存；
-     * 3. 均失败（离线且无缓存）时返回 null，仅使用内置特征。
-     *
-     * @return 合并后的新配置；无在线特征可用时返回 null。
+     * 清理分析缓存：删除本应用缓存目录中所有历史分析产生的临时文件与目录，
+     * 保证每次选择 APK 后都能从干净状态重新开始分析，避免缓存冲突导致二次失败。
      */
-    private fun loadAndMergeOnlineFeatures(
+    private fun clearAnalysisCache() {
+        try {
+            val root = cacheDir
+            if (!root.exists() || !root.isDirectory) return
+            val kids = root.listFiles() ?: return
+            for (f in kids) {
+                try {
+                    if (f.name.startsWith("analysis_")) {
+                        if (f.isDirectory) f.deleteRecursively() else f.delete()
+                    }
+                } catch (_: Exception) {
+                }
+            }
+        } catch (_: Exception) {
+        }
+    }
+
+    /**
+     * 合并内置广告厂商特征库（assets 中的本地厂商库）到基础配置中。
+     *
+     * 直接读取打包在 APK assets 的本地厂商特征库（online_ad_vendors_default.enc），
+     * 全程离线，不发起任何网络请求：
+     * - 读取内置厂商库并合并进基础配置（并集去重）；
+     * - 内置库缺失或解包失败时返回 null，仅使用内置特征。
+     *
+     * @return 合并后的新配置；内置厂商库不可用时返回 null。
+     */
+    private fun loadEmbeddedFeatures(
         base: AdPatternConfig.AdPatterns
     ): AdPatternConfig.AdPatterns? {
         return try {
-            // 1) 缓存优先
-            var cacheText: String? = AdVendorLibrary.readCached(this)
-            var lib: AdVendorLibrary.VendorLibrary? = cacheText?.let { AdVendorLibrary.parseCached(it) }
-            if (lib == null || lib.vendors.isEmpty()) {
-                // 2) 无有效缓存 -> 自动联网获取一次
-                lib = AdVendorLibrary.fetchVendorLibrary(AdVendorLibrary.getVendorUrls())
-                if (lib != null) {
-                    // 写缓存（离线兜底：下次分析直接读缓存，不联网）
-                    try {
-                        AdVendorLibrary.writeCache(this@AdAnalyzerActivity, libraryJsonOf(lib))
-                    } catch (_: Exception) {
-                    }
-                    appendLog("  · 已自动联网获取在线广告厂商特征库")
-                }
-            }
+            val lib = AdVendorLibrary.readEmbedded(this)
             if (lib == null || lib.vendors.isEmpty()) return null
             val onlineFeatures = AdVendorLibrary.toMergedFeatures(lib)
             if (onlineFeatures.totalCount() == 0) return null
-            // 合并基础配置与在线厂商特征（并集去重）
+            // 合并基础配置与内置厂商特征（并集去重）
             AdPatternConfig.merge(listOf(base, onlineFeatures))
         } catch (_: Exception) {
             null
         }
     }
 
-    /**
-     * 同步在线广告厂商特征库（菜单入口）。
-     *
-     * 后台拉取在线厂商库 -> 写入本地缓存 -> 展示同步结果（厂商数、国内外分布、特征总数）。
-     * 同步成功后，下次分析 APK 时会自动合并在线特征进行联合分析。
-     */
-    private fun syncOnlineVendors() {
-        if (isAnalyzing) {
-            UiUtils.warning(this, "正在分析中，请稍后再同步")
-            return
-        }
-        UiUtils.info(this, "正在同步在线广告厂商特征库…")
-        lifecycleScope.launch(Dispatchers.IO) {
-            val library = AdVendorLibrary.fetchVendorLibrary(AdVendorLibrary.getVendorUrls())
-            withContext(Dispatchers.Main) {
-                if (library == null) {
-                    // 网络失败时提示使用本地缓存
-                    val hasCache = AdVendorLibrary.readCached(this@AdAnalyzerActivity) != null
-                    if (hasCache) {
-                        UiUtils.warning(
-                            this@AdAnalyzerActivity,
-                            "网络获取失败，将使用本地缓存（${libraryInfoFromCache() ?: "未知"}）"
-                        )
-                        appendLog("  ⚠ 在线厂商库网络获取失败，将使用本地缓存继续分析")
-                    } else {
-                        UiUtils.error(this@AdAnalyzerActivity, "获取在线广告厂商特征库失败，请检查网络")
-                        appendLog("  ✗ 获取在线广告厂商特征库失败")
-                    }
-                    return@withContext
-                }
-                // 写入缓存以便后续离线合并
-                try {
-                    AdVendorLibrary.writeCache(this@AdAnalyzerActivity, libraryJsonOf(library))
-                } catch (_: Exception) {
-                }
-                val summary = AdVendorLibrary.summarize(library)
-                appendLog(
-                    "  ✓ 已同步在线广告厂商特征库: 厂商 ${summary.vendorCount} 家 " +
-                        "(国内 ${summary.domesticCount} / 国际 ${summary.foreignCount}), " +
-                        "合并特征 ${summary.featureCount} 条"
-                )
-                UiUtils.success(
-                    this@AdAnalyzerActivity,
-                    "同步成功: ${summary.vendorCount} 家厂商, ${summary.featureCount} 条特征"
-                )
-            }
-        }
-    }
-
-    /** 从缓存读取厂商库概况文本，便于网络失败时的提示。 */
-    private fun libraryInfoFromCache(): String? {
-        return try {
-            val cached = AdVendorLibrary.readCached(this) ?: return null
-            val lib = AdVendorLibrary.parseCached(cached) ?: return null
-            val s = AdVendorLibrary.summarize(lib)
-            "${s.vendorCount} 家厂商, ${s.featureCount} 条特征"
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    /** 将 [AdVendorLibrary.VendorLibrary] 序列化为 JSON 文本写入缓存。 */
-    private fun libraryJsonOf(library: AdVendorLibrary.VendorLibrary): String {
-        return try {
-            org.json.JSONObject().apply {
-                put("version", library.version)
-                put("updated", library.updated)
-                put(
-                    "vendors",
-                    org.json.JSONArray().apply {
-                        library.vendors.forEach { v ->
-                            put(
-                                org.json.JSONObject().apply {
-                                    put("id", v.id)
-                                    put("name", v.name)
-                                    put("region", v.region)
-                                    put("homepage", v.homepage)
-                                    put("features", AdPatternConfig.toJson(v.features))
-                                }
-                            )
-                        }
-                    }
-                )
-            }.toString()
-        } catch (_: Exception) {
-            "{}"
-        }
-    }
-
     private fun renderResult(result: AdAnalysisResult) {
         val sb = StringBuilder()
-        sb.append("════════ 分析汇总 ════════\n")
-        sb.append("APK   : ${result.apkName}\n")
-        if (result.packageName.isNotBlank()) sb.append("包名  : ${result.packageName}\n")
-        sb.append("DEX   : ${result.dexCount} 个\n")
-        sb.append("文件  : ${result.fileCount} 个\n")
+        sb.append(getString(R.string.report_header)).append('\n')
+        sb.append(getString(R.string.report_apk, result.apkName)).append('\n')
+        if (result.packageName.isNotBlank()) sb.append(getString(R.string.report_pkg, result.packageName)).append('\n')
+        sb.append(getString(R.string.report_dex, result.dexCount)).append('\n')
+        sb.append(getString(R.string.report_files, result.fileCount)).append('\n')
         if (result.isFlutter) {
-            sb.append("Flutter: ${result.flutterLibappCount} 个 libapp.so\n")
+            sb.append(getString(R.string.report_flutter, result.flutterLibappCount)).append('\n')
         }
-        sb.append("命中  : ${result.totalHitCount} 条特征\n\n")
+        sb.append(getString(R.string.report_hits, result.totalHitCount)).append("\n\n")
 
         val hits = result.matches
         if (hits.isEmpty()) {
-            sb.append("未命中任何已配置的广告特征。\n")
+            sb.append(getString(R.string.report_no_hit)).append('\n')
         } else {
             for (category in AdPatternConfig.Category.values()) {
                 val values = hits[category].orEmpty()
                 if (values.isEmpty()) continue
-                val display = if (category == AdPatternConfig.Category.FLUTTER_PATTERNS) {
-                    "Flutter 字符串特征"
-                } else {
-                    category.displayName
-                }
-                sb.append("▶ ${display} (${values.size})\n")
+                val display = category.displayName(this)
+                sb.append(getString(R.string.report_cat_line, display, values.size)).append('\n')
                 values.take(10).forEach { sb.append("   · $it\n") }
-                if (values.size > 10) sb.append("   · 其余 ${values.size - 10} 条省略\n")
+                if (values.size > 10) sb.append(getString(R.string.report_more, values.size - 10)).append('\n')
                 sb.append('\n')
             }
         }
 
         // 完整配置不再平铺进日志区，交由下方"复制配置 / 保存配置"按钮导出
-        sb.append("⚠ 提示: 分析结果仅供参考，导入前请人工复核。\n")
-        sb.append("完整配置请使用下方\"复制配置\"或\"保存配置\"导出。\n")
+        sb.append(getString(R.string.report_tip)).append('\n')
+        sb.append(getString(R.string.report_export_hint)).append('\n')
 
         setResultText(sb.toString())
 
@@ -464,7 +442,7 @@ class AdAnalyzerActivity : AppCompatActivity() {
 
     private fun clearResult() {
         currentResult = null
-        setResultText("选择一个有广告的 APK 文件开始分析。\n分析完成后可复制或保存广告特征配置文件。")
+        setResultText(getString(R.string.hint_initial))
         btnCopyConfig.isEnabled = false
         btnSaveConfig.isEnabled = false
     }
@@ -538,7 +516,7 @@ class AdAnalyzerActivity : AppCompatActivity() {
             if (progressBar.isIndeterminate) progressBar.isIndeterminate = false
             progressBar.max = 100
             progressBar.progress = pct
-            tvProgress.text = "正在分析 ${shortName(fileName)}   已处理 $done/$total ($pct%)"
+            tvProgress.text = getString(R.string.progress_analyzing, shortName(fileName), done, total, pct)
             tvProgress.visibility = View.VISIBLE
         }
     }
@@ -554,22 +532,22 @@ class AdAnalyzerActivity : AppCompatActivity() {
      */
     private fun saveConfigLocally(result: AdAnalysisResult) {
         val fileName = if (result.apkName.isNotBlank()) {
-            result.apkName.substringBeforeLast('.').ifBlank { "广告特征" }
+            result.apkName.substringBeforeLast('.').ifBlank { getString(R.string.default_feature_name) }
         } else {
-            "广告特征"
+            getString(R.string.default_feature_name)
         }
         val time = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         val configDir = File(PathPreferences.getOutputDir(this))
         if (!configDir.exists()) configDir.mkdirs()
-        val outFile = File(configDir, "${fileName}_广告特征_$time.json")
+        val outFile = File(configDir, getString(R.string.save_file_pattern, fileName, time))
 
         try {
             outFile.writeText(result.toConfigJson(), Charsets.UTF_8)
-            UiUtils.success(this, "配置已保存: ${outFile.absolutePath}")
-            appendLog("  ✓ 配置已保存: ${outFile.absolutePath}")
+            UiUtils.success(this, getString(R.string.toast_saved, outFile.absolutePath))
+            appendLog(getString(R.string.log_saved, outFile.absolutePath))
         } catch (e: Exception) {
-            UiUtils.error(this, "保存失败: ${e.message}")
-            appendLog("  ✗ 保存失败: ${e.message}")
+            UiUtils.error(this, getString(R.string.toast_save_failed, e.message))
+            appendLog(getString(R.string.log_save_failed, e.message))
         }
     }
 

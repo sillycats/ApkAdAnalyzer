@@ -1,0 +1,200 @@
+<resources>
+    <!-- 앱 기본 -->
+    <string name="app_name">APK 광고 특징 분석 도구</string>
+    <string name="author_name">小奶瓶</string>
+    <string name="author_qq_note">3679265780</string>
+    <string name="author_email">3679265780@qq.com</string>
+    <string name="file_item_icon">파일 아이콘</string>
+    <string name="common_unknown">알 수 없음</string>
+    <string name="err_cannot_read_file">선택한 파일을 읽을 수 없습니다</string>
+    <string name="err_server_response">서버 응답 오류 (HTTP %1$d)</string>
+    <string name="err_config_unreadable">설정 파일을 읽을 수 없습니다</string>
+
+    <!-- 메뉴 -->
+    <string name="menu_language">언어 전환</string>
+    <string name="menu_about">앱 정보</string>
+
+    <!-- 언어 전환 -->
+    <string name="locale_system_default">시스템 설정 따르기</string>
+    <string name="dlg_choose_language">언어 선택</string>
+    <string name="dlg_cancel">취소</string>
+
+    <!-- 메인 화면 AdAnalyzerActivity -->
+    <string name="toast_select_apk_first">먼저 APK를 선택하고 분석을 완료하세요</string>
+    <string name="clip_ad_config">광고 특징 설정</string>
+    <string name="toast_config_copied">설정이 클립보드에 복사되었습니다</string>
+    <string name="toast_auth_revoked">앱 인증이 원격으로 취소되어 기능이 비활성화되었습니다</string>
+    <string name="toast_grant_all_files">먼저 \'모든 파일 액세스\' 권한을 허용하세요</string>
+    <string name="chooser_pick_apk">APK 파일 선택</string>
+    <string name="log_start_analyze">▶ 분석 시작: %1$s</string>
+    <string name="log_read_apk">  · APK 파일 읽는 중...</string>
+    <string name="log_load_config">  · 특징 설정 로드 중: 총 %1$d개 특징, 분류 %2$d개(Flutter 포함)</string>
+    <string name="log_merged_online">  · 내장 광고업체 라이브러리를 병합했습니다 (총 %1$d개 특징)</string>
+    <string name="log_no_online">  · 내장 광고업체 라이브러리를 찾을 수 없어 기본 특징만 사용합니다</string>
+    <string name="log_analyze_failed">  ✗ 분석 실패: %1$s</string>
+    <string name="toast_analyze_failed">분석 실패: %1$s</string>
+    <string name="fmt_vendor_summary">업체 %1$d개, 특징 %2$d개</string>
+    <string name="report_header">════════ 분석 요약 ════════</string>
+    <string name="report_apk">APK   : %1$s</string>
+    <string name="report_pkg">패키지: %1$s</string>
+    <string name="report_dex">DEX   : %1$d개</string>
+    <string name="report_files">파일  : %1$d개</string>
+    <string name="report_flutter">Flutter: %1$d개 libapp.so</string>
+    <string name="report_hits">히트  : %1$d개 특징</string>
+    <string name="report_no_hit">설정된 광고 특징이 하나도 일치하지 않습니다.</string>
+    <string name="report_cat_line">▶ %1$s (%2$d)</string>
+    <string name="report_more">   · 나머지 %1$d개 생략</string>
+    <string name="report_tip">⚠ 참고: 분석 결과는 참고용이며, 가져오기 전에 수동으로 검토하세요.</string>
+    <string name="report_export_hint">전체 설정은 아래의 \'설정 복사\' 또는 \'설정 저장\' 버튼으로 내보내세요.</string>
+    <string name="hint_initial">광고가 있는 APK 파일을 선택하여 분석을 시작합니다.\n분석 완료 후 광고 특징 설정 파일을 복사하거나 저장할 수 있습니다.</string>
+    <string name="progress_analyzing">%1$s 분석 중   처리됨 %2$d/%3$d (%4$d%%)</string>
+    <string name="default_feature_name">광고 특징</string>
+    <string name="save_file_pattern">%1$s_광고 특징_%2$s.json</string>
+    <string name="toast_saved">설정 저장 완료: %1$s</string>
+    <string name="log_saved">  ✓ 설정 저장 완료: %1$s</string>
+    <string name="toast_save_failed">저장 실패: %1$s</string>
+    <string name="log_save_failed">  ✗ 저장 실패: %1$s</string>
+
+    <!-- 광고 특징 분류명 AdPatternConfig -->
+    <string name="cat_sdk_packages">광고 SDK 패키지명</string>
+    <string name="cat_class_keywords">광고 클래스명 키워드</string>
+    <string name="cat_method_patterns">광고 메서드명</string>
+    <string name="cat_url_patterns">광고 URL/도메인</string>
+    <string name="cat_ad_view_names">광고 View 클래스명</string>
+    <string name="cat_ad_activities">광고 Activity</string>
+    <string name="cat_ad_services">광고 Service</string>
+    <string name="cat_ad_receivers">광고 Receiver</string>
+    <string name="cat_force_true_methods">true 반환을 강제하는 메서드명</string>
+    <string name="cat_force_false_methods">false 반환을 강제하는 메서드명</string>
+    <string name="cat_ad_asset_paths">assets 광고 파일 경로</string>
+    <string name="cat_lib_file_keywords">광고 SDK 네이티브 라이브러리 키워드</string>
+    <string name="cat_asset_keywords">assets 광고 키워드</string>
+    <string name="cat_method_neutralize_keywords">광고 메서드 무력화 키워드</string>
+    <string name="cat_ad_permissions">광고 권한 특징</string>
+    <string name="cat_root_file_keywords">APK 루트 디렉터리 파일 키워드</string>
+    <string name="cat_res_layout_keywords">Res 레이아웃 광고 View 키워드</string>
+    <string name="cat_string_patterns">DEX 문자열 광고 특징</string>
+    <string name="cat_flutter_patterns">Flutter 문자열 특징</string>
+
+    <!-- 정보 페이지 AboutActivity -->
+    <string name="about_version">버전 %1$s</string>
+    <string name="about_version_default">버전</string>
+    <string name="about_subtitle">앱 정보 · APK 광고 특징 분석 도구</string>
+    <string name="about_app_icon_desc">앱 아이콘</string>
+    <string name="about_check_update">업데이트 확인</string>
+    <string name="about_direct_download">지금 다운로드</string>
+    <string name="about_description">APK 광고 특징을 한 번에 분석 · 특징 설정 내보내기
+로컬 오프라인 처리로 광고 SDK를 빠르게 식별</string>
+    <string name="about_section_features">기능</string>
+    <string name="about_section_author">작성자 정보</string>
+    <string name="about_author">작성자</string>
+    <string name="about_qq">QQ 문의</string>
+    <string name="about_qq_desc">QQ</string>
+    <string name="about_email">이메일 문의</string>
+    <string name="about_email_desc">이메일</string>
+    <string name="about_section_opensource">오픈소스 프로젝트</string>
+    <string name="about_section_reference">참고 자료 및 코드 출처</string>
+    <string name="about_section_privacy">개인정보 보호정책</string>
+    <string name="about_section_disclaimer">면책 조항</string>
+
+    <string name="clip_author_qq">작성자 QQ</string>
+    <string name="toast_qq_copied">QQ가 클립보드에 복사되었습니다</string>
+    <string name="email_subject">APK 광고 특징 분석 도구 피드백</string>
+    <string name="chooser_send_email">이메일 보내기</string>
+    <string name="toast_no_mail_app">이메일 앱을 찾을 수 없습니다</string>
+    <string name="feat_01">APK 광고 특징을 원터치로 분석, 완전 로컬 오프라인 처리로 파일을 업로드하지 않습니다</string>
+    <string name="feat_02">광고가 있는 APK를 선택하면 광고 SDK와 특징을 빠르게 식별합니다</string>
+    <string name="feat_03">DEX 바이트코드, AndroidManifest, res/layout, assets, 루트 디렉터리 파일 등을 포괄</string>
+    <string name="feat_04">Flutter 앱을 자동 감지하고 libapp.so 내 광고 문자열 특징을 스캔</string>
+    <string name="feat_05">19개 광고 특징 분류, SDK 패키지명 / 권한 / 클래스 / 메서드 / 리소스 / URL 등 포괄</string>
+    <string name="feat_06">실시간 컬러 분석 로그, 진행률 표시줄과 현재 분석 파일 표시 지원</string>
+    <string name="feat_07">분석 결과 자동 집계, 일치한 광고 특징을 분류별로 명확하게 표시</string>
+    <string name="feat_08">ad_patterns.json 광고 특징 설정 파일 원터치 생성 및 내보내기 지원</string>
+    <string name="feat_09">생성된 설정은 앱 내장 설정과 완전히 동일한 형식으로, 복사하거나 로컬에 저장할 수 있습니다</string>
+    <string name="feat_10">라이트/다크 테마, 시스템 설정 따르기/라이트/나이트 3가지 모드 자유 전환</string>
+    <string name="feat_11">18개 언어 자유 전환, 시스템 설정 따르기 또는 수동 선택</string>
+    <string name="about_opensource_text">이 앱은 다음 오픈소스 프로젝트를 기반으로 구축·활용하며, 모든 작성자에게 진심으로 감사와 존경을 표합니다:\n\n1. DTL-X (Gameye98)\n   광고 SDK 패키지명 / 클래스명 / 도메인 / 권한 등 특징 규칙의 참고 출처\n   - 홈페이지: https://github.com/Gameye98/DTL-X\n   - 특징 참고 및 학습용으로만 제공됩니다\n\n2. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / lifecycle / coordinatorlayout\n   Android 공식 Jetpack 지원 라이브러리\n   - 홈페이지: https://developer.android.com/jetpack\n   - 라이선스: Apache License 2.0\n\n3. Material Components (Google)\n   카드, 버튼, 다이얼로그 등 UI 컴포넌트를 제공하는 Material Design 컴포넌트 라이브러리\n   - 홈페이지: https://github.com/material-components/material-components-android\n   - 라이선스: Apache License 2.0\n\n4. Kotlin 표준 라이브러리 (JetBrains)\n   Kotlin 프로그래밍 언어 및 표준 라이브러리\n   - 홈페이지: https://kotlinlang.org/\n   - 라이선스: Apache License 2.0\n\n위 프로젝트의 전체 저작권 및 라이선스 전문은 해당 홈페이지에서 확인하세요.</string>
+    <string name="about_reference_text">이 앱의 분석 구현은 다음 공개 기술 문서와 커뮤니티 자료를 참고했습니다. 이에 감사드리며 출처를 명시합니다:\n\n1. Android APK 패키징 구조 (ZIP / AXML / DEX)\n   ZIP 구조, Android Binary XML, DEX 바이트코드에 관한 AOSP 및 Android 공식 문서 참고\n   - 출처: https://developer.android.com/guide/components\n   - classes*.dex, AndroidManifest, res/layout, assets 등 항목의 압축 해제 및 읽기에 사용\n\n2. Dart AOT 스냅샷 파싱 (Flutter libapp.so)\n   Dart VM 소스 snapshot.h 및 커뮤니티 Flutter 리버스 엔지니어링 자료 참고\n   - snapshot.h 출처: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - libapp.so 내 Dart 스냅샷을 찾아 광고 문자열 특징을 스캔하는 데 사용\n\n3. 광고 특징 규칙 정리\n   광고 SDK 패키지명 / 도메인 / 클래스명 / 권한 키워드는 오픈소스 프로젝트 DTL-X의 규칙을 참고하여 정리·확장\n   - 홈페이지: https://github.com/Gameye98/DTL-X\n   - adloader / 도메인 블랙리스트 / 메서드 키워드 방식을 참고하여 주류 광고 SDK와 결합해 직접 정리\n\n4. Aho-Corasick 다중 패턴 매칭 알고리즘\n   파일 바이트 스트림을 한 번의 순회로 수천 개의 광고 특징과 동시에 매칭하여 분석 속도를 크게 향상\n   - 출처: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm\n\n5. 화면 테마 및 레이아웃\n   Material Design 가이드라인과 Material Components 컴포넌트 라이브러리 예제를 기반으로 작성\n   - 가이드라인: https://m3.material.io/\n   - 컴포넌트: https://github.com/material-components/material-components-android\n\n위 내용은 기술 학습 참고용이며, 최종 구현은 모두 본 프로젝트의 자체 개발입니다. 저작권은 원저작자와 소속 기관에 있습니다.</string>
+    <string name="about_privacy_text">이 앱은 최소 수집 원칙을 준수하며 사용자의 개인정보 보호를 매우 중요하게 생각합니다:\n\n1. 로컬 오프라인 처리: 모든 APK 광고 특징 분석은 사용자 기기에서 로컬로 완료되며, APK 파일이나 내부 데이터를 서버에 업로드하지 않습니다.\n\n2. 네트워크 동작 투명성: 이 앱은 사용자가 \'업데이트 확인\'을 직접 탭할 때만 버전 정보를 요청하기 위해 네트워크에 연결됩니다. 그 외에는 백그라운드에서 연결하거나 개인정보를 수집·업로드하지 않습니다.\n\n3. 최소 권한: 이 앱은 연락처, 사진첩, 위치, SMS, 통화 기록 등 민감한 정보를 읽거나 저장하거나 접근하지 않습니다.\n\n4. 데이터 로컬 저장: 앱의 특징 설정과 분석 결과는 사용자 기기에만 저장되며, 앱을 삭제하면 제거됩니다. 클라우드 기록은 남지 않습니다.\n\n5. 제3자 링크: 정보 및 업데이트 페이지에 외부 링크가 포함될 수 있으며, 탭하면 제3자 플랫폼이 사용자의 접속 행위를 처리합니다. 관련 제3자의 개인정보 처리방침을 확인하시기 바랍니다.\n\n6. 사용 중 개인정보 관련 질문, 제안 또는 우려 사항이 있으면 작성자 연락처로 언제든지 문의해 주세요. 최선을 다해 답변하겠습니다.</string>
+    <string name="about_disclaimer_text">이 앱을 사용하기 전에 다음 면책 조항을 주의 깊게 읽어 주세요:\n\n1. 합법적 용도 제한: 이 앱은 학습, 연구 및 개인의 합법적 용도로만 제공됩니다. 저작권을 보유했거나, 승인을 받았거나, 분석할 권리가 있는 앱만 분석하세요.\n\n2. 결과는 참고용: 분석된 광고 특징은 기술 연구 및 참고용으로만 제공되며, 어떠한 형태의 기술적 결론이나 보증도 구성하지 않습니다. 광고 SDK의 귀속은 버전에 따라 달라질 수 있으므로 APK의 실제 기능과 수동 검토와 함께 사용하세요.\n\n3. 분석 범위 제한: 이 앱은 사전 설정된 특징 규칙만 감지합니다. 일치하지 않은 광고 SDK가 광고가 없다는 의미는 아니며, 결과에 누락이나 오탐이 포함될 수 있습니다.\n\n4. 보증 없음: 이 앱은 현 상태 그대로 제공되며, 명시적 또는 묵시적 보증을 일절 제공하지 않습니다. 작성자는 이 앱의 사용 또는 사용 불가로 인해 발생한 직간접적 손해에 대해 책임을 지지 않습니다.\n\n5. 제3자 콘텐츠: 이 앱이 참조하는 오픈소스 프로젝트와 광고 특징 규칙은 공개 채널에서 제공되며 기술 참고용으로만 제공되고, 저작권은 원저작자에게 있습니다.\n\n6. 조항 변경: 작성자는 본 면책 조항을 언제든지 수정할 권리를 보유하며, 업데이트된 내용은 새 버전에서 적용됩니다.\n\n7. 이 앱을 사용하는 것은 위의 모든 조항을 읽고 이해하고 동의한 것으로 간주됩니다. 동의하지 않으면 이 앱 사용을 중지하세요.</string>
+    <string name="about_copyright_text">© 2026 小奶瓶 · All rights reserved\nPowered by Aho-Corasick / AndroidX / Material</string>
+
+    <!-- 업데이트 UpdateChecker -->
+    <string name="update_checking">업데이트 확인 중…</string>
+    <string name="update_official_announce">공지사항</string>
+    <string name="update_know">확인</string>
+    <string name="update_latest">최신 버전입니다 (%1$s)</string>
+    <string name="update_check_failed_title">업데이트 확인 실패</string>
+    <string name="update_check_failed_msg">업데이트 서버에 연결할 수 없습니다.\n\n휴대폰 브라우저로 蓝奏云 클라우드 드라이브에 접속하여 최신 버전을 수동으로 다운로드할 수 있습니다:\n\n%1$s</string>
+    <string name="update_go_browser">브라우저에서 다운로드</string>
+    <string name="update_cancel">취소</string>
+    <string name="update_cannot_open_browser">브라우저를 열 수 없습니다. 蓝奏云에 직접 접속하여 다운로드하세요</string>
+    <string name="update_download_center">다운로드 센터</string>
+    <string name="update_cannot_open_center">다운로드 센터를 열 수 없습니다</string>
+    <string name="update_no_desc">상세 설명 없음</string>
+    <string name="update_downloading">다운로드 중</string>
+    <string name="update_web_link_hint">업데이트 주소가 웹 페이지 링크입니다. 내장 브라우저로 蓝奏云을 열어 다운로드합니다</string>
+    <string name="update_dl_zero_total">다운로드됨 0 B / %1$s</string>
+    <string name="update_dl_zero">다운로드됨 0 B</string>
+    <string name="update_dl_progress">다운로드됨 %1$s / %2$s</string>
+    <string name="update_dl_indeterminate">다운로드 중</string>
+    <string name="update_dl_amount">다운로드됨 %1$s</string>
+    <string name="update_dl_done">다운로드 완료, 설치 프로그램을 여는 중...</string>
+    <string name="update_dl_done_toast">다운로드 완료, 설치 프로그램을 여는 중…</string>
+    <string name="update_dl_failed_retry">다운로드 실패, 탭하여 재시도</string>
+    <string name="update_dl_failed">다운로드 실패: %1$s</string>
+    <string name="update_pkg_invalid">다운로드한 업데이트 패키지가 유효하지 않습니다. 다시 시도하세요</string>
+    <string name="update_install_permission_title">설치 권한 필요</string>
+    <string name="update_install_permission_msg">새 버전을 설치하려면 이 앱이 알 수 없는 출처의 앱을 설치하도록 허용해 주세요.</string>
+    <string name="update_go_enable">설정 열기</string>
+    <string name="update_cannot_open_perm">설치 권한 설정을 열 수 없습니다</string>
+    <string name="update_later">나중에</string>
+    <string name="update_cannot_open_installer">시스템 설치 프로그램을 열 수 없습니다. 업데이트 패키지를 수동으로 설치하세요</string>
+    <string name="update_no_url">유효한 다운로드 주소를 찾지 못했습니다</string>
+    <string name="update_no_direct_link">APK 직접 링크를 찾지 못했습니다. 페이지에서 다운로드 버튼을 탭한 후 다시 시도하세요</string>
+
+    <!-- WebView 내장 브라우저 -->
+
+    <!-- Analysis engine log AdFeatureAnalyzer -->
+    <string name="anl_file_not_exist">  ✗ APK 파일이 없습니다: %1$s</string>
+    <string name="anl_start_scan">  · 스캔 시작: %1$s (%2$s)</string>
+    <string name="anl_progress">  · 진행률: %1$d/%2$d (%3$d%%) 현재: %4$s</string>
+    <string name="anl_exception">  ✗ 분석 중 오류 발생: %1$s</string>
+    <string name="anl_summary">  · DEX=%1$d 항목=%2$d Flutter=%3$s</string>
+    <string name="anl_yes">예</string>
+    <string name="anl_no">아니요</string>
+    <string name="anl_hits">  · 일치한 특징 총 %1$d개</string>
+    <string name="anl_no_hit">  ⚠ 이 APK는 설정된 광고 특징과 일치하지 않습니다</string>
+    <string name="anl_tip">  ⚠ 참고: 분석된 광고 특징은 참고용이며, 실제 APK 동작과 함께 확인하세요</string>
+
+    <string name="webview_detect_download">다운로드 주소 감지, 앱 내에서 다운로드 중…</string>
+    <string name="webview_cannot_open_link">외부 링크를 열 수 없습니다</string>
+    <string name="main_title">광고 특징 분석</string>
+    <string name="main_subtitle">APK 광고 특징 분석 · 특징 설정 내보내기</string>
+    <string name="nav_back_desc">뒤로</string>
+    <string name="btn_select_apk">APK 선택</string>
+    <string name="tv_no_apk">아직 APK를 선택하지 않았습니다</string>
+    <string name="btn_copy_config">설정 복사</string>
+    <string name="btn_save_config">설정 저장</string>
+    <string name="progress_analyzing_placeholder">분석 중...</string>
+    <string name="section_result">분석 결과</string>
+    <string name="content_desc_clear">지우기</string>
+    <string name="content_desc_feature">기능</string>
+    <string name="update_found_new">새 버전을 발견했습니다</string>
+    <string name="update_welcome">새 버전이 출시되었습니다. 업그레이드해 보세요</string>
+    <string name="content_desc_close">닫기</string>
+    <string name="update_current_version">현재 버전</string>
+    <string name="content_desc_upgrade_to">업그레이드 대상</string>
+    <string name="update_latest_version">최신 버전</string>
+    <string name="update_content_title">업데이트 내용</string>
+    <string name="update_open_browser">브라우저에서 링크 열기</string>
+    <string name="update_immediately">지금 업데이트</string>
+    <string name="content_desc_announcement">공지</string>
+    <string name="content_desc_update">업데이트</string>
+
+    <string name="update_read_carefully">다음 내용을 주의 깊게 읽어 주세요</string>
+    <string name="update_no_more">다시 표시하지 않음</string>
+    <string name="content_desc_download">다운로드</string>
+    <string name="update_captured_download">다운로드 주소를 감지하여 다운로드를 시작합니다</string>
+    <string name="webview_hint">페이지에서 다운로드 버튼을 누르면 이 앱이 APK 다운로드 주소를 자동으로 감지하여 앱 내에서 다운로드합니다.</string>
+</resources>
