@@ -43,9 +43,6 @@ object AdPatternConfig {
     /** assets 内置默认特征加密文件。 */
     private const val DEFAULT_ASSET_NAME = "ad_patterns_default.enc"
 
-    /** 外部默认特征加密副本（assets 运行期只读，落盘作持久备份/下次调用）。 */
-    private const val DEFAULT_EXTERNAL_NAME = "ad_patterns_default.enc"
-
     // JSON 字段名
     private const val KEY_SDK_PACKAGES = "sdk_packages"
     private const val KEY_CLASS_KEYWORDS = "class_keywords"
@@ -176,85 +173,13 @@ object AdPatternConfig {
     }
 
     /**
-     * 从 JSON 文件加载广告特征配置。
-     * 如果文件不存在，则从 assets 读取默认配置并保存到外部存储。
+     * 加载广告特征配置：直接解密调用 assets 内置加密文件，不写外部存储。
+     *
+     * 选择 APK 分析时调用，数据来源为 assets/ad_patterns_default.enc（混淆加密）：
+     * 运行态经原生库解密为明文 JSON 解析，返回广告特征配置。
      */
     fun loadConfig(context: Context): AdPatterns {
-        val configFile = getConfigFile(context)
-        // 旧版明文配置残留（首字节为 '{'）：忽略，改用 assets 内置加密默认并重新加密落盘，
-        // 确保默认特征来自 enc 而非旧明文/兜底空配置。
-        if (configFile.exists() && isLegacyPlainConfig(configFile)) {
-            val defaults = getDefaultConfig(context)
-            saveConfig(defaults, context)
-            return defaults
-        }
-
-        if (!configFile.exists()) {
-            val defaults = getDefaultConfig(context)
-            saveConfig(defaults, context)
-            return defaults
-        }
-
-        return try {
-            val jsonStr = readConfigText(configFile)
-                ?: throw IllegalStateException(context.getString(R.string.err_config_unreadable))
-            val json = JSONObject(jsonStr)
-            // 默认配置：用于对旧版配置文件中缺失的字段自动回填，保证新增分类能生效
-            val defaults = getDefaultConfig(context)
-
-            AdPatterns(
-                sdkPackages = jsonToStringList(json, KEY_SDK_PACKAGES),
-                classKeywords = jsonToStringList(json, KEY_CLASS_KEYWORDS),
-                methodPatterns = jsonToStringList(json, KEY_METHOD_PATTERNS),
-                urlPatterns = jsonToStringList(json, KEY_URL_PATTERNS),
-                adViewNames = jsonToStringList(json, KEY_AD_VIEW_NAMES),
-                adActivities = jsonToStringList(json, KEY_AD_ACTIVITIES),
-                adServices = jsonToStringList(json, KEY_AD_SERVICES),
-                adReceivers = jsonToStringList(json, KEY_AD_RECEIVERS),
-                forceTrueMethodNames = jsonToStringList(json, KEY_FORCE_TRUE_METHODS),
-                forceFalseMethodNames = jsonToStringList(json, KEY_FORCE_FALSE_METHODS),
-                adAssetPaths = jsonToStringListOrDefault(json, KEY_AD_ASSET_PATHS, defaults.adAssetPaths),
-                libFileKeywords = jsonToStringListOrDefault(json, KEY_LIB_FILE_KEYWORDS, defaults.libFileKeywords),
-                assetKeywords = jsonToStringListOrDefault(json, KEY_ASSET_KEYWORDS, defaults.assetKeywords),
-                methodNeutralizeKeywords = jsonToStringListOrDefault(
-                    json,
-                    KEY_METHOD_NEUTRALIZE_KEYWORDS,
-                    defaults.methodNeutralizeKeywords
-                ),
-                adPermissions = jsonToStringListOrDefault(
-                    json,
-                    KEY_AD_PERMISSIONS,
-                    defaults.adPermissions
-                ),
-                rootFileKeywords = jsonToStringListOrDefault(
-                    json,
-                    KEY_ROOT_FILE_KEYWORDS,
-                    defaults.rootFileKeywords
-                ),
-                resLayoutKeywords = jsonToStringListOrDefault(
-                    json,
-                    KEY_RES_LAYOUT_KEYWORDS,
-                    defaults.resLayoutKeywords
-                ),
-                stringPatterns = jsonToStringList(json, KEY_STRING_PATTERNS),
-                flutterPatterns = jsonToStringList(json, KEY_FLUTTER_PATTERNS)
-            ).let { loaded ->
-                // 防御：若外部配置文件解析后为空（例如旧版本生成的空配置或全部为空数组），
-                // 说明其不具备检测能力，回退到内置默认配置，避免"分析不出任何广告特征"。
-                if (loaded.totalCount() == 0) {
-                    val restored = getDefaultConfig(context)
-                    saveConfig(restored, context)
-                    restored
-                } else {
-                    loaded
-                }
-            }
-        } catch (_: Exception) {
-            // 配置文件损坏，恢复默认
-            val defaults = getDefaultConfig(context)
-            saveConfig(defaults, context)
-            defaults
-        }
+        return getDefaultConfig(context)
     }
 
     /**
@@ -421,28 +346,6 @@ object AdPatternConfig {
     // ========== 加密读写 ==========
 
     /**
-     * 读取配置文件内容（兼容旧版明文与新版加密格式）。
-     *
-     * 新版以 [NativeCrypto]（libnative_crypto.so）混淆加密落盘；旧版为明文 JSON。
-     * 通过首字节判断：明文 JSON 以 '{' 开头，其余按加密格式解密。
-     */
-    private fun readConfigText(file: File): String? {
-        if (!file.exists()) return null
-        val bytes = file.readBytes()
-        if (bytes.isEmpty()) return null
-        // 明文 JSON（旧版兼容）
-        if (bytes[0] == '{'.code.toByte()) {
-            return String(bytes, Charsets.UTF_8)
-        }
-        // 加密格式：原生解密
-        return try {
-            NativeCrypto.decryptToString(bytes)
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    /**
      * 写入配置文件（优先混淆加密落盘；原生库不可用时降级明文，保证功能可用）。
      */
     private fun writeConfigText(file: File, text: String): Boolean {
@@ -493,73 +396,26 @@ object AdPatternConfig {
         return arr
     }
 
-    /**
-     * 判断是否为旧版明文配置残留（首字节为 '{' 即明文 JSON）。
-     * 明文仅可能来自旧版本生成，新版一律以加密形式存储，故命中明文时忽略。
-     */
-    private fun isLegacyPlainConfig(file: File): Boolean {
-        return try {
-            val bytes = file.readBytes()
-            bytes.isNotEmpty() && bytes[0] == '{'.code.toByte()
-        } catch (_: Exception) {
-            false
-        }
-    }
-
     // ========== 默认配置 ==========
 
     /**
-     * 读取内置默认广告特征配置（优先外部加密副本，缺失则从 assets 复制并落到外部后再调用）。
+     * 读取内置默认广告特征配置：直接解密调用 assets 内的加密文件，不写外部存储。
      *
-     * 选择 APK 分析时调用。策略：
-     * 1. 先确保 /storage/emulated/0/ApkAnalyzer/ad_patterns_default.enc 存在：
-     *    若外部不存在，则把 assets 中的 ad_patterns_default.enc（混淆加密字节原样复制）写入外部目录。
-     * 2. 优先从外部加密副本解密调用；外部缺失或解密失败时，回退直接从 assets 解密调用。
-     * 3. 两者均不可用（原生库缺失等），回退最小兜底，保证功能可用。
+     * 选择 APK 分析时调用，数据来源为 assets/ad_patterns_default.enc（混淆加密）：
+     * 1. 运行态经 [NativeCrypto]（libnative_crypto.so）解密为明文 JSON 后再解析；
+     * 2. 解密失败（原生库缺失/资产损坏等）时回退最小兜底，保证功能可用。
      */
     fun getDefaultConfig(context: Context): AdPatterns {
-        // 1. 确保外部加密副本存在（assets 原始加密字节赋值到外部目录）
-        val externalFile = File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME)
-        if (!externalFile.exists()) {
-            copyAssetToExternal(context, DEFAULT_ASSET_NAME, externalFile)
-        }
-
-        // 2. 优先从外部加密副本解密调用
-        try {
-            val jsonStr = NativeCrypto.readEncryptedFile(externalFile)
-            if (jsonStr != null) {
-                return normalizeFromJson(JSONObject(jsonStr))
-            }
-        } catch (_: Exception) {
-            // 忽略，继续
-        }
-
-        // 3. 回退直接从 assets 解密调用
-        try {
+        // 直接解密调用 assets 内置加密文件
+        return try {
             val encBytes = context.assets.open(DEFAULT_ASSET_NAME).use { it.readBytes() }
-            return normalizeFromJson(JSONObject(NativeCrypto.decryptToString(encBytes)))
+            normalizeFromJson(JSONObject(NativeCrypto.decryptToString(encBytes)))
         } catch (_: Exception) {
-            // 忽略，继续兜底
-        }
-
-        // 4. 最小兜底
-        return AdPatterns(
-            sdkPackages = mutableListOf("com.google.android.gms.ads"),
-            classKeywords = mutableListOf("AdView", "AdActivity")
-        )
-    }
-
-    /**
-     * 将 assets 内的加密文件原样复制到外部存储目录（保持混淆加密字节不变）。
-     * 写失败会被忽略——assets 仍可直接解密回退，不影响功能。
-     */
-    private fun copyAssetToExternal(context: Context, assetName: String, target: File) {
-        try {
-            val bytes = context.assets.open(assetName).use { it.readBytes() }
-            if (bytes.isEmpty()) return
-            target.parentFile?.mkdirs()
-            target.writeBytes(bytes)
-        } catch (_: Exception) {
+            // 最小兜底
+            AdPatterns(
+                sdkPackages = mutableListOf("com.google.android.gms.ads"),
+                classKeywords = mutableListOf("AdView", "AdActivity")
+            )
         }
     }
 

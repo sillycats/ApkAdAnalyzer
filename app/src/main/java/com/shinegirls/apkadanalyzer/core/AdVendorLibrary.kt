@@ -1,10 +1,8 @@
 package com.shinegirls.apkadanalyzer.core
 
 import android.content.Context
-import com.shinegirls.apkadanalyzer.utils.Format
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.File
 
 /**
  * 内置广告厂商广告特征库（本地读取）。
@@ -37,9 +35,6 @@ object AdVendorLibrary {
 
     /** 内置广告厂商库（assets 中，混淆加密）。随 APK 打包，全程离线加载，不发起任何网络请求。 */
     private const val EMBEDDED_ASSET_NAME = "online_ad_vendors_default.enc"
-
-    /** 应用首次分析时，将内置厂商库加密落盘到外部存储的文件名（便于后续直接调用本地加密副本）。 */
-    private const val EXTERNAL_FILE_NAME = "online_ad_vendors.enc"
 
     /**
      * 单个广告厂商及其广告特征。
@@ -183,51 +178,20 @@ object AdVendorLibrary {
     }
 
     /**
-     * 读取内置广告厂商库（优先外部加密副本，缺失则从 assets 复制并落到外部后再调用）。
+     * 读取内置广告厂商库：直接解密调用 assets 内的加密文件，不写外部存储。
      *
-     * 选择 APK 分析时调用。策略：
-     * 1. 先确保 /storage/emulated/0/ApkAnalyzer/online_ad_vendors.enc 存在：
-     *    若外部不存在，则把 assets 中的 online_ad_vendors_default.enc（混淆加密字节原样复制）
-     *    写入外部目录，实现"把内置配置写到外部并调用"。
-     * 2. 优先从外部加密副本解密调用；外部缺失或解密失败时，回退直接从 assets 解密调用。
+     * 选择 APK 分析时调用，数据来源为 assets/online_ad_vendors_default.enc（混淆加密）：
+     * 运行态经 [NativeCrypto]（libnative_crypto.so）解密后解析为 [Vendor] 列表。
      *
-     * @return 厂商库；assets 与外部副本均不可用时返回 null。
+     * @return 厂商库；资产缺失或解密失败时返回 null。
      */
     fun readEmbedded(context: Context): VendorLibrary? {
-        // 1. 确保外部加密副本存在（assets 原始加密字节赋值到外部目录）
-        val externalFile = File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME)
-        if (!externalFile.exists()) {
-            copyAssetToExternal(context, EMBEDDED_ASSET_NAME, externalFile)
-        }
-
-        // 2. 优先从外部加密副本解密调用
-        val externalStr = NativeCrypto.readEncryptedFile(externalFile)
-        if (externalStr != null) {
-            val lib = parseVendorLibrary(externalStr, "external")
-            if (lib != null) return lib
-        }
-
-        // 3. 回退直接从 assets 解密调用
         return try {
             val bytes = context.assets.open(EMBEDDED_ASSET_NAME).use { it.readBytes() }
             val jsonStr = decryptVendorBytes(bytes) ?: return null
             parseVendorLibrary(jsonStr, "embedded")
         } catch (_: Exception) {
             null
-        }
-    }
-
-    /**
-     * 将 assets 内的加密文件原样复制到外部存储目录（保持混淆加密字节不变）。
-     * 写失败会被忽略——assets 仍可直接解密回退，不影响功能。
-     */
-    private fun copyAssetToExternal(context: Context, assetName: String, target: File) {
-        try {
-            val bytes = context.assets.open(assetName).use { it.readBytes() }
-            if (bytes.isEmpty()) return
-            target.parentFile?.mkdirs()
-            target.writeBytes(bytes)
-        } catch (_: Exception) {
         }
     }
 }
