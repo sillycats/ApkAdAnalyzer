@@ -8,10 +8,11 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](https://github.com/sillycats/ApkAdAnalyzer/releases)
+[![Version](https://img.shields.io/badge/version-1.9-blue.svg)](https://github.com/sillycats/ApkAdAnalyzer/releases)
 [![Platform](https://img.shields.io/badge/platform-Android%207.0%2B-brightgreen.svg)](https://github.com/sillycats/ApkAdAnalyzer)
 [![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)](https://kotlinlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Languages](https://img.shields.io/badge/UI-18%20languages-blueviolet.svg)](https://github.com/sillycats/ApkAdAnalyzer/releases)
 [![OpenAPI](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/sillycats/ApkAdAnalyzer/pulls)
 
 </div>
@@ -69,8 +70,9 @@
 - **精简日志展示**：分类汇总 + 每类至多前 10 条特征列表（超出合并计数），避免海量结果刷屏
 - **实时进度反馈**：分析进度条 + 当前文件提示，大 APK 分析过程清晰可见
 - **明暗双主题**：跟随系统 / 白天 / 夜间三种模式
-- **在线广告厂商特征库**：内置网络获取广告厂商广告特征，联网一键同步国内外主流广告厂商（AdMob / Meta / AppLovin / Unity / 穿山甲 / 优量汇 / 百度 / 快手等）的特征，**与分析时同时调用内置特征联合扫描 APK**，离线自动使用本地缓存
-- **特征混淆加密**：内置广告特征与在线广告厂商广告特征均经混淆加密处理，运行时由原生库（`libnative_crypto.so`）解密调用，密钥与解密流程分布在 so 内，避免明文特征被轻易提取
+- **18 种界面语言**：简体中文 + 繁体中文 + 英/日/韩/西/葡/德/法/意/俄/阿/印地/印尼/泰/越/马来/乌克兰，支持"跟随系统"与手动切换，选择持久化，标题/按钮等界面文字随语言自动换行适配
+- **内置广告厂商特征库**：77 家国内外主流广告厂商（AdMob / Meta / AppLovin / Unity / 穿山甲 / 优量汇 / 百度 / 快手等）、5100+ 条特征随 APK 内置（assets 混淆加密），**全程离线加载**，无需联网、无网络依赖，分析时自动与内置基础特征联合扫描 APK
+- **特征混淆加密**：内置广告厂商特征经混淆加密处理，运行时由原生库（`libnative_crypto.so`）解密调用，密钥与解密流程分布在 so 内，避免明文特征被轻易提取
 - **内置更新检测**：可配置更新清单地址与蓝奏云下载链接，联网可检出新版本
 
 ---
@@ -89,9 +91,12 @@
 ### 使用
 
 1. 选择需要分析的 APK 文件
-2. 点击"开始分析"，自动完成特征扫描
+2. 点击"开始分析"，自动加载内置广告厂商特征库（77 家 / 5100+ 条）并完成特征扫描，全程离线
 3. 查看按分类聚合的命中结果，可"复制配置"或"保存配置"导出
-4. 分析完成后，可按需点击"检查更新"以确认是否有新版本
+4. 需要时通过右上角菜单"切换语言"在 18 种界面语言间切换（默认跟随系统）
+5. 分析完成后，可按需点击"检查更新"以确认是否有新版本
+
+> 每次选择一个新 APK 开始分析前，应用会自动清理上一次分析产生的临时缓存，因此可反复重新选择 APK 连续多次分析。
 
 ---
 
@@ -101,6 +106,8 @@
 - **无需反编译的字节级扫描**：传统方案需借助 dexlib2/smali 反汇编 DEX 后逐条匹配；本工具直接对 DEX 与 AXML 原始字节扫描，不涉及任何字节码改写
 - **AXML 字符串池解析**：直接解析 AndroidManifest.xml 与 `res/layout/*.xml` 的二进制 chunk 与 StringPool（UTF-8 / UTF-16LE），将字符串引用解析为可读文本
 - **Flutter 特征识别**：Flutter 主要逻辑编译进 `libapp.so`，对该文件字节流做单遍扫描，可识别 Dart 快照内嵌的广告 SDK 字符串特征
+- **内置特征库离线加载**：77 家广告厂商 / 5100+ 条特征以混淆加密形式随 APK 内置（assets），运行时经 JNI 解密后与基础特征合并进自动机，全程本地、无网络请求
+- **多语言 UI**：界面文本全部外置于 18 个语言资源目录，LocaleManager 依据系统语言或用户手动选择包装上下文，界面动态切换语言而不需重启
 
 ---
 
@@ -112,7 +119,8 @@
 | AXML 解析 | 自研解析器 | 解析 AXML 字符串池，提取类名 / 权限名 / 布局元素 |
 | Flutter 检测 | 字节扫描 | 解析 libapp.so 广告字符串特征 |
 | DEX 扫描 | 字节流匹配 | 覆盖 sdk 包名 / 类名 / 方法关键词 |
-| 特征配置 | 加密资产 + 原生解密 | 内置与在线特征混淆加密存储，运行时经 JNI 调用 `libnative_crypto.so` 解密（密钥拆段 + 动态派生 + 位扩散流式混淆），避免明文暴露 |
+| 特征配置 | 加密资产 + 原生解密 | 内置广告厂商特征混淆加密存储（assets），运行时经 JNI 调用 `libnative_crypto.so` 解密（密钥拆段 + 动态派生 + 位扩散流式混淆），避免明文暴露 |
+| 界面语言 | 资源多语言 + LocaleManager | 18 种语言资源目录（values / values-zh-rTW / values-en / …），跟随系统或手动切换，持久化选择，标题/按钮随语言自动换行 |
 | UI | Kotlin | AppCompat + Material Components，三档明暗主题 |
 
 ---
@@ -200,6 +208,7 @@
 | 版本 | 说明 |
 |------|------|
 | **v1.9** | 新增 17 种语言切换（共 18 种界面语言）与跟随系统；标题/按钮多语言自动换行；广告厂商特征改为内置 assets 本地调用（77 家 / 5100+ 条），全程离线；修复多次分析缓存残留与误导日志 |
+| **v1.7** | 内置广告特征与在线广告厂商特征均混淆加密存储，运行时经 libnative_crypto.so 原生库解密调用；移除含明文特征的历史版本，保障特征库不被轻易提取 |
 | **v1.6** | 内置全网所有应用广告厂商的广告特征：在线广告厂商特征库扩充至 77 家（国际 39 + 国内 38），内置特征补全至 5100+ 条，联合扫描识别更精准 |
 | **v1.5** | 内置与在线广告厂商广告特征均做混淆加密，运行时经 libnative_crypto.so 原生库解密调用，密钥/解密流程分布在 so 中；内置特征补全至 4400+ 条；在线特征缓存加密落盘 |
 | **v1.4** | 内置与在线广告厂商特征在分析 APK 时同时调用、联合扫描；分析时自动联网获取在线厂商库（无缓存时） |
