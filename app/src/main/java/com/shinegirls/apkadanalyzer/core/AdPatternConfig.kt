@@ -40,6 +40,12 @@ object AdPatternConfig {
     private const val CONFIG_DIR = Format.EXPORT_DIR
     private const val CONFIG_FILE = "ad_patterns.json"
 
+    /** assets 内置默认特征加密文件。 */
+    private const val DEFAULT_ASSET_NAME = "ad_patterns_default.enc"
+
+    /** 外部默认特征加密副本（assets 运行期只读，落盘作持久备份/下次调用）。 */
+    private const val DEFAULT_EXTERNAL_NAME = "ad_patterns_default.enc"
+
     // JSON 字段名
     private const val KEY_SDK_PACKAGES = "sdk_packages"
     private const val KEY_CLASS_KEYWORDS = "class_keywords"
@@ -175,6 +181,14 @@ object AdPatternConfig {
      */
     fun loadConfig(context: Context): AdPatterns {
         val configFile = getConfigFile(context)
+        // 旧版明文配置残留（首字节为 '{'）：忽略，改用 assets 内置加密默认并重新加密落盘，
+        // 确保默认特征来自 enc 而非旧明文/兜底空配置。
+        if (configFile.exists() && isLegacyPlainConfig(configFile)) {
+            val defaults = getDefaultConfig(context)
+            saveConfig(defaults, context)
+            return defaults
+        }
+
         if (!configFile.exists()) {
             val defaults = getDefaultConfig(context)
             saveConfig(defaults, context)
@@ -479,28 +493,61 @@ object AdPatternConfig {
         return arr
     }
 
+    /**
+     * 判断是否为旧版明文配置残留（首字节为 '{' 即明文 JSON）。
+     * 明文仅可能来自旧版本生成，新版一律以加密形式存储，故命中明文时忽略。
+     */
+    private fun isLegacyPlainConfig(file: File): Boolean {
+        return try {
+            val bytes = file.readBytes()
+            bytes.isNotEmpty() && bytes[0] == '{'.code.toByte()
+        } catch (_: Exception) {
+            false
+        }
+    }
+
     // ========== 默认配置 ==========
 
     /**
-     * 读取内置默认广告特征配置。
+     * 读取内置默认广告特征配置（优先 assets 内的混淆加密文件 ad_patterns_default.enc）。
      *
-     * 内置特征以混淆加密形式存储在 assets/ad_patterns_default.enc，运行态经
-     * [NativeCrypto]（libnative_crypto.so）解密为明文 JSON 后再解析，避免特征以
-     * 明文暴露在 APK 资源中。密钥在 so 内拆分种子动态派生，不在静态字节中出现。
+     * 内置特征以混淆加密形式存在 assets / app/src/main/assets/ad_patterns_default.enc，运行态经
+     * [NativeCrypto]（libnative_crypto.so）解密为明文 JSON 后再解析，避免特征明文暴露。
+     *
+     * 选择 APK 分析时调用：
+     * 1. 检测 assets/ad_patterns_default.enc 是否存在：存在则直接解密调用（打包时恒存在），
+     *    并同步把加密副本写到 /storage/emulated/0/ApkAnalyzer/ad_patterns_default.enc 作备份。
+     * 2. assets 缺失或损坏时，回退读取外部加密副本。
+     * 3. 两者均不可用（原生库缺失等），回退最小兜底，保证功能可用。
      */
     fun getDefaultConfig(context: Context): AdPatterns {
-        return try {
-            val encBytes = context.assets.open("ad_patterns_default.enc").use { it.readBytes() }
+        // 1. assets 内置 enc 优先
+        try {
+            val encBytes = context.assets.open(DEFAULT_ASSET_NAME).use { it.readBytes() }
             val jsonStr = NativeCrypto.decryptToString(encBytes)
             val json = JSONObject(jsonStr)
-            normalizeFromJson(json)
-        } catch (e: Exception) {
-            // 原生解密库不可用 / 资产缺失损坏时，最小化兜底
-            AdPatterns(
-                sdkPackages = mutableListOf("com.google.android.gms.ads"),
-                classKeywords = mutableListOf("AdView", "AdActivity")
-            )
+            // 同步加密落盘到外部存储（assets 运行期只读，落盘作备份与下次快速调用）
+            NativeCrypto.writeEncryptedFile(File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME), jsonStr)
+            return normalizeFromJson(json)
+        } catch (_: Exception) {
+            // assets 缺失或解密失败，继续
         }
+
+        // 2. 回退外部加密副本
+        try {
+            val jsonStr = NativeCrypto.readEncryptedFile(File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME))
+            if (jsonStr != null) {
+                return normalizeFromJson(JSONObject(jsonStr))
+            }
+        } catch (_: Exception) {
+            // 忽略，继续兜底
+        }
+
+        // 3. 最小兜底
+        return AdPatterns(
+            sdkPackages = mutableListOf("com.google.android.gms.ads"),
+            classKeywords = mutableListOf("AdView", "AdActivity")
+        )
     }
 
     /** 统一从 JSONObject 构建配置（供默认配置 / 外部配置 / 订阅解析复用）。 */

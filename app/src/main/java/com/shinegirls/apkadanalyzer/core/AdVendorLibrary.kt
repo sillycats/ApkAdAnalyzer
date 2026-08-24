@@ -1,8 +1,10 @@
 package com.shinegirls.apkadanalyzer.core
 
 import android.content.Context
+import com.shinegirls.apkadanalyzer.utils.Format
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 
 /**
  * 内置广告厂商广告特征库（本地读取）。
@@ -35,6 +37,9 @@ object AdVendorLibrary {
 
     /** 内置广告厂商库（assets 中，混淆加密）。随 APK 打包，全程离线加载，不发起任何网络请求。 */
     private const val EMBEDDED_ASSET_NAME = "online_ad_vendors_default.enc"
+
+    /** 应用首次分析时，将内置厂商库加密落盘到外部存储的文件名（便于后续直接调用本地加密副本）。 */
+    private const val EXTERNAL_FILE_NAME = "online_ad_vendors.enc"
 
     /**
      * 单个广告厂商及其广告特征。
@@ -178,18 +183,33 @@ object AdVendorLibrary {
     }
 
     /**
-     * 读取内置广告厂商库（assets 中混淆加密）。
+     * 读取内置广告厂商库（优先 assets 内的混淆加密文件 online_ad_vendors_default.enc）。
      *
-     * 厂商特征随 APK 打包在 assets 中，全程离线读取，不发起任何网络请求；
-     * 解析成功后即可合并进分析。文件缺失或解密失败返回 null。
+     * 选择 APK 分析时调用。策略（assets 运行期只读，故"重新写入"落到外部加密副本）：
+     * 1. 检测 assets/ad online_ad_vendors_default.enc 是否存在：存在则直接解密调用（打包时恒存在）。
+     *    解析成功后同步把加密副本写到 /storage/emulated/0/ApkAnalyzer/online_ad_vendors.enc 作备份/下次快速调用。
+     * 2. assets 缺失或损坏时，回退读取外部加密副本；若外部也无，视为不可用返回 null。
+     *
+     * @return 厂商库；assets 与外部加密副本均不可用时返回 null。
      */
     fun readEmbedded(context: Context): VendorLibrary? {
-        return try {
+        // 1. assets 内置 enc 优先：存在则直接解密调用
+        try {
             val bytes = context.assets.open(EMBEDDED_ASSET_NAME).use { it.readBytes() }
             val jsonStr = decryptVendorBytes(bytes) ?: return null
-            parseVendorLibrary(jsonStr, "embedded")
+            // 同步加密落盘到外部存储（assets 运行期只读，落盘作备份与下次快速调用）
+            NativeCrypto.writeEncryptedFile(File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME), jsonStr)
+            return parseVendorLibrary(jsonStr, "embedded")
         } catch (_: Exception) {
-            null
+            // assets 缺失或解密失败，继续回退外部加密副本
         }
+
+        // 2. 回退外部加密副本
+        val externalStr = NativeCrypto.readEncryptedFile(File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME))
+        if (externalStr != null) {
+            return parseVendorLibrary(externalStr, "external")
+        }
+
+        return null
     }
 }
