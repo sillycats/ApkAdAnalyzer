@@ -95,7 +95,7 @@
                         android:background="@drawable/bg_icon_round"
                         android:padding="12dp"
                         android:contentDescription="@string/about_app_icon_desc"
-                        app:srcCompat="@drawable/ic_launcher" />
+                        app:srcCompat="@mipmap/ic_launcher" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -257,7 +257,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:contentDescription="@string/about_author"
-                                android:src="@drawable/ic_launcher" />
+                                android:src="@mipmap/ic_launcher" />
 
                             <TextView
                                 android:layout_width="80dp"
