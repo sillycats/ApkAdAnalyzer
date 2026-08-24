@@ -183,33 +183,51 @@ object AdVendorLibrary {
     }
 
     /**
-     * 读取内置广告厂商库（优先 assets 内的混淆加密文件 online_ad_vendors_default.enc）。
+     * 读取内置广告厂商库（优先外部加密副本，缺失则从 assets 复制并落到外部后再调用）。
      *
-     * 选择 APK 分析时调用。策略（assets 运行期只读，故"重新写入"落到外部加密副本）：
-     * 1. 检测 assets/ad online_ad_vendors_default.enc 是否存在：存在则直接解密调用（打包时恒存在）。
-     *    解析成功后同步把加密副本写到 /storage/emulated/0/ApkAnalyzer/online_ad_vendors.enc 作备份/下次快速调用。
-     * 2. assets 缺失或损坏时，回退读取外部加密副本；若外部也无，视为不可用返回 null。
+     * 选择 APK 分析时调用。策略：
+     * 1. 先确保 /storage/emulated/0/ApkAnalyzer/online_ad_vendors.enc 存在：
+     *    若外部不存在，则把 assets 中的 online_ad_vendors_default.enc（混淆加密字节原样复制）
+     *    写入外部目录，实现"把内置配置写到外部并调用"。
+     * 2. 优先从外部加密副本解密调用；外部缺失或解密失败时，回退直接从 assets 解密调用。
      *
-     * @return 厂商库；assets 与外部加密副本均不可用时返回 null。
+     * @return 厂商库；assets 与外部副本均不可用时返回 null。
      */
     fun readEmbedded(context: Context): VendorLibrary? {
-        // 1. assets 内置 enc 优先：存在则直接解密调用
-        try {
+        // 1. 确保外部加密副本存在（assets 原始加密字节赋值到外部目录）
+        val externalFile = File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME)
+        if (!externalFile.exists()) {
+            copyAssetToExternal(context, EMBEDDED_ASSET_NAME, externalFile)
+        }
+
+        // 2. 优先从外部加密副本解密调用
+        val externalStr = NativeCrypto.readEncryptedFile(externalFile)
+        if (externalStr != null) {
+            val lib = parseVendorLibrary(externalStr, "external")
+            if (lib != null) return lib
+        }
+
+        // 3. 回退直接从 assets 解密调用
+        return try {
             val bytes = context.assets.open(EMBEDDED_ASSET_NAME).use { it.readBytes() }
             val jsonStr = decryptVendorBytes(bytes) ?: return null
-            // 同步加密落盘到外部存储（assets 运行期只读，落盘作备份与下次快速调用）
-            NativeCrypto.writeEncryptedFile(File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME), jsonStr)
-            return parseVendorLibrary(jsonStr, "embedded")
+            parseVendorLibrary(jsonStr, "embedded")
         } catch (_: Exception) {
-            // assets 缺失或解密失败，继续回退外部加密副本
+            null
         }
+    }
 
-        // 2. 回退外部加密副本
-        val externalStr = NativeCrypto.readEncryptedFile(File(Format.EXPORT_DIR, EXTERNAL_FILE_NAME))
-        if (externalStr != null) {
-            return parseVendorLibrary(externalStr, "external")
+    /**
+     * 将 assets 内的加密文件原样复制到外部存储目录（保持混淆加密字节不变）。
+     * 写失败会被忽略——assets 仍可直接解密回退，不影响功能。
+     */
+    private fun copyAssetToExternal(context: Context, assetName: String, target: File) {
+        try {
+            val bytes = context.assets.open(assetName).use { it.readBytes() }
+            if (bytes.isEmpty()) return
+            target.parentFile?.mkdirs()
+            target.writeBytes(bytes)
+        } catch (_: Exception) {
         }
-
-        return null
     }
 }

@@ -509,45 +509,58 @@ object AdPatternConfig {
     // ========== 默认配置 ==========
 
     /**
-     * 读取内置默认广告特征配置（优先 assets 内的混淆加密文件 ad_patterns_default.enc）。
+     * 读取内置默认广告特征配置（优先外部加密副本，缺失则从 assets 复制并落到外部后再调用）。
      *
-     * 内置特征以混淆加密形式存在 assets / app/src/main/assets/ad_patterns_default.enc，运行态经
-     * [NativeCrypto]（libnative_crypto.so）解密为明文 JSON 后再解析，避免特征明文暴露。
-     *
-     * 选择 APK 分析时调用：
-     * 1. 检测 assets/ad_patterns_default.enc 是否存在：存在则直接解密调用（打包时恒存在），
-     *    并同步把加密副本写到 /storage/emulated/0/ApkAnalyzer/ad_patterns_default.enc 作备份。
-     * 2. assets 缺失或损坏时，回退读取外部加密副本。
+     * 选择 APK 分析时调用。策略：
+     * 1. 先确保 /storage/emulated/0/ApkAnalyzer/ad_patterns_default.enc 存在：
+     *    若外部不存在，则把 assets 中的 ad_patterns_default.enc（混淆加密字节原样复制）写入外部目录。
+     * 2. 优先从外部加密副本解密调用；外部缺失或解密失败时，回退直接从 assets 解密调用。
      * 3. 两者均不可用（原生库缺失等），回退最小兜底，保证功能可用。
      */
     fun getDefaultConfig(context: Context): AdPatterns {
-        // 1. assets 内置 enc 优先
-        try {
-            val encBytes = context.assets.open(DEFAULT_ASSET_NAME).use { it.readBytes() }
-            val jsonStr = NativeCrypto.decryptToString(encBytes)
-            val json = JSONObject(jsonStr)
-            // 同步加密落盘到外部存储（assets 运行期只读，落盘作备份与下次快速调用）
-            NativeCrypto.writeEncryptedFile(File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME), jsonStr)
-            return normalizeFromJson(json)
-        } catch (_: Exception) {
-            // assets 缺失或解密失败，继续
+        // 1. 确保外部加密副本存在（assets 原始加密字节赋值到外部目录）
+        val externalFile = File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME)
+        if (!externalFile.exists()) {
+            copyAssetToExternal(context, DEFAULT_ASSET_NAME, externalFile)
         }
 
-        // 2. 回退外部加密副本
+        // 2. 优先从外部加密副本解密调用
         try {
-            val jsonStr = NativeCrypto.readEncryptedFile(File(Format.EXPORT_DIR, DEFAULT_EXTERNAL_NAME))
+            val jsonStr = NativeCrypto.readEncryptedFile(externalFile)
             if (jsonStr != null) {
                 return normalizeFromJson(JSONObject(jsonStr))
             }
         } catch (_: Exception) {
+            // 忽略，继续
+        }
+
+        // 3. 回退直接从 assets 解密调用
+        try {
+            val encBytes = context.assets.open(DEFAULT_ASSET_NAME).use { it.readBytes() }
+            return normalizeFromJson(JSONObject(NativeCrypto.decryptToString(encBytes)))
+        } catch (_: Exception) {
             // 忽略，继续兜底
         }
 
-        // 3. 最小兜底
+        // 4. 最小兜底
         return AdPatterns(
             sdkPackages = mutableListOf("com.google.android.gms.ads"),
             classKeywords = mutableListOf("AdView", "AdActivity")
         )
+    }
+
+    /**
+     * 将 assets 内的加密文件原样复制到外部存储目录（保持混淆加密字节不变）。
+     * 写失败会被忽略——assets 仍可直接解密回退，不影响功能。
+     */
+    private fun copyAssetToExternal(context: Context, assetName: String, target: File) {
+        try {
+            val bytes = context.assets.open(assetName).use { it.readBytes() }
+            if (bytes.isEmpty()) return
+            target.parentFile?.mkdirs()
+            target.writeBytes(bytes)
+        } catch (_: Exception) {
+        }
     }
 
     /** 统一从 JSONObject 构建配置（供默认配置 / 外部配置 / 订阅解析复用）。 */
