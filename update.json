@@ -2,9 +2,9 @@
   "versionCode": 10,
   "versionName": "1.9",
   "force": false,
-  "description": "APK广告特征分析工具 v1.9 正式版：\n- 新增 17 种语言切换（简体中文 + 繁体中文 + 英/日/韩/西/葡/德/法/意/俄/阿/印地/印尼/泰/越/马来/乌克兰），支持跟随系统与手动切换、全界面多语言\n- 标题统一走多语言资源并随语言自动切换，界面标题与按钮支持自动换行，长语言文字不再被截断\n- 广告厂商特征库改为直接调用内置(assets)本地特征(77家厂商/5100+条)，移除远程在线获取与手动同步，全程离线、无网络依赖\n- 修复多次选择 APK 分析时因缓存残留导致二次处理失败的问题，每次分析前自动清理分析缓存\n- 修复远程厂商库获取失败的日志文案误导（更新为内置特征库正确提示）",
-  "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/download/v1.9/ApkAdAnalyzer-v1.9.apk",
-  "size": 5571281,
+  "description": "APK广告特征分析工具 v1.9 正式版：\n- 修复广告特征解密失败：补齐 libc++_shared.so 原生依赖（arm64-v8a/armeabi-v7a），确保 libnative_crypto.so 在设备上可正常加载，从而正确解密调用 assets 内置加密广告特征与厂商库（ad_patterns_default.enc / online_ad_vendors_default.enc）\n- 广告特征与厂商库改为直接解密调用内置(assets)本地加密特征，全程离线、无网络依赖、不写外部存储目录（77家厂商/5100+条特征）\n- 新增 17 种语言切换（简体中文 + 繁体中文 + 英/日/韩/西/葡/德/法/意/俄/阿/印地/印尼/泰/越/马来/乌克兰），支持跟随系统与手动切换、全界面多语言\n- 标题统一走多语言资源并随语言自动切换，界面标题与按钮支持自动换行，长语言文字不再被截断\n- 修复多次选择 APK 分析时因缓存残留导致二次处理失败的问题，每次分析前自动清理分析缓存\n- 移除远程在线获取与手动同步厂商库逻辑，移除误导性的远程获取失败日志提示",
+  "url": "https://github.com/sillycats/ApkAdAnalyzer/releases/download/v1.9/ApkAdAnalyzer-v1.9-release.apk",
+  "size": 7213931,
   "announcement": {
     "enabled": false,
     "id": "apkadanalyzer_v19",
