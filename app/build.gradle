@@ -23,10 +23,21 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            // 启用 R8 混淆与资源压缩，对齐线上发布物（v1.9 发布 APK 约 7.6MB，混淆后 dex/资源大幅瘦身）
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             // 使用 debug 证书签名，保证 release APK 可直接安装
             signingConfig signingConfigs.debug
+        }
+    }
+
+    // 统一 Release 产物命名，与 update.json 下载地址（releases/download/v<版>/ApkAdAnalyzer-v<版>-release.apk）保持一致
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == "release") {
+            variant.outputs.all {
+                outputFileName = "ApkAdAnalyzer-v${variant.versionName}-release.apk"
+            }
         }
     }
     compileOptions {

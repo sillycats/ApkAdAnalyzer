@@ -197,7 +197,7 @@ object AdFeatureAnalyzer {
             }
         } catch (e: Exception) {
             log(context.getString(R.string.anl_exception, e.message))
-            log("  · ${e.stackTraceToString().take(200)}")
+            log("  · ${e.javaClass.simpleName}")
         }
 
         result.dexCount = dexCount

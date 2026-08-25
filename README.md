@@ -13,7 +13,7 @@
 [![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)](https://kotlinlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Languages](https://img.shields.io/badge/UI-18%20languages-blueviolet.svg)](https://github.com/sillycats/ApkAdAnalyzer/releases)
-[![OpenAPI](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/sillycats/ApkAdAnalyzer/pulls)
+[![PRs-welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/sillycats/ApkAdAnalyzer/pulls)
 
 </div>
 

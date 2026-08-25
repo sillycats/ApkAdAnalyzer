@@ -175,10 +175,14 @@ object AxmlAnalyzer {
     // ========== 字节读取辅助 ==========
 
     private fun readU16(data: ByteArray, offset: Int): Int {
+        // 防御越界：异常 AXML 数据时返回 0，避免 IndexOutOfBoundsException
+        if (offset < 0 || offset + 1 >= data.size) return 0
         return (data[offset].toInt() and 0xff) or ((data[offset + 1].toInt() and 0xff) shl 8)
     }
 
     private fun readU32(data: ByteArray, offset: Int): Int {
+        // 防御越界：异常 AXML 数据时返回 0，避免 IndexOutOfBoundsException
+        if (offset < 0 || offset + 3 >= data.size) return 0
         return (data[offset].toInt() and 0xff) or
             ((data[offset + 1].toInt() and 0xff) shl 8) or
             ((data[offset + 2].toInt() and 0xff) shl 16) or

@@ -16,6 +16,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
+import androidx.core.content.pm.PackageInfoCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.shinegirls.apkadanalyzer.R
@@ -95,6 +96,11 @@ object UpdateChecker {
     /** 分块下载缓冲大小（字节）。 */
     private const val BUFFER_SIZE = 64 * 1024
 
+    /** 远程公告在 JSON 未提供标题/按钮文字时使用的默认哨兵值。
+     *  仅用于判断"是否由远程覆盖"，实际展示文案均走本地化资源。 */
+    private const val DEFAULT_ANNOUNCE_TITLE = "官方公告"
+    private const val DEFAULT_ANNOUNCE_BUTTON = "知道了"
+
     /** 最新版本信息。 */
     data class UpdateInfo(
         val versionCode: Long,
@@ -124,7 +130,7 @@ object UpdateChecker {
         val title: String,
         val content: String,
         val type: String,
-        val buttonText: String = "知道了",
+        val buttonText: String = DEFAULT_ANNOUNCE_BUTTON,
         val minVersion: Long = 0L,
         val maxVersion: Long = Long.MAX_VALUE
     ) {
@@ -188,7 +194,7 @@ object UpdateChecker {
      */
     fun getCurrentVersionCode(context: Context): Long {
         return try {
-            context.packageManager.getPackageInfo(context.packageName, 0).versionCode.toLong()
+            PackageInfoCompat.getLongVersionCode(context.packageManager.getPackageInfo(context.packageName, 0))
         } catch (_: PackageManager.NameNotFoundException) {
             0L
         }
@@ -343,10 +349,10 @@ object UpdateChecker {
             AnnouncementInfo(
                 enabled = ann.optBoolean("enabled", true),
                 id = ann.optString("id", ""),
-                title = ann.optString("title", "官方公告"),
+                title = ann.optString("title", DEFAULT_ANNOUNCE_TITLE),
                 content = content,
                 type = ann.optString("type", "closable"),
-                buttonText = ann.optString("buttonText", "知道了"),
+                buttonText = ann.optString("buttonText", DEFAULT_ANNOUNCE_BUTTON),
                 minVersion = ann.optLong("minVersion", 0L),
                 maxVersion = ann.optLong("maxVersion", Long.MAX_VALUE)
             )
@@ -547,9 +553,9 @@ object UpdateChecker {
         val btnOk = view.findViewById<MaterialButton>(R.id.btnAnnOk)
 
         // 标题与确认按钮：远程未覆盖（使用默认值）时改用本地化资源
-        tvTitle.text = if (ann.title == "官方公告") activity.getString(R.string.update_official_announce) else ann.title
+        tvTitle.text = if (ann.title == DEFAULT_ANNOUNCE_TITLE) activity.getString(R.string.update_official_announce) else ann.title
         tvContent.text = ann.content
-        btnOk.text = if (ann.buttonText == "知道了") activity.getString(R.string.update_know) else ann.buttonText
+        btnOk.text = if (ann.buttonText == DEFAULT_ANNOUNCE_BUTTON) activity.getString(R.string.update_know) else ann.buttonText
 
         // 构建弹窗
         val dialog = AlertDialog.Builder(activity)
@@ -795,6 +801,9 @@ object UpdateChecker {
      * - Android 8.0+ 需先检查"安装未知来源应用"权限，未开启则引导前往设置
      */
     private fun installApk(activity: Activity, file: File) {
+        // 下载期间 Activity 可能已销毁，避免在失效上下文上弹出安装界面
+        if (activity.isFinishing || activity.isDestroyed) return
+
         // 校验下载的 APK 文件是否存在且非空
         if (!file.exists() || file.length() == 0L) {
             UiUtils.error(activity, activity.getString(R.string.update_pkg_invalid))

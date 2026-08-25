@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.shinegirls.apkadanalyzer.core.UpdateChecker
 import com.shinegirls.apkadanalyzer.utils.UiUtils
 
@@ -95,7 +94,7 @@ class AboutActivity : BaseActivity() {
         tvQq.setOnClickListener {
             val qq = getString(R.string.author_qq_note)
             val clip = ClipData.newPlainText(getString(R.string.clip_author_qq), qq)
-            (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+            (getSystemService(CLIPBOARD_SERVICE) as? ClipboardManager)?.setPrimaryClip(clip)
             UiUtils.success(this, getString(R.string.toast_qq_copied))
         }
 

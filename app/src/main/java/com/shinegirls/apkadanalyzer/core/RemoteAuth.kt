@@ -42,8 +42,9 @@ object RemoteAuth {
                 conn.setRequestProperty("Accept", "application/json")
                 val code = conn.responseCode
                 if (code != HttpURLConnection.HTTP_OK) return@withContext 0
-                val stream = conn.inputStream
-                val bytes = stream.readBytes().let { if (it.size > MAX_BYTES) it.copyOf(MAX_BYTES) else it }
+                val bytes = conn.inputStream.use { stream ->
+                    stream.readBytes().let { if (it.size > MAX_BYTES) it.copyOf(MAX_BYTES) else it }
+                }
                 if (bytes.isEmpty()) return@withContext 0
                 NativeCrypto.setAuthConfig(bytes)
             } finally {

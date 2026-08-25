@@ -12,6 +12,11 @@ on:
   # 允许手动触发
   workflow_dispatch:
 
+# 同一分支/标签并发时取消排队中的旧构建，避免重复构建与发布
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -71,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/ApkAdAnalyzer-*-release.apk
 
   release:
     # 仅在打 v* 标签时触发（例如 git tag v1.0 && git push --tags）
@@ -93,5 +98,5 @@ jobs:
       - name: 创建 Release
         uses: softprops/action-gh-release@v2
         with:
-          files: apk/app-release.apk
+          files: apk/ApkAdAnalyzer-*.apk
           generate_release_notes: true

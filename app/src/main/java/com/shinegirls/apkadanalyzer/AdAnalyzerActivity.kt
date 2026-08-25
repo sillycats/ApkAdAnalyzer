@@ -23,6 +23,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -56,7 +57,6 @@ import java.util.Locale
 class AdAnalyzerActivity : BaseActivity() {
 
     private companion object {
-        private const val REQUEST_CODE_PICK_APK = 2001
         private const val REQUEST_CODE_PERMISSIONS = 2002
     }
 
@@ -73,6 +73,17 @@ class AdAnalyzerActivity : BaseActivity() {
     private var currentResult: AdAnalysisResult? = null
     private var currentApkUri: Uri? = null
     private var isAnalyzing = false
+
+    /** 文件选择回调（安全上下文，替代已弃用的 startActivityForResult/onActivityResult）。 */
+    private val pickApkLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val data = result.data
+            val uri = data?.data
+            if (result.resultCode == Activity.RESULT_OK && uri != null) {
+                currentApkUri = uri
+                analyzeApk(uri)
+            }
+        }
 
     private val logBuffer = StringBuilder()
 
@@ -114,7 +125,7 @@ class AdAnalyzerActivity : BaseActivity() {
             }
             val json = result.toConfigJson()
             val clip = ClipData.newPlainText(getString(R.string.clip_ad_config), json)
-            (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+            (getSystemService(CLIPBOARD_SERVICE) as? ClipboardManager)?.setPrimaryClip(clip)
             UiUtils.success(this, getString(R.string.toast_config_copied))
         }
 
@@ -259,15 +270,7 @@ class AdAnalyzerActivity : BaseActivity() {
             type = "application/vnd.android.package-archive"
             addCategory(Intent.CATEGORY_OPENABLE)
         }
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.chooser_pick_apk)), REQUEST_CODE_PICK_APK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data?.data != null && requestCode == REQUEST_CODE_PICK_APK) {
-            currentApkUri = data.data
-            analyzeApk(data.data!!)
-        }
+        pickApkLauncher.launch(Intent.createChooser(intent, getString(R.string.chooser_pick_apk)))
     }
 
     override fun onRequestPermissionsResult(
@@ -305,7 +308,7 @@ class AdAnalyzerActivity : BaseActivity() {
                 appendLog(getString(R.string.log_read_apk))
                 apkFile = File(cacheDir, "analysis_${System.currentTimeMillis()}.apk")
                 contentResolver.openInputStream(uri)?.use { input ->
-                    apkFile!!.outputStream().use { output -> input.copyTo(output) }
+                    apkFile.outputStream().use { output -> input.copyTo(output) }
                 } ?: throw IllegalStateException(getString(R.string.err_cannot_read_file))
 
                 // 2. 加载广告特征配置
@@ -323,7 +326,7 @@ class AdAnalyzerActivity : BaseActivity() {
 
                 // 3. 执行分析
                 val result = AdFeatureAnalyzer.analyze(
-                    apkFile!!,
+                    apkFile,
                     config,
                     context = this@AdAnalyzerActivity,
                     logger = { msg -> appendLog(msg) },

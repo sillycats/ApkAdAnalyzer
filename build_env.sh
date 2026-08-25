@@ -45,7 +45,7 @@ log_err()   { echo -e "${RED}[错误]${NC} $1" >&2; }
 echo ""
 echo "============================================"
 echo "  APK 编译环境一键恢复工具"
-echo "  版本: 2.0 | NDK: 21.4.7075529"
+echo "  版本: 2.0 | NDK: 25.2.9519653"
 echo "  多镜像源自动切换 | 直连加速"
 echo "============================================"
 echo ""
@@ -53,9 +53,9 @@ echo ""
 # ──────────────────────────────────────────────
 # 项目编译参数
 # ──────────────────────────────────────────────
-NDK_VERSION="21.4.7075529"
+NDK_VERSION="25.2.9519653"
 CMAKE_VERSION="3.22.1"
-BUILD_TOOLS_VERSION="33.0.1"
+BUILD_TOOLS_VERSION="34.0.0"
 PLATFORM_VERSION="android-34"
 GRADLE_VERSION="8.5"
 SDK_DIR="/opt/android-sdk"

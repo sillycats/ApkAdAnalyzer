@@ -14,6 +14,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.DownloadListener
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.shinegirls.apkadanalyzer.BaseActivity
@@ -58,6 +59,18 @@ class WebViewActivity : BaseActivity() {
 
         progressBar = findViewById(R.id.webProgress)
         webView = findViewById(R.id.webView)
+
+        // 用 OnBackPressedCallback 接管返回键：优先 WebView 回退，而非直接退出（替代已弃用的 onBackPressed）
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
         val settings = webView.settings
         settings.javaScriptEnabled = true
@@ -181,15 +194,6 @@ class WebViewActivity : BaseActivity() {
         return url.substringBefore('?').trim().lowercase().endsWith(".apk")
     }
 
-    override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    /** 返回声明，防止内存泄漏。 */
     override fun onDestroy() {
         webView.destroy()
         super.onDestroy()
